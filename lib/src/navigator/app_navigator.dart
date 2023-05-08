@@ -1,26 +1,29 @@
 
 
-// ignore_for_file: unused_element
 
+
+import 'package:base_app/src/navigator/routers.dart';
 import 'package:flutter/material.dart';
+
+import '../features/login/login_screen.dart';
+import '../features/splash/splash_screen.dart';
 
 class AppNavigator {
   static final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
   static Route? getRoute(RouteSettings settings) {
     switch (settings.name) {
-      // case Routes.splashScreen:
-      //   return _buildRoute(
-      //     settings,
-      //     const SplashScreen(),
-      //   );
+      case Routes.splashScreen:
+        return _buildRoute(
+          settings,
+          const SplashScreen(),
+        );
+  case Routes.loginScreen:
+        return _buildRoute(
+          settings,
+          const Loginscreen(),
+        );
 
-      // case Routes.changePasswordScreen:
-      //   final isForgot = settings.arguments as bool?;
-      //   return _buildRoute(
-      //     settings,
-      //     ChangePasswordScreen(isForgotPass: isForgot),
-      //   );
 
 
       default:

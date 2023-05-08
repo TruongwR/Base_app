@@ -37,3 +37,4 @@ class AppFont {
         fontWeight: FontWeight.w400,
       );
 }
+
