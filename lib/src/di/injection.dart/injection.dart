@@ -1,7 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import '../../data/data_sources/local/app_data.dart';
-import '../modules/api_models.dart';
+import '../modules/api_modules.dart';
 
 GetIt getIt = GetIt.I;
 
