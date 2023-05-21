@@ -1,4 +1,4 @@
-import 'package:base_app/src/features/home/home_screen.dart';
+
 import 'package:base_app/src/navigator/routers.dart';
 import 'package:flutter/material.dart';
 
@@ -33,8 +33,7 @@ class AppNavigator {
           settings,
           const ChatsScreen(),
         );
-      case Routes.homeScreen:
-        return _buildRoute(settings, const HomeScreen());
+
 
       default:
         return null;
