@@ -1,12 +1,12 @@
-
-
-
-
+import 'package:base_app/src/features/home/home_screen.dart';
 import 'package:base_app/src/navigator/routers.dart';
 import 'package:flutter/material.dart';
 
-import '../features/login/login_screen.dart';
+
+import '../features/chats/chats_screen.dart';
+import '../features/signinOrSignUp/signin_or_signup_screen.dart';
 import '../features/splash/splash_screen.dart';
+import '../features/welcome/welcome_screen.dart';
 
 class AppNavigator {
   static final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
@@ -18,13 +18,23 @@ class AppNavigator {
           settings,
           const SplashScreen(),
         );
-  case Routes.loginScreen:
+             case Routes.wellcomeScreen:
         return _buildRoute(
           settings,
-          const Loginscreen(),
+          const WelcomeScreen(),
         );
-
-
+     case Routes.signinOrSignupScreen:
+        return _buildRoute(
+          settings,
+          const SigninOrSignupScreen(),
+        );
+         case Routes.chatsScreen:
+        return _buildRoute(
+          settings,
+          const ChatsScreen(),
+        );
+      case Routes.homeScreen:
+        return _buildRoute(settings, const HomeScreen());
 
       default:
         return null;

@@ -1,3 +1,4 @@
+import 'package:base_app/src/configs/app_fonts.dart';
 import 'package:base_app/src/configs/palette.dart';
 import 'package:base_app/src/navigator/app_navigator.dart';
 import 'package:base_app/src/navigator/routers.dart';
@@ -16,7 +17,7 @@ class _SplashScreenState extends State<SplashScreen> {
     super.initState();
     Future.delayed(
       const Duration(seconds: 3),
-      () => AppNavigator.pushAndRemoveUntil(Routes.loginScreen),
+      () => AppNavigator.pushAndRemoveUntil(Routes.wellcomeScreen),
     );
   }
 
@@ -27,8 +28,8 @@ class _SplashScreenState extends State<SplashScreen> {
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height,
         color: Palette.blue007EB8,
-        child: const Center(
-          child: Text("Chatty", style: TextStyle(fontWeight: FontWeight.w600, fontSize: 100, color: Palette.white)),
+        child: Center(
+          child: Text("Chatty", style: AppFont.t.s(100).w600.white),
         ),
       ),
     );
