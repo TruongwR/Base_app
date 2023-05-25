@@ -3,8 +3,8 @@ import 'package:base_app/src/navigator/app_navigator.dart';
 import 'package:base_app/src/navigator/routers.dart';
 import 'package:base_app/src/share_components/app_bar/my_app_bar.dart';
 import 'package:base_app/src/share_components/share_componets.dart';
-import 'package:base_app/src/utils/until.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import '../../configs/box.dart';
 
 class SignInScreen extends StatefulWidget {
@@ -51,11 +51,15 @@ class _SignInScreenState extends State<SignInScreen> {
                   children: [
                     MyTextField(
                       controller: emailController,
-                      hinText: 'Phone/ Email *',
+                      hintText: ' Email *',
+                      inputFormatters: [FilteringTextInputFormatter.allow(RegExp(r'^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$'))],
                       hintStyle: AppFont.t.s(16).grey68,
                       validator: (value) {
-                        if (value?.isEmpty == true || !Validators.isValidEmail(value ?? '')) {
-                          return 'Please enter a valid email address';
+                        RegExp regex = RegExp(r'^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$');
+                        if ((value == null || value.isEmpty)) {
+                          return 'Không được để trống';
+                        } else if (value.isNotEmpty && !regex.hasMatch(value)) {
+                          return 'Giá trị không hợp lệ';
                         }
                         return null;
                       },
@@ -64,13 +68,18 @@ class _SignInScreenState extends State<SignInScreen> {
                     MyTextField(
                       obscureText: true,
                       controller: passwordController,
-                      hinText: 'Password *',
+                      hintText: 'Password *',
                       hintStyle: AppFont.t.s(16).grey68,
+                      inputFormatters: [
+                        LengthLimitingTextInputFormatter(20),
+                        FilteringTextInputFormatter.deny(RegExp(r'\s')),
+                      ],
                       validator: (value) {
-                        if (value?.isEmpty == true || !Validators.isValidPassword(value ?? '')) {
-                          return 'Invalid phone number. Use the specified format: 6 numbers';
+                        if (validatePassword(passwordController.text) == false) {
+                          return 'Mật khẩu không thỏa mãn';
+                        } else {
+                          return null;
                         }
-                        return null;
                       },
                     ),
                     Box.h(8),
@@ -90,11 +99,8 @@ class _SignInScreenState extends State<SignInScreen> {
                       text: 'Login',
                       textStyle: AppFont.t.s(24).w600.white,
                       action: () {
-                        final isValid = _formKey.currentState?.validate();
-                        if (isValid == false) {
-                          return;
-                        }
-                        AppNavigator.push(Routes.chatsScreen);
+                        validate();
+                        _formKey.currentState?.validate() == true ? AppNavigator.push(Routes.chatsScreen) : null;
                       },
                     ),
                   ],
@@ -124,5 +130,22 @@ class _SignInScreenState extends State<SignInScreen> {
         ),
       ),
     );
+  }
+
+  bool validatePassword(String password) {
+    if (password.length < 8) {
+      return false;
+    }
+    RegExp uppercaseRegex = RegExp(r'[A-Z]');
+    RegExp lowercaseRegex = RegExp(r'[a-z]');
+    RegExp digitRegex = RegExp(r'[0-9]');
+    if (!uppercaseRegex.hasMatch(password) || !lowercaseRegex.hasMatch(password) || !digitRegex.hasMatch(password)) {
+      return false;
+    }
+    return true;
+  }
+
+  void validate() {
+    _formKey.currentState!.validate() ? true : false;
   }
 }

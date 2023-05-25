@@ -55,7 +55,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   children: [
                     MyTextField(
                       controller: emailController,
-                      hinText: 'Phone/ Email *',
+                      hintText: 'Phone/ Email *',
                       hintStyle: AppFont.t.s(16).grey68,
                       validator: (value) {
                         if (value?.isEmpty == true || !Validators.isValidEmail(value ?? '')) {
@@ -68,7 +68,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     MyTextField(
                       obscureText: true,
                       controller: passwordController,
-                      hinText: 'Password *',
+                      hintText: 'Password *',
                       hintStyle: AppFont.t.s(16).grey68,
                       validator: (value) {
                         if (value?.isEmpty == true || !Validators.isValidPassword(value ?? '')) {
@@ -81,7 +81,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     MyTextField(
                       obscureText: true,
                       controller: confirmPasswordController,
-                      hinText: 'ConfirmPassword *',
+                      hintText: 'ConfirmPassword *',
                       hintStyle: AppFont.t.s(16).grey68,
                       validator: (value) {
                         if (value?.isEmpty == true ||
