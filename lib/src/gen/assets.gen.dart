@@ -11,20 +11,78 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter/services.dart';
 
+class $AssetsIconsGen {
+  const $AssetsIconsGen();
+
+  /// File path: assets/icons/Logo_dark_theme.svg
+  SvgGenImage get logoDarkTheme =>
+      const SvgGenImage('assets/icons/Logo_dark_theme.svg');
+
+  /// File path: assets/icons/Logo_light_theme.svg
+  SvgGenImage get logoLightTheme =>
+      const SvgGenImage('assets/icons/Logo_light_theme.svg');
+
+  /// List of all assets
+  List<SvgGenImage> get values => [logoDarkTheme, logoLightTheme];
+}
+
 class $AssetsImagesGen {
   const $AssetsImagesGen();
+
+  /// File path: assets/images/Logo_dark.png
+  AssetGenImage get logoDark =>
+      const AssetGenImage('assets/images/Logo_dark.png');
+
+  /// File path: assets/images/Logo_light.png
+  AssetGenImage get logoLight =>
+      const AssetGenImage('assets/images/Logo_light.png');
+
+  /// File path: assets/images/Video Place Here.png
+  AssetGenImage get videoPlaceHere =>
+      const AssetGenImage('assets/images/Video Place Here.png');
 
   /// File path: assets/images/ic_success.svg
   SvgGenImage get icSuccess =>
       const SvgGenImage('assets/images/ic_success.svg');
 
+  /// File path: assets/images/user.png
+  AssetGenImage get user => const AssetGenImage('assets/images/user.png');
+
+  /// File path: assets/images/user_2.png
+  AssetGenImage get user2 => const AssetGenImage('assets/images/user_2.png');
+
+  /// File path: assets/images/user_3.png
+  AssetGenImage get user3 => const AssetGenImage('assets/images/user_3.png');
+
+  /// File path: assets/images/user_4.png
+  AssetGenImage get user4 => const AssetGenImage('assets/images/user_4.png');
+
+  /// File path: assets/images/user_5.png
+  AssetGenImage get user5 => const AssetGenImage('assets/images/user_5.png');
+
+  /// File path: assets/images/welcome_image.png
+  AssetGenImage get welcomeImage =>
+      const AssetGenImage('assets/images/welcome_image.png');
+
   /// List of all assets
-  List<SvgGenImage> get values => [icSuccess];
+  List<dynamic> get values => [
+        logoDark,
+        logoLight,
+        videoPlaceHere,
+        icSuccess,
+        user,
+        user2,
+        user3,
+        user4,
+        user5,
+        welcomeImage
+      ];
 }
 
 class Assets {
   Assets._();
 
+  static const $AssetsIconsGen icons = $AssetsIconsGen();
   static const $AssetsImagesGen images = $AssetsImagesGen();
 }
 
@@ -86,7 +144,16 @@ class AssetGenImage {
     );
   }
 
-  ImageProvider provider() => AssetImage(_assetName);
+  ImageProvider provider({
+    AssetBundle? bundle,
+    String? package,
+  }) {
+    return AssetImage(
+      _assetName,
+      bundle: bundle,
+      package: package,
+    );
+  }
 
   String get path => _assetName;
 
@@ -113,9 +180,9 @@ class SvgGenImage {
     bool excludeFromSemantics = false,
     SvgTheme theme = const SvgTheme(),
     ColorFilter? colorFilter,
+    Clip clipBehavior = Clip.hardEdge,
     @deprecated Color? color,
     @deprecated BlendMode colorBlendMode = BlendMode.srcIn,
-    @deprecated Clip? clipBehavior,
     @deprecated bool cacheColorFilter = false,
   }) {
     return SvgPicture.asset(
@@ -136,7 +203,7 @@ class SvgGenImage {
       colorFilter: colorFilter,
       color: color,
       colorBlendMode: colorBlendMode,
-      // clipBehavior: clipBehavior,
+      clipBehavior: clipBehavior,
       cacheColorFilter: cacheColorFilter,
     );
   }

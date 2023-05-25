@@ -20,8 +20,8 @@ class _AuthenticationApi implements AuthenticationApi {
 
   @override
   Future<LoginModel> login(
-    usename,
-    password,
+    String usename,
+    String password,
   ) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
