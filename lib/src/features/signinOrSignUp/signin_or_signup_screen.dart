@@ -18,16 +18,18 @@ class SigninOrSignupScreen extends StatelessWidget {
             children: [
               const Spacer(flex: 2),
               Image.asset(
-                MediaQuery.of(context).platformBrightness == Brightness.light ? "assets/images/Logo_light.png" : "assets/images/Logo_dark.png",
+                MediaQuery.of(context).platformBrightness == Brightness.light
+                    ? "assets/images/Logo_light.png"
+                    : "assets/images/Logo_dark.png",
                 height: 146,
               ),
               const Spacer(),
-              PrimaryButton(text: "Sign In", press: () => AppNavigator.push(Routes.chatsScreen)),
+              PrimaryButton(text: "Sign In", press: () => AppNavigator.push(Routes.signInScreen)),
               Box.h(16 * 1.5),
               PrimaryButton(
                 color: Theme.of(context).colorScheme.secondary,
                 text: "Sign Up",
-                press: () {},
+                press: () => AppNavigator.push(Routes.signUpScreen),
               ),
               const Spacer(flex: 2),
             ],
