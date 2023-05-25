@@ -5,7 +5,8 @@ import '../../configs/Palette.dart';
 import '../../configs/app_fonts.dart';
 
 class MyAppBar extends StatefulWidget implements PreferredSizeWidget {
-  const MyAppBar({super.key, this.showBackWidget, this.subTitle, required this.title}) : preferredSize = const Size.fromHeight(kToolbarHeight);
+  const MyAppBar({super.key, this.showBackWidget, this.subTitle, required this.title})
+      : preferredSize = const Size.fromHeight(kToolbarHeight);
   final bool? showBackWidget;
   final String title;
   final String? subTitle;

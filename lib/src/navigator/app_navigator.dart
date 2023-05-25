@@ -1,9 +1,11 @@
 
+import 'package:base_app/src/features/sign_in/sign_in_screen.dart';
 import 'package:base_app/src/navigator/routers.dart';
 import 'package:flutter/material.dart';
 
 
 import '../features/chats/chats_screen.dart';
+import '../features/sign_up/sign_up_screen.dart';
 import '../features/signinOrSignUp/signin_or_signup_screen.dart';
 import '../features/splash/splash_screen.dart';
 import '../features/welcome/welcome_screen.dart';
@@ -27,6 +29,16 @@ class AppNavigator {
         return _buildRoute(
           settings,
           const SigninOrSignupScreen(),
+        );
+           case Routes.signInScreen:
+        return _buildRoute(
+          settings,
+          const SignInScreen(),
+        );
+     case Routes.signUpScreen:
+        return _buildRoute(
+          settings,
+          const SignUpScreen(),
         );
          case Routes.chatsScreen:
         return _buildRoute(
