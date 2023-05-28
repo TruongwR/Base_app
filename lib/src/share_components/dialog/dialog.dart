@@ -16,6 +16,7 @@ Future showLoading() {
   );
 }
 
+
 Future showDialogSuccess(String title, [String? desc, int timeForDismiss = 2000]) async {
   await dialogAnimationWrapper(
     timeForDismiss: timeForDismiss,

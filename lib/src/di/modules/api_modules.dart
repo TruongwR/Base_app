@@ -5,7 +5,7 @@ import '../injection.dart/injection.dart';
 class ApiModule extends DIModule {
   @override
   Future<void> provider() async {
-    getIt.registerLazySingleton(() => BaseDio.instance.dio);
-    getIt.registerLazySingleton(() => AuthenticationApi(BaseDio.instance.dio));
+      getIt.registerSingleton(BaseDio.instance.dio);
+    getIt.registerSingleton(AuthenticationApi(BaseDio.instance.dio));
   }
 }

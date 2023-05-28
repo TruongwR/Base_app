@@ -13,7 +13,7 @@ class HeaderText extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Box.h(55 + kToolbarHeight.h),
+        BoxMain.h(55 + kToolbarHeight.h),
         Text(
           text,
           style: AppFont.t.s(24).w600.primary,

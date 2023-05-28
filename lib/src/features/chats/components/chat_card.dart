@@ -2,7 +2,9 @@
 import 'package:base_app/src/configs/palette.dart';
 import 'package:flutter/material.dart';
 
-import '../../../model/Chat.dart';
+import '../../../data/model/Chat.dart';
+
+
 
 
 

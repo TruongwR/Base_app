@@ -27,3 +27,14 @@ class Palette {
   static const Color gray4C505B = Color(0xFF4C505B);
   static const Color grayF0 = Color(0xFFF0F0F0);
 }
+
+const LinearGradient linearGradientMain = LinearGradient(
+  colors: [
+    Color(0xFF66BB6A),
+    Color(0xFF26C6DA),
+    Color(0xFFAB47BC),
+    Color(0xFFFFA726),
+  ],
+  begin: Alignment.topLeft,
+  end: Alignment.topRight,
+);

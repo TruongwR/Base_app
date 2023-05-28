@@ -20,14 +20,14 @@ class _AuthenticationApi implements AuthenticationApi {
 
   @override
   Future<LoginModel> login(
-    String usename,
+    String email,
     String password,
   ) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = {
-      'usename': usename,
+      'email': email,
       'password': password,
     };
     final _result = await _dio
@@ -38,7 +38,7 @@ class _AuthenticationApi implements AuthenticationApi {
     )
             .compose(
               _dio.options,
-              'login',
+              '/auth/login',
               queryParameters: queryParameters,
               data: _data,
             )

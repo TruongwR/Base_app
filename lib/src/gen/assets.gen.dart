@@ -45,6 +45,10 @@ class $AssetsImagesGen {
   SvgGenImage get icSuccess =>
       const SvgGenImage('assets/images/ic_success.svg');
 
+  /// File path: assets/images/icon_app.png
+  AssetGenImage get iconApp =>
+      const AssetGenImage('assets/images/icon_app.png');
+
   /// File path: assets/images/user.png
   AssetGenImage get user => const AssetGenImage('assets/images/user.png');
 
@@ -70,6 +74,7 @@ class $AssetsImagesGen {
         logoLight,
         videoPlaceHere,
         icSuccess,
+        iconApp,
         user,
         user2,
         user3,

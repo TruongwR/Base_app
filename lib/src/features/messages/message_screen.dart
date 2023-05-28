@@ -24,7 +24,7 @@ class MessagesScreen extends StatelessWidget {
           const CircleAvatar(
             backgroundImage: AssetImage("assets/images/user_2.png"),
           ),
-          Box.w(6 * 0.75),
+          BoxMain.w(6 * 0.75),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -46,7 +46,7 @@ class MessagesScreen extends StatelessWidget {
           icon: const Icon(Icons.videocam),
           onPressed: () {},
         ),
-        Box.w(8),
+        BoxMain.w(8),
       ],
     );
   }

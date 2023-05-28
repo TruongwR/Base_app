@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
 import '../../configs/Palette.dart';
 import '../../configs/app_fonts.dart';
-
 
 class MyTextField extends StatelessWidget {
   final bool? required;
@@ -38,6 +36,7 @@ class MyTextField extends StatelessWidget {
   final bool autoFocus;
   final bool hasBorder;
   final bool isDense;
+  final InputBorder? inputBorder;
   final BoxConstraints? suffixIconConstraints;
   final BoxConstraints? prefixIconConstraints;
   final List<TextInputFormatter> inputFormatters;
@@ -46,43 +45,43 @@ class MyTextField extends StatelessWidget {
 
   const MyTextField(
       {Key? key,
-        this.suffixIcon,
-        this.hintText,
-        this.maxLength,
-        this.maxLine,
-        this.minLine,
-        this.required,
-        this.obscureText = false,
-        this.controller,
-        this.title,
-        this.keyboardType,
-        this.validator,
-        this.enable = true,
-        this.readOnly = false,
-        this.titleStyle,
-        this.hintStyle,
-        this.onTap,
-        this.onChanged,
-        this.focusNode,
-        this.onSaved,
-        this.onEditingComplete,
-        this.errorText,
-        this.labelText,
-        this.labelStyle,
-        this.prefixIcon,
-        this.style,
-        this.prefix,
-        this.contentPadding,
-        this.cursorColor = Palette.hint,
-        this.autoFocus = false,
-        this.hasBorder = false,
-        this.isDense = false,
-        this.inputFormatters = const [],
-        this.suffixIconConstraints,
-        this.prefixIconConstraints,
-        this.textAlign = TextAlign.start,
-        this.textInputAction
-      })
+      this.suffixIcon,
+      this.hintText,
+      this.maxLength,
+      this.maxLine,
+      this.minLine,
+      this.required,
+      this.obscureText = false,
+      this.controller,
+      this.title,
+      this.keyboardType,
+      this.validator,
+      this.enable = true,
+      this.readOnly = false,
+      this.titleStyle,
+      this.hintStyle,
+      this.onTap,
+      this.onChanged,
+      this.focusNode,
+      this.onSaved,
+      this.onEditingComplete,
+      this.errorText,
+      this.labelText,
+      this.labelStyle,
+      this.prefixIcon,
+      this.style,
+      this.prefix,
+      this.contentPadding,
+      this.cursorColor = Palette.black,
+      this.autoFocus = false,
+      this.hasBorder = false,
+      this.isDense = false,
+      this.inputFormatters = const [],
+      this.suffixIconConstraints,
+      this.prefixIconConstraints,
+      this.textAlign = TextAlign.start,
+      this.textInputAction,
+      this.inputBorder=const OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(16)), borderSide: BorderSide(color: Palette.white))})
       : super(key: key);
 
   @override
@@ -111,29 +110,29 @@ class MyTextField extends StatelessWidget {
       onEditingComplete: onEditingComplete,
       textInputAction: textInputAction,
       decoration: InputDecoration(
-        border: hasBorder ? null : InputBorder.none,
-        disabledBorder: hasBorder ? null : InputBorder.none,
-        enabledBorder: hasBorder ? null : InputBorder.none,
-        focusedBorder: hasBorder ? null : InputBorder.none,
-        errorBorder: hasBorder ? null : InputBorder.none,
-        focusedErrorBorder: hasBorder ? null : InputBorder.none,
-        contentPadding: contentPadding,
-        counterText: '',
-        errorText: errorText,
-        fillColor: Palette.white,
-        filled: true,
-        hintText: hintText,
-        hintStyle: hintStyle ?? AppFont.t.hint,
-        focusColor: Palette.grayF6,
-        suffixIcon: suffixIcon,
-        labelText: labelText,
-        labelStyle: labelStyle,
-        prefixIcon: prefixIcon,
-        prefixIconConstraints: prefixIconConstraints,
-        prefix: prefix,
-        isDense: isDense,
-        suffixIconConstraints: suffixIconConstraints,
-        alignLabelWithHint: (maxLine != null && maxLine! > 1)),
+          border: hasBorder ? inputBorder : InputBorder.none,
+          disabledBorder: hasBorder ? inputBorder : InputBorder.none,
+          enabledBorder: hasBorder ? inputBorder : InputBorder.none,
+          focusedBorder: hasBorder ? inputBorder : InputBorder.none,
+          errorBorder: hasBorder ? inputBorder : InputBorder.none,
+          focusedErrorBorder: hasBorder ? inputBorder : InputBorder.none,
+          contentPadding: contentPadding,
+          counterText: '',
+          errorText: errorText,
+          fillColor: Palette.white,
+          filled: true,
+          hintText: hintText,
+          hintStyle: hintStyle ?? AppFont.t.hint,
+          focusColor: Palette.grayF6,
+          suffixIcon: suffixIcon,
+          labelText: labelText,
+          labelStyle: labelStyle,
+          prefixIcon: prefixIcon,
+          prefixIconConstraints: prefixIconConstraints,
+          prefix: prefix,
+          isDense: isDense,
+          suffixIconConstraints: suffixIconConstraints,
+          alignLabelWithHint: (maxLine != null && maxLine! > 1)),
     );
   }
 }

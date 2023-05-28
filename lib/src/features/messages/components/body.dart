@@ -1,7 +1,6 @@
 
 import 'package:flutter/material.dart';
-
-import '../../../model/ChatMessage.dart';
+import '../../../data/model/ChatMessage.dart';
 import 'chat_input_field.dart';
 import 'message.dart';
 

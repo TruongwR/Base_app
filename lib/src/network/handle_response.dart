@@ -25,7 +25,25 @@ class ResponseInterceptor extends Interceptor {
   @override
   void onResponse(Response response, ResponseInterceptorHandler handler) async {
     if (response.statusCode == 401) {
-      handler.resolve(response);
+      //       try {
+      //   final AuthenticationRepository authenRepoImpl = getIt<AuthenticationRepository>();
+      //   final res = await authenRepoImpl.refreshToken(appData.rfid);
+      //   if (res.content != null) {
+      //     appData.accessToken = res.content?.accessToken ?? '';
+      //   } else {
+      //     showError("Phiên đăng nhập hết hạn, vui lòng đăng nhập lại");
+      //     appData.clear();
+      //     AppNavigator.pushAndRemoveUntil(Routes.signInScreen);
+      //   }
+      // } catch (e) {
+      //   showError("Phiên đăng nhập hết hạn, vui lòng đăng nhập lại");
+      //   appData.clear();
+      //   AppNavigator.pushAndRemoveUntil(Routes.signInScreen);
+      // }
+      // showError("Phiên đăng nhập hết hạn, vui lòng đăng nhập lại");
+      // appData.clear();
+      // AppNavigator.pushAndRemoveUntil(Routes.signInScreen);
+
     } else {
       handler.resolve(response);
     }

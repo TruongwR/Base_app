@@ -20,7 +20,7 @@ class DialogSuccess extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             Assets.images.icSuccess.svg(),
-            Box.h(20),
+            BoxMain.h(20),
             Text(
               text,
               style: AppFont.t.s(18).w600.blue007EB8,

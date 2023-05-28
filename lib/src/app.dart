@@ -31,7 +31,7 @@ class MyApp extends StatelessWidget {
             title: 'Chatting',
             debugShowCheckedModeBanner: false,
             navigatorObservers: [routeObserver],
-            initialRoute: Routes.splashScreen,
+            initialRoute: Routes.wellcomeScreen,
           );
         },
       ),

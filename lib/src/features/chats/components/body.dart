@@ -2,7 +2,8 @@
 import 'package:base_app/src/configs/palette.dart';
 import 'package:flutter/material.dart';
 
-import '../../../model/Chat.dart';
+
+import '../../../data/model/Chat.dart';
 import '../../../share_components/button/filled_outline_button.dart';
 import '../../messages/message_screen.dart';
 import 'chat_card.dart';

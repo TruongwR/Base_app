@@ -1,7 +1,6 @@
 import 'package:base_app/src/network/handle_response.dart';
 import 'package:dio/dio.dart';
-
-import '../constans/api_path.dart';
+import 'api_path.dart';
 import 'my_dio_logger.dart';
 
 

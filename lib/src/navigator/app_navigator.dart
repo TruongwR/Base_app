@@ -1,13 +1,10 @@
-
 import 'package:base_app/src/features/sign_in/sign_in_screen.dart';
 import 'package:base_app/src/navigator/routers.dart';
 import 'package:flutter/material.dart';
 
-
 import '../features/chats/chats_screen.dart';
 import '../features/sign_up/sign_up_screen.dart';
-import '../features/signinOrSignUp/signin_or_signup_screen.dart';
-import '../features/splash/splash_screen.dart';
+
 import '../features/welcome/welcome_screen.dart';
 
 class AppNavigator {
@@ -15,37 +12,28 @@ class AppNavigator {
 
   static Route? getRoute(RouteSettings settings) {
     switch (settings.name) {
-      case Routes.splashScreen:
-        return _buildRoute(
-          settings,
-          const SplashScreen(),
-        );
-             case Routes.wellcomeScreen:
+      case Routes.wellcomeScreen:
         return _buildRoute(
           settings,
           const WelcomeScreen(),
         );
-     case Routes.signinOrSignupScreen:
-        return _buildRoute(
-          settings,
-          const SigninOrSignupScreen(),
-        );
-           case Routes.signInScreen:
+      case Routes.signinOrSignupScreen:
+
+      case Routes.signInScreen:
         return _buildRoute(
           settings,
           const SignInScreen(),
         );
-     case Routes.signUpScreen:
+      case Routes.signUpScreen:
         return _buildRoute(
           settings,
           const SignUpScreen(),
         );
-         case Routes.chatsScreen:
+      case Routes.homeScreen:
         return _buildRoute(
           settings,
-          const ChatsScreen(),
+          const HomeScreen(),
         );
-
 
       default:
         return null;
