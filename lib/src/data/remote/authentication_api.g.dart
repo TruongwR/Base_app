@@ -47,6 +47,39 @@ class _AuthenticationApi implements AuthenticationApi {
     return value;
   }
 
+  @override
+  Future<ReponeModel> singup(
+    String fistName,
+    String lastName,
+    String email,
+    String passWord,
+  ) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = {
+      'fistName': fistName,
+      'lastName': lastName,
+      'email': email,
+      'passWord': passWord,
+    };
+    final _result = await _dio
+        .fetch<Map<String, dynamic>>(_setStreamType<ReponeModel>(Options(
+      method: 'POST',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              '/account',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = ReponeModel.fromJson(_result.data!);
+    return value;
+  }
+
   RequestOptions _setStreamType<T>(RequestOptions requestOptions) {
     if (T != dynamic &&
         !(requestOptions.responseType == ResponseType.bytes ||

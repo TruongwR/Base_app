@@ -1,3 +1,4 @@
+import 'package:base_app/src/configs/box.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -81,58 +82,102 @@ class MyTextField extends StatelessWidget {
       this.prefixIconConstraints,
       this.textAlign = TextAlign.start,
       this.textInputAction,
-      this.inputBorder=const OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(16)), borderSide: BorderSide(color: Palette.white))})
+      this.inputBorder = const OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(16)), borderSide: BorderSide(color: Palette.white))})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return TextFormField(
-      textAlign: textAlign,
-      autofocus: autoFocus,
-      inputFormatters: inputFormatters,
-      cursorHeight: 22.h,
-      cursorWidth: 1.5.w,
-      cursorColor: cursorColor,
-      minLines: minLine,
-      obscureText: obscureText,
-      onSaved: (_) => onSaved,
-      maxLines: maxLine ?? 1,
-      maxLength: maxLength,
-      onTap: onTap,
-      focusNode: focusNode,
-      onChanged: onChanged,
-      readOnly: readOnly,
-      controller: controller,
-      validator: validator,
-      enabled: enable,
-      keyboardType: keyboardType,
-      style: style ?? AppFont.t.hint,
-      onEditingComplete: onEditingComplete,
-      textInputAction: textInputAction,
-      decoration: InputDecoration(
-          border: hasBorder ? inputBorder : InputBorder.none,
-          disabledBorder: hasBorder ? inputBorder : InputBorder.none,
-          enabledBorder: hasBorder ? inputBorder : InputBorder.none,
-          focusedBorder: hasBorder ? inputBorder : InputBorder.none,
-          errorBorder: hasBorder ? inputBorder : InputBorder.none,
-          focusedErrorBorder: hasBorder ? inputBorder : InputBorder.none,
-          contentPadding: contentPadding,
-          counterText: '',
-          errorText: errorText,
-          fillColor: Palette.white,
-          filled: true,
-          hintText: hintText,
-          hintStyle: hintStyle ?? AppFont.t.hint,
-          focusColor: Palette.grayF6,
-          suffixIcon: suffixIcon,
-          labelText: labelText,
-          labelStyle: labelStyle,
-          prefixIcon: prefixIcon,
-          prefixIconConstraints: prefixIconConstraints,
-          prefix: prefix,
-          isDense: isDense,
-          suffixIconConstraints: suffixIconConstraints,
-          alignLabelWithHint: (maxLine != null && maxLine! > 1)),
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        TitleField(
+          title: title,
+          required: required,
+          style: titleStyle,
+        ),
+        BoxMain.h(4),
+        TextFormField(
+          textAlign: textAlign,
+          autofocus: autoFocus,
+          inputFormatters: inputFormatters,
+          cursorHeight: 22.h,
+          cursorWidth: 1.5.w,
+          cursorColor: cursorColor,
+          minLines: minLine,
+          obscureText: obscureText,
+          onSaved: (_) => onSaved,
+          maxLines: maxLine ?? 1,
+          maxLength: maxLength,
+          onTap: onTap,
+          focusNode: focusNode,
+          onChanged: onChanged,
+          readOnly: readOnly,
+          controller: controller,
+          validator: validator,
+          enabled: enable,
+          keyboardType: keyboardType,
+          style: style ?? AppFont.t.hint,
+          onEditingComplete: onEditingComplete,
+          textInputAction: textInputAction,
+          decoration: InputDecoration(
+              border: hasBorder ? inputBorder : InputBorder.none,
+              disabledBorder: hasBorder ? inputBorder : InputBorder.none,
+              enabledBorder: hasBorder ? inputBorder : InputBorder.none,
+              focusedBorder: hasBorder ? inputBorder : InputBorder.none,
+              errorBorder: hasBorder ? inputBorder : InputBorder.none,
+              focusedErrorBorder: hasBorder ? inputBorder : InputBorder.none,
+              contentPadding: contentPadding,
+              counterText: '',
+              errorText: errorText,
+              fillColor: Palette.white,
+              filled: true,
+              hintText: hintText,
+              hintStyle: hintStyle ?? AppFont.t.hint,
+              focusColor: Palette.grayF6,
+              suffixIcon: suffixIcon,
+              labelText: labelText,
+              labelStyle: labelStyle,
+              prefixIcon: prefixIcon,
+              prefixIconConstraints: prefixIconConstraints,
+              prefix: prefix,
+              isDense: isDense,
+              suffixIconConstraints: suffixIconConstraints,
+              alignLabelWithHint: (maxLine != null && maxLine! > 1)),
+        ),
+      ],
     );
+  }
+}
+
+class TitleField extends StatelessWidget {
+  const TitleField({
+    Key? key,
+    this.title,
+    this.style,
+    this.required,
+  }) : super(key: key);
+
+  final String? title;
+  final TextStyle? style;
+  final bool? required;
+
+  @override
+  Widget build(BuildContext context) {
+    return title != null
+        ? Text.rich(
+            TextSpan(
+              text: title ?? '',
+              style: style ?? AppFont.t,
+              children: [
+                if (required ?? false)
+                  TextSpan(
+                    text: ' *',
+                    style: AppFont.t.red,
+                  ),
+              ],
+            ),
+          )
+        : const SizedBox.shrink();
   }
 }

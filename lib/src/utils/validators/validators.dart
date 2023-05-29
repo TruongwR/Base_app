@@ -13,12 +13,24 @@ class Validators {
   static bool isValidPhoneNumber(String phone) {
     final regexPhone = RegExp(r'(0[1|2|3|4|5|6|7|8|9])+([0-9]{8})$');
 
-    return (phone.length > 9 && phone.length < 15) &&
-        regexPhone.hasMatch(phone);
+    return (phone.length > 9 && phone.length < 15) && regexPhone.hasMatch(phone);
   }
 
   static bool isValidOTP(String otp) {
     final regex = RegExp(r'^[0-9]+$');
     return otp.length == 4 && regex.hasMatch(otp);
+  }
+
+ static bool validatePassword(String password) {
+    if (password.length < 8) {
+      return false;
+    }
+    RegExp uppercaseRegex = RegExp(r'[A-Z]');
+    RegExp lowercaseRegex = RegExp(r'[a-z]');
+    RegExp digitRegex = RegExp(r'[0-9]');
+    if (!uppercaseRegex.hasMatch(password) || !lowercaseRegex.hasMatch(password) || !digitRegex.hasMatch(password)) {
+      return false;
+    }
+    return true;
   }
 }

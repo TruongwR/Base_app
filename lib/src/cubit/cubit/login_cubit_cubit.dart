@@ -30,6 +30,7 @@ class LoginCubitCubit extends Cubit<LoginCubitState> {
       AppNavigator.pushAndRemoveUntil(Routes.homeScreen);
       emit(LoginCubitState.success(userModel));
     } else {
+      AppNavigator.pushAndRemoveUntil(Routes.signInScreen);
       emit(const LoginCubitState.failure('Đăng nhập thất bại'));
     }
   }

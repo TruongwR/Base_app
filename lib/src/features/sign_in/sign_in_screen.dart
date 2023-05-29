@@ -6,12 +6,12 @@ import 'package:base_app/src/di/injection.dart/injection.dart';
 import 'package:base_app/src/navigator/app_navigator.dart';
 import 'package:base_app/src/navigator/routers.dart';
 import 'package:base_app/src/share_components/share_componets.dart';
+import 'package:base_app/src/utils/until.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../configs/box.dart';
 import '../../utils/extension/hive_location.dart';
-import '../../utils/helpers/logger.dart';
 
 class SignInScreen extends StatefulWidget {
   const SignInScreen({super.key});
@@ -30,11 +30,8 @@ class _SignInScreenState extends State<SignInScreen> {
   LocationHevi? userInfoHive;
   @override
   void initState() {
-
     super.initState();
   }
-
-
 
   @override
   void dispose() {
@@ -79,6 +76,9 @@ class _SignInScreenState extends State<SignInScreen> {
               child: Column(
                 children: [
                   MyTextField(
+                    required: true,
+                    title: "Email",
+                    titleStyle: AppFont.t.s(16).w600.white,
                     hasBorder: true,
                     style: AppFont.t.s(16).grey68.w600,
                     enable: true,
@@ -97,20 +97,22 @@ class _SignInScreenState extends State<SignInScreen> {
                   ),
                   BoxMain.h(20),
                   MyTextField(
+                        required: true,
+                    title: "Password",
+                    titleStyle: AppFont.t.s(16).w600.white,
                     hasBorder: true,
-                    maxLength: 20,
                     enable: true,
                     obscureText: true,
                     style: AppFont.t.s(16).grey68.w600,
                     controller: passwordController,
-                    hintText: 'Password *',
+                    hintText: 'Password ',
                     hintStyle: AppFont.t.s(16).grey68,
                     inputFormatters: [
                       LengthLimitingTextInputFormatter(20),
                       FilteringTextInputFormatter.deny(RegExp(r'\s')),
                     ],
                     validator: (value) {
-                      if (validatePassword(passwordController.text) == false) {
+                      if (Validators.validatePassword(passwordController.text) == false) {
                         return 'Mật khẩu không thỏa mãn';
                       } else {
                         return null;
@@ -138,7 +140,7 @@ class _SignInScreenState extends State<SignInScreen> {
                         loading: showLoading,
                         success: (user) {
                           dismissLoading();
-                           AppNavigator.pushAndRemoveUntil(Routes.homeScreen);
+                          AppNavigator.pushAndRemoveUntil(Routes.homeScreen);
                         },
                         failure: dismissLoadingShowError,
                       );
@@ -178,19 +180,6 @@ class _SignInScreenState extends State<SignInScreen> {
         ),
       ),
     );
-  }
-
-  bool validatePassword(String password) {
-    if (password.length < 8) {
-      return false;
-    }
-    RegExp uppercaseRegex = RegExp(r'[A-Z]');
-    RegExp lowercaseRegex = RegExp(r'[a-z]');
-    RegExp digitRegex = RegExp(r'[0-9]');
-    if (!uppercaseRegex.hasMatch(password) || !lowercaseRegex.hasMatch(password) || !digitRegex.hasMatch(password)) {
-      return false;
-    }
-    return true;
   }
 
   void validate() {

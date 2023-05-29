@@ -1,8 +1,13 @@
 import 'package:base_app/src/configs/app_fonts.dart';
 import 'package:base_app/src/configs/palette.dart';
+import 'package:base_app/src/cubit/cubit/signup_cubit.dart';
+import 'package:base_app/src/cubit/cubit/signup_state.dart';
+import 'package:base_app/src/di/injection.dart/injection.dart';
 import 'package:base_app/src/share_components/share_componets.dart';
 import 'package:base_app/src/utils/until.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../configs/box.dart';
 import '../../navigator/app_navigator.dart';
 import '../../navigator/routers.dart';
@@ -15,13 +20,27 @@ class SignUpScreen extends StatefulWidget {
 }
 
 class _SignUpScreenState extends State<SignUpScreen> {
+  TextEditingController firstNameController = TextEditingController();
   TextEditingController emailController = TextEditingController();
-  TextEditingController passwordController = TextEditingController();
-  TextEditingController confirmPasswordController = TextEditingController();
+  TextEditingController lastNameController = TextEditingController();
+  TextEditingController passWordController = TextEditingController();
+  final signUpCubit = getIt<SignupCubit>();
+
   late final _formKey = GlobalKey<FormState>();
   bool isActiveButton = false;
   @override
+  void dispose() {
+    firstNameController.dispose();
+    lastNameController.dispose();
+    emailController.dispose();
+    passWordController.dispose();
+    signUpCubit.close();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    double width = (MediaQuery.of(context).size.width - 40) / 2;
     return Scaffold(
       body: Container(
         decoration: const BoxDecoration(gradient: linearGradientMain),
@@ -54,63 +73,109 @@ class _SignUpScreenState extends State<SignUpScreen> {
               key: _formKey,
               child: Column(
                 children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      SizedBox(
+                        width: width,
+                        child: MyTextField(
+                          title: "First Name",
+                          titleStyle: AppFont.t.s(16).w600.white,
+                          required: true,
+                          hasBorder: true,
+                          inputFormatters: [
+                            FilteringTextInputFormatter.deny(RegExp(r'\s')),
+                          ],
+                          controller: firstNameController,
+                          hintText: 'First Name',
+                          hintStyle: AppFont.t.s(16).grey68,
+                          validator: (value) {
+                            if (value?.isEmpty == true || !Validators.isValidEmail(value ?? '')) {
+                              return 'Please enter a valid First Name';
+                            }
+                            return null;
+                          },
+                        ),
+                      ),
+                      SizedBox(
+                        width: width,
+                        child: MyTextField(
+                          required: true,
+                          title: "Last Name",
+                          titleStyle: AppFont.t.s(16).w600.white,
+                          hasBorder: true,
+                          controller: lastNameController,
+                          hintText: 'Last Name',
+                          hintStyle: AppFont.t.s(16).grey68,
+                          validator: (value) {
+                            if (value?.isEmpty == true || !Validators.isValidEmail(value ?? '')) {
+                              return 'Please enter a valid Last Name';
+                            }
+                            return null;
+                          },
+                        ),
+                      )
+                    ],
+                  ),
+                  BoxMain.h(20),
                   MyTextField(
-                    inputBorder: const OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(16)), borderSide: BorderSide(color: Palette.white)),
+                    required: true,
+                    title: "Email",
+                    titleStyle: AppFont.t.s(16).w600.white,
                     hasBorder: true,
-                    obscureText: true,
                     controller: emailController,
-                    hintText: 'Phone/ Email *',
+                    hintText: 'Email',
                     hintStyle: AppFont.t.s(16).grey68,
                     validator: (value) {
-                      if (value?.isEmpty == true || !Validators.isValidEmail(value ?? '')) {
-                        return 'Please enter a valid email address';
+                      RegExp regex = RegExp(r'^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$');
+                      if ((value == null || value.isEmpty)) {
+                        return 'Không được để trống';
+                      } else if (value.isNotEmpty && !regex.hasMatch(value)) {
+                        return 'Giá trị không hợp lệ';
                       }
                       return null;
                     },
                   ),
                   BoxMain.h(20),
                   MyTextField(
+                    required: true,
+                    title: "Password",
+                    titleStyle: AppFont.t.s(16).w600.white,
                     hasBorder: true,
-                    inputBorder: const OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(16)), borderSide: BorderSide(color: Palette.white)),
                     obscureText: true,
-                    controller: passwordController,
-                    hintText: 'Password *',
+                    controller: passWordController,
+                    hintText: 'Password',
                     hintStyle: AppFont.t.s(16).grey68,
                     validator: (value) {
-                      if (value?.isEmpty == true || !Validators.isValidPassword(value ?? '')) {
-                        return 'Invalid phone number. Use the specified format: 6 numbers';
-                      }
-                      return null;
-                    },
-                  ),
-                  BoxMain.h(20),
-                  MyTextField(
-                    hasBorder: true,
-                    inputBorder: const OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(16)), borderSide: BorderSide(color: Palette.white)),
-                    obscureText: true,
-                    controller: confirmPasswordController,
-                    hintText: 'ConfirmPassword *',
-                    hintStyle: AppFont.t.s(16).grey68,
-                    validator: (value) {
-                      if (value?.isEmpty == true ||
-                          !Validators.isValidPassword(value ?? '') ||
-                          value?.length == passwordController.text.length && value == passwordController.text) {
-                        return 'Invalid phone number. Use the specified format: 6 numbers';
+                      if ((value == null || value.isEmpty)) {
+                        return 'Mật khẩu không được để trống';
+                      } else if (Validators.validatePassword(value) == false) {
+                        return 'Mật khẩu không thỏa mãn';
                       }
                       return null;
                     },
                   ),
                   BoxMain.h(48),
-                  ButtonPrimary(
-                    text: 'Sing Up',
-                    textStyle: AppFont.t.s(24).w600.white,
-                    action: () {
-                      final isValid = _formKey.currentState?.validate();
-                      if (isValid == false) {
-                        return;
-                      }
-                      AppNavigator.push(Routes.signInScreen);
+                  BlocListener<SignupCubit, SignupState>(
+                    bloc: signUpCubit,
+                    listener: (context, state) {
+                      Logger.d('State', state.toString());
+                      state.whenOrNull(
+                        loading: showLoading,
+                        success: () {
+                          dismissLoading();
+                          AppNavigator.pushAndRemoveUntil(Routes.signInScreen);
+                        },
+                        failure: dismissLoadingShowError,
+                      );
                     },
+                    child: ButtonPrimary(
+                      text: 'Sing Up',
+                      textStyle: AppFont.t.s(24).w600.white,
+                      action: () {
+                        signUpCubit.signup(fistName: firstNameController.text, lastName: lastNameController.text, email: emailController.text, passWord: passWordController.text);
+                      },
+                    ),
                   ),
                 ],
               ),
