@@ -3,7 +3,7 @@ import 'package:base_app/src/navigator/routers.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 
-import '../../cubit/cubit/login_cubit_cubit.dart';
+import '../../cubit/login_cubit_cubit.dart';
 import '../../di/injection.dart/injection.dart';
 
 class WelcomeScreen extends StatefulWidget {

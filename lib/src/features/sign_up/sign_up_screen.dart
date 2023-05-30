@@ -1,7 +1,7 @@
 import 'package:base_app/src/configs/app_fonts.dart';
 import 'package:base_app/src/configs/palette.dart';
-import 'package:base_app/src/cubit/cubit/signup_cubit.dart';
-import 'package:base_app/src/cubit/cubit/signup_state.dart';
+import 'package:base_app/src/cubit/signup_cubit.dart';
+import 'package:base_app/src/cubit/signup_state.dart';
 import 'package:base_app/src/di/injection.dart/injection.dart';
 import 'package:base_app/src/share_components/share_componets.dart';
 import 'package:base_app/src/utils/until.dart';

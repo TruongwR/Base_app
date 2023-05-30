@@ -1,7 +1,7 @@
 import 'package:base_app/src/configs/app_fonts.dart';
 import 'package:base_app/src/configs/palette.dart';
-import 'package:base_app/src/cubit/cubit/login_cubit_cubit.dart';
-import 'package:base_app/src/cubit/cubit/login_cubit_state.dart';
+import 'package:base_app/src/cubit/login_cubit_cubit.dart';
+import 'package:base_app/src/cubit/login_cubit_state.dart';
 import 'package:base_app/src/di/injection.dart/injection.dart';
 import 'package:base_app/src/navigator/app_navigator.dart';
 import 'package:base_app/src/navigator/routers.dart';

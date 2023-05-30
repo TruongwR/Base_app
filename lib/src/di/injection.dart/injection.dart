@@ -1,8 +1,8 @@
-import 'package:base_app/src/cubit/cubit/login_cubit_cubit.dart';
+import 'package:base_app/src/cubit/login_cubit_cubit.dart';
 import 'package:base_app/src/di/modules/repository_modules.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
-import '../../cubit/cubit/signup_cubit.dart';
+import '../../cubit/signup_cubit.dart';
 import '../../data/data_sources/local/app_data.dart';
 import '../modules/api_modules.dart';
 import '../modules/componetn_modules.dart';

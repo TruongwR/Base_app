@@ -1,4 +1,4 @@
-import 'package:base_app/src/cubit/cubit/signup_state.dart';
+import 'package:base_app/src/cubit/signup_state.dart';
 import 'package:base_app/src/data/repositories/repository/authentication_repository.dart';
 import 'package:base_app/src/navigator/app_navigator.dart';
 import 'package:base_app/src/navigator/routers.dart';

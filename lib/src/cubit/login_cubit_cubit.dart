@@ -28,6 +28,7 @@ class LoginCubitCubit extends Cubit<LoginCubitState> {
       Logger.d("User", userModel.toString());
       appData.userModel = userModel;
       AppNavigator.pushAndRemoveUntil(Routes.homeScreen);
+    
       emit(LoginCubitState.success(userModel));
     } else {
       AppNavigator.pushAndRemoveUntil(Routes.signInScreen);
