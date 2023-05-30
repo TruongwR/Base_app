@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:base_app/src/configs/box.dart';
@@ -5,6 +6,8 @@ import 'package:base_app/src/configs/palette.dart';
 import 'package:base_app/src/utils/helpers/logger.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:microphone/microphone.dart';
 import 'package:path_provider/path_provider.dart';
 
 class ChatInputField extends StatelessWidget {
@@ -45,9 +48,19 @@ class ChatInputField extends StatelessWidget {
                 ),
                 child: Row(
                   children: [
-                    Icon(
-                      Icons.sentiment_satisfied_alt_outlined,
-                      color: Theme.of(context).textTheme.bodyLarge!.color!.withOpacity(0.64),
+                    IconButton(
+                      onPressed: () async {
+                        MicrophoneRecorder recorder = MicrophoneRecorder();
+                        await recorder.start();
+                        await Future.delayed(const Duration(seconds: 5));
+                        await recorder.stop();
+                        Uint8List data = await recorder.toBytes();
+                        Logger.d("Data mic", utf8.decode(data));
+                      },
+                      icon: Icon(
+                        Icons.sentiment_satisfied_alt_outlined,
+                        color: Theme.of(context).textTheme.bodyLarge!.color!.withOpacity(0.64),
+                      ),
                     ),
                     BoxMain.w(4),
                     const Expanded(
