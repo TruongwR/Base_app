@@ -1,5 +1,12 @@
+import 'dart:io';
+
+import 'package:base_app/src/configs/box.dart';
 import 'package:base_app/src/configs/palette.dart';
+import 'package:base_app/src/utils/helpers/logger.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:path_provider/path_provider.dart';
+
 class ChatInputField extends StatelessWidget {
   const ChatInputField({
     Key? key,
@@ -30,7 +37,7 @@ class ChatInputField extends StatelessWidget {
             Expanded(
               child: Container(
                 padding: const EdgeInsets.symmetric(
-                  horizontal: 16 * 0.75,
+                  horizontal: 12,
                 ),
                 decoration: BoxDecoration(
                   color: Palette.primary.withOpacity(0.05),
@@ -40,13 +47,9 @@ class ChatInputField extends StatelessWidget {
                   children: [
                     Icon(
                       Icons.sentiment_satisfied_alt_outlined,
-                      color: Theme.of(context)
-                          .textTheme
-                          .bodyLarge!
-                          .color!
-                          .withOpacity(0.64),
+                      color: Theme.of(context).textTheme.bodyLarge!.color!.withOpacity(0.64),
                     ),
-                    const SizedBox(width: 16 / 4),
+                    BoxMain.w(4),
                     const Expanded(
                       child: TextField(
                         decoration: InputDecoration(
@@ -55,22 +58,38 @@ class ChatInputField extends StatelessWidget {
                         ),
                       ),
                     ),
-                    Icon(
-                      Icons.attach_file,
-                      color: Theme.of(context)
-                          .textTheme
-                          .bodyLarge!
-                          .color!
-                          .withOpacity(0.64),
-                    ),
-                    const SizedBox(width: 16 / 4),
-                    Icon(
-                      Icons.camera_alt_outlined,
-                      color: Theme.of(context)
-                          .textTheme
-                          .bodyLarge!
-                          .color!
-                          .withOpacity(0.64),
+                    IconButton(
+                        onPressed: () async {
+                          FilePickerResult? result = await FilePicker.platform.pickFiles();
+                          if (result != null) {
+                            String? filePath = result.files.single.path;
+                            if (filePath != null) {
+                              // Tải tệp lên API
+                              Logger.d("Update file");
+                            }
+                          }
+                        },
+                        icon: Icon(
+                          Icons.attach_file,
+                          color: Theme.of(context).textTheme.bodyLarge!.color!.withOpacity(0.64),
+                        )),
+                    IconButton(
+                      onPressed: () async {
+                        Directory? directory = await getExternalStorageDirectory();
+                        String imagePath = '${directory?.path}/Pictures/';
+                        Directory imageDir = Directory(imagePath);
+                        List<FileSystemEntity> images = imageDir.listSync(recursive: true, followLinks: false);
+
+                        for (var image in images) {
+                          if (image is File) {
+                            String imagePath = image.path;
+                          }
+                        }
+                      },
+                      icon: Icon(
+                        Icons.camera_alt_outlined,
+                        color: Theme.of(context).textTheme.bodyLarge!.color!.withOpacity(0.64),
+                      ),
                     ),
                   ],
                 ),

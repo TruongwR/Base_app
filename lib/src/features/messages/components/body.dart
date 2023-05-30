@@ -4,6 +4,7 @@ import '../../../data/model/ChatMessage.dart';
 import 'chat_input_field.dart';
 import 'message.dart';
 
+
 class Body extends StatelessWidget {
   const Body({Key? key}) : super(key: key);
 

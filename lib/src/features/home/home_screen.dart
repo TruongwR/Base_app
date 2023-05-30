@@ -1,5 +1,5 @@
 import 'package:base_app/src/configs/palette.dart';
-import 'package:base_app/src/features/calls/class_screen.dart';
+import 'package:base_app/src/features/calls/call_screen.dart';
 import 'package:base_app/src/features/people/people_screen.dart';
 import 'package:flutter/material.dart';
 import '../profile/profile_screen.dart';
