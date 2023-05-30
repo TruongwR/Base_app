@@ -10,6 +10,11 @@ class Validators {
     return RegExp(emailRegExpString).hasMatch(email);
   }
 
+  static bool isValiName(String name) {
+    const nameRegExpString = r'^[A-Z][a-z]+$';
+    return RegExp(nameRegExpString).hasMatch(name);
+  }
+
   static bool isValidPhoneNumber(String phone) {
     final regexPhone = RegExp(r'(0[1|2|3|4|5|6|7|8|9])+([0-9]{8})$');
 
@@ -21,7 +26,7 @@ class Validators {
     return otp.length == 4 && regex.hasMatch(otp);
   }
 
- static bool validatePassword(String password) {
+  static bool validatePassword(String password) {
     if (password.length < 8) {
       return false;
     }

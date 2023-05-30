@@ -5,4 +5,5 @@ class Routes {
   static const String homeScreen = 'HomeScreen';
   static const String activeScreen = 'ActiveScreen';
   static const String profileScreen = 'ProfileScreen';
+  static const String editProfileScreen = 'EditProfileScreen';
 }

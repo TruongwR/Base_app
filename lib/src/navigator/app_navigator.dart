@@ -1,3 +1,4 @@
+import 'package:base_app/src/features/edit_profile/edit_profile_screen.dart';
 import 'package:base_app/src/features/sign_in/sign_in_screen.dart';
 import 'package:base_app/src/navigator/routers.dart';
 import 'package:flutter/material.dart';
@@ -19,13 +20,12 @@ class AppNavigator {
           const WelcomeScreen(),
         );
 
-
       case Routes.signInScreen:
         return _buildRoute(
           settings,
           const SignInScreen(),
         );
-         case Routes.profileScreen:
+      case Routes.profileScreen:
         return _buildRoute(
           settings,
           const ProfileScreen(),
@@ -40,7 +40,11 @@ class AppNavigator {
           settings,
           const HomeScreen(),
         );
-
+      case Routes.editProfileScreen:
+        return _buildRoute(
+          settings,
+          const EditProfileScreen(),
+        );
       default:
         return null;
     }

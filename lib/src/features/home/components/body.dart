@@ -1,7 +1,5 @@
-
 import 'package:base_app/src/configs/palette.dart';
 import 'package:flutter/material.dart';
-
 
 import '../../../data/model/Chat.dart';
 import '../../../share_components/button/filled_outline_button.dart';
@@ -16,8 +14,7 @@ class Body extends StatelessWidget {
     return Column(
       children: [
         Container(
-          padding: const EdgeInsets.fromLTRB(
-              16, 0, 16, 16),
+          padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
           color: Palette.primary,
           child: Row(
             children: [
@@ -35,6 +32,7 @@ class Body extends StatelessWidget {
           child: ListView.builder(
             itemCount: chatsData.length,
             itemBuilder: (context, index) => ChatCard(
+              isStatus: true,
               chat: chatsData[index],
               press: () => Navigator.push(
                 context,

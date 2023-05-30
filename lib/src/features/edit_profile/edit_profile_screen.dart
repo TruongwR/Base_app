@@ -1,0 +1,156 @@
+import 'package:base_app/src/configs/app_fonts.dart';
+import 'package:base_app/src/configs/box.dart';
+import 'package:base_app/src/configs/palette.dart';
+import 'package:base_app/src/features/profile/components/profile_avatar.dart';
+import 'package:base_app/src/share_components/app_bar/my_app_bar.dart';
+import 'package:base_app/src/share_components/share_componets.dart';
+import 'package:base_app/src/utils/until.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+
+class EditProfileScreen extends StatefulWidget {
+  const EditProfileScreen({super.key});
+
+  @override
+  State<EditProfileScreen> createState() => _EditProfileScreenState();
+}
+
+class _EditProfileScreenState extends State<EditProfileScreen> {
+  TextEditingController firstNameController = TextEditingController();
+  TextEditingController lastNameController = TextEditingController();
+  TextEditingController passWordController = TextEditingController();
+  TextEditingController passWordOldController = TextEditingController();
+  late final _formKey = GlobalKey<FormState>();
+  @override
+  Widget build(BuildContext context) {
+    double width = (MediaQuery.of(context).size.width - 40) / 2;
+    return SafeArea(
+      child: Scaffold(
+        appBar: const MyAppBar(title: 'Chỉnh sửa hồ sơ'),
+        body: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16),
+          child: SingleChildScrollView(
+            child: Form(
+              key: _formKey,
+              child: Column(
+                children: [
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height / 4,
+                    child: Center(
+                      child: ProfileAvatar(
+                        check: false,
+                        action: () {},
+                      ),
+                    ),
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      SizedBox(
+                        width: width,
+                        child: MyTextField(
+                          title: "First Name",
+                          titleStyle: AppFont.t.s(16).w600,
+                          required: true,
+                          hasBorder: true,
+                          inputBorder: const OutlineInputBorder(
+                            borderSide: BorderSide(color: Palette.grayBE),
+                          ),
+                          inputFormatters: [
+                            FilteringTextInputFormatter.deny(RegExp(r'\s')),
+                          ],
+                          controller: firstNameController,
+                          hintText: 'First Name',
+                          hintStyle: AppFont.t.s(16).grey68,
+                          validator: (value) {
+                            if (value?.isEmpty == true || !Validators.isValiName(value ?? '')) {
+                              return 'Please enter a valid First Name';
+                            }
+                            return null;
+                          },
+                        ),
+                      ),
+                      SizedBox(
+                        width: width,
+                        child: MyTextField(
+                          required: true,
+                          title: "Last Name",
+                          titleStyle: AppFont.t.s(16).w600,
+                          hasBorder: true,
+                          inputBorder: const OutlineInputBorder(
+                            borderSide: BorderSide(color: Palette.grayBE),
+                          ),
+                          controller: lastNameController,
+                          hintText: 'Last Name',
+                          hintStyle: AppFont.t.s(16).grey68,
+                          validator: (value) {
+                            if (value?.isEmpty == true || !Validators.isValiName(value ?? '')) {
+                              return 'Please enter a valid Last Name';
+                            }
+                            return null;
+                          },
+                        ),
+                      )
+                    ],
+                  ),
+                  BoxMain.h(20),
+                  MyTextField(
+                    required: true,
+                    title: "PasswordOld",
+                    titleStyle: AppFont.t.s(16).w600,
+                    hasBorder: true,
+                    obscureText: true,
+                    inputBorder: const OutlineInputBorder(
+                      borderSide: BorderSide(color: Palette.grayBE),
+                    ),
+                    controller: passWordOldController,
+                    hintText: 'PasswordOld',
+                    hintStyle: AppFont.t.s(16).grey68,
+                    validator: (value) {
+                      if ((value == null || value.isEmpty)) {
+                        return 'Mật khẩu không được để trống';
+                      } else if (Validators.validatePassword(value) == false) {
+                        return 'Mật khẩu không thỏa mãn';
+                      }
+                      return null;
+                    },
+                  ),
+                  BoxMain.h(20),
+                  MyTextField(
+                    required: true,
+                    title: "Password",
+                    titleStyle: AppFont.t.s(16).w600,
+                    hasBorder: true,
+                    obscureText: true,
+                    inputBorder: const OutlineInputBorder(
+                      borderSide: BorderSide(color: Palette.grayBE),
+                    ),
+                    controller: passWordController,
+                    hintText: 'Password',
+                    hintStyle: AppFont.t.s(16).grey68,
+                    validator: (value) {
+                      if ((value == null || value.isEmpty)) {
+                        return 'Mật khẩu không được để trống';
+                      } else if (Validators.validatePassword(value) == false) {
+                        return 'Mật khẩu không thỏa mãn';
+                      }
+                      return null;
+                    },
+                  ),
+                  BoxMain.h(48),
+                  ButtonPrimary(
+                    text: 'Lưu',
+                    textStyle: AppFont.t.s(24).w600.white,
+                    action: () {
+                      _formKey.currentState!.validate() ? true : false;
+                    },
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}

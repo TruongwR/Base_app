@@ -1,8 +1,9 @@
 import 'package:base_app/src/configs/palette.dart';
+import 'package:base_app/src/features/calls/class_screen.dart';
+import 'package:base_app/src/features/people/people_screen.dart';
 import 'package:flutter/material.dart';
 import '../profile/profile_screen.dart';
-import '../sign_in/sign_in_screen.dart';
-import '../sign_up/sign_up_screen.dart';
+
 import 'components/body.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -13,8 +14,8 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  int _selectedIndex = 1;
-  List<Widget> listBody = [const Body(), const SignInScreen(), const SignUpScreen(), const ProfileScreen()];
+  int _selectedIndex = 0;
+  List<Widget> listBody = [const Body(), const PeopleScreen(), const CallScreen(), const ProfileScreen()];
   @override
   Widget build(BuildContext context) {
     return SafeArea(

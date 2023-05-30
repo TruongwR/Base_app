@@ -90,7 +90,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           hintText: 'First Name',
                           hintStyle: AppFont.t.s(16).grey68,
                           validator: (value) {
-                            if (value?.isEmpty == true || !Validators.isValidEmail(value ?? '')) {
+                            if (value?.isEmpty == true || !Validators.isValiName(value ?? '')) {
                               return 'Please enter a valid First Name';
                             }
                             return null;
@@ -108,7 +108,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           hintText: 'Last Name',
                           hintStyle: AppFont.t.s(16).grey68,
                           validator: (value) {
-                            if (value?.isEmpty == true || !Validators.isValidEmail(value ?? '')) {
+                            if (value?.isEmpty == true || !Validators.isValiName(value ?? '')) {
                               return 'Please enter a valid Last Name';
                             }
                             return null;
@@ -173,7 +173,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       text: 'Sing Up',
                       textStyle: AppFont.t.s(24).w600.white,
                       action: () {
-                        signUpCubit.signup(fistName: firstNameController.text, lastName: lastNameController.text, email: emailController.text, passWord: passWordController.text);
+                        signUpCubit.signup(
+                            fistName: firstNameController.text,
+                            lastName: lastNameController.text,
+                            email: emailController.text,
+                            passWord: passWordController.text);
                       },
                     ),
                   ),

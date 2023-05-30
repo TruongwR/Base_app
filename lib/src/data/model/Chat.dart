@@ -1,5 +1,6 @@
 class Chat {
-  final String name, lastMessage, image, time;
+  final String name, lastMessage, image, time, actionCall, timeCall, typeCall, statusCall;
+
   final bool isActive;
 
   Chat({
@@ -7,6 +8,10 @@ class Chat {
     this.lastMessage = '',
     this.image = '',
     this.time = '',
+    this.actionCall = '',
+    this.timeCall = '',
+    this.statusCall = '',
+    this.typeCall = '',
     this.isActive = false,
   });
 }
@@ -17,6 +22,10 @@ List chatsData = [
     lastMessage: "Hope you are doing well...",
     image: "assets/images/user.png",
     time: "3m ago",
+    actionCall: "Cuộc gọi đi",
+    timeCall: "19:05",
+    statusCall: '0',
+    typeCall: "0",
     isActive: false,
   ),
   Chat(
@@ -24,6 +33,10 @@ List chatsData = [
     lastMessage: "Hello Abdullah! I am...",
     image: "assets/images/user_2.png",
     time: "8m ago",
+    actionCall: "Cuộc gọi đi",
+    timeCall: "Chủ nhật",
+    statusCall: "0",
+    typeCall: "0",
     isActive: true,
   ),
   Chat(
@@ -31,12 +44,20 @@ List chatsData = [
     lastMessage: "Do you have update...",
     image: "assets/images/user_3.png",
     time: "5d ago",
+    actionCall: "Cuộc gọi nhỡ",
+    timeCall: "24 thg 5",
+    statusCall: "2",
+    typeCall: "1",
     isActive: false,
   ),
   Chat(
     name: "Jacob Jones",
     lastMessage: "You’re welcome :)",
     image: "assets/images/user_4.png",
+    actionCall: "Cuộc gọi đến",
+    timeCall: "Thứ Hai",
+    statusCall: "1",
+    typeCall: "1",
     time: "5d ago",
     isActive: true,
   ),
@@ -44,6 +65,10 @@ List chatsData = [
     name: "Albert Flores",
     lastMessage: "Thanks",
     image: "assets/images/user_5.png",
+    actionCall: "Cuộc gọi nhỡ",
+    timeCall: "Thứ Bảy",
+    statusCall: "2",
+    typeCall: "0",
     time: "6d ago",
     isActive: false,
   ),
@@ -51,6 +76,10 @@ List chatsData = [
     name: "Jenny Wilson",
     lastMessage: "Hope you are doing well...",
     image: "assets/images/user.png",
+    actionCall: "Cuộc gọi đến",
+    timeCall: "22 thg 5",
+    statusCall: "1",
+    typeCall: "1",
     time: "3m ago",
     isActive: false,
   ),
@@ -58,6 +87,10 @@ List chatsData = [
     name: "Esther Howard",
     lastMessage: "Hello Abdullah! I am...",
     image: "assets/images/user_2.png",
+    actionCall: "Cuộc gọi đi",
+    timeCall: "12:30",
+    statusCall: "0",
+    typeCall: "0",
     time: "8m ago",
     isActive: true,
   ),
@@ -65,6 +98,10 @@ List chatsData = [
     name: "Ralph Edwards",
     lastMessage: "Do you have update...",
     image: "assets/images/user_3.png",
+    actionCall: "Cuộc gọi đến",
+    timeCall: "Thứ Sáu",
+    statusCall: "1",
+    typeCall: "1",
     time: "5d ago",
     isActive: false,
   ),

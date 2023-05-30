@@ -2,6 +2,7 @@ import 'package:base_app/src/configs/app_fonts.dart';
 import 'package:base_app/src/configs/box.dart';
 import 'package:base_app/src/configs/palette.dart';
 import 'package:base_app/src/di/injection.dart/injection.dart';
+import 'package:base_app/src/features/profile/components/profile_avatar.dart';
 import 'package:base_app/src/features/profile/components/profile_list_item.dart';
 import 'package:base_app/src/navigator/app_navigator.dart';
 import 'package:base_app/src/navigator/routers.dart';
@@ -27,38 +28,8 @@ class ProfileScreen extends StatelessWidget {
               Expanded(
                 child: Column(
                   children: <Widget>[
-                    Container(
-                      height: 100,
-                      width: 100,
-                      margin: const EdgeInsets.only(top: 30),
-                      child: Stack(
-                        children: <Widget>[
-                          const CircleAvatar(
-                            radius: 50,
-                            backgroundImage: AssetImage('assets/images/user.png'),
-                          ),
-                          Align(
-                            alignment: Alignment.bottomRight,
-                            child: Container(
-                              height: 25,
-                              width: 25,
-                              decoration: BoxDecoration(
-                                color: Theme.of(context).colorScheme.secondary,
-                                shape: BoxShape.circle,
-                              ),
-                              child: Center(
-                                heightFactor: 15,
-                                widthFactor: 15,
-                                child: Icon(
-                                  LineAwesomeIcons.pen,
-                                  color: Palette.black,
-                                  size: ScreenUtil().setSp(15),
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
+                    ProfileAvatar(
+                      action: () => AppNavigator.push(Routes.editProfileScreen),
                     ),
                     BoxMain.h(20),
                     Text(

@@ -1,10 +1,11 @@
+import 'package:base_app/src/configs/box.dart';
 import 'package:base_app/src/configs/palette.dart';
 import 'package:flutter/material.dart';
 
 import '../../../data/model/Chat.dart';
 
-class ChatCard extends StatelessWidget {
-  const ChatCard({Key? key, required this.chat, required this.press, required this.isStatus}) : super(key: key);
+class ListCalls extends StatelessWidget {
+  const ListCalls({Key? key, required this.chat, required this.press, required this.isStatus}) : super(key: key);
 
   final Chat chat;
   final VoidCallback press;
@@ -52,20 +53,38 @@ class ChatCard extends StatelessWidget {
                     ),
                     const SizedBox(height: 8),
                     Opacity(
-                      opacity: 0.64,
-                      child: Text(
-                        isStatus ? chat.lastMessage : 'Whispers',
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                    ),
+                        opacity: 0.64,
+                        child: Row(
+                          children: [
+                            Icon(
+                              chat.typeCall == '0' ? Icons.video_camera_front : Icons.call,
+                              size: 14,
+                              color: chat.statusCall == '2' ? Palette.red : Palette.gray66,
+                            ),
+                            Text(
+                              chat.actionCall,
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              style: TextStyle(color: chat.statusCall == '2' ? Palette.red : Palette.gray66),
+                            ),
+                            BoxMain.w(8),
+                            Opacity(
+                              opacity: 0.64,
+                              child: Text(
+                                chat.timeCall,
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                            ),
+                          ],
+                        )),
                   ],
                 ),
               ),
             ),
             Opacity(
               opacity: 0.64,
-              child: Text(isStatus ? chat.time : ''),
+              child: Icon(chat.typeCall == '0' ? Icons.videocam : Icons.call),
             ),
           ],
         ),
