@@ -193,7 +193,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   style: AppFont.t.s(16).w500.white,
                 ),
                 TextButton(
-                    onPressed: () => AppNavigator.push(Routes.signInScreen),
+                    onPressed: () => AppNavigator.push(Routes.activeAccountScreen), //signInScreen
                     child: Text(
                       'Login',
                       style: AppFont.t.s(18).w500.success,

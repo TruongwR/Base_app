@@ -1,7 +1,8 @@
+import 'package:base_app/src/cubit/active_account_cubit.dart';
+import 'package:base_app/src/cubit/edit_profile_cubit.dart';
 import 'package:base_app/src/cubit/login_cubit_cubit.dart';
 import 'package:base_app/src/data/repositories/repository/authentication_repository.dart';
 import 'package:base_app/src/di/injection.dart/injection.dart';
-
 import '../../cubit/signup_cubit.dart';
 
 class CubitModule extends DIModule {
@@ -12,6 +13,12 @@ class CubitModule extends DIModule {
     );
     getIt.registerFactory(
       () => SignupCubit(authen: getIt<AuthenticationRepository>()),
+    );
+    getIt.registerFactory(
+      () => ActiveAccountCubit(authen: getIt<AuthenticationRepository>()),
+    );
+    getIt.registerFactory(
+      () => EditProfileCubit(authen: getIt<AuthenticationRepository>()),
     );
   }
 }

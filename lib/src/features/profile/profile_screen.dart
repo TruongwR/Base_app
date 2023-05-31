@@ -1,6 +1,6 @@
 import 'package:base_app/src/configs/app_fonts.dart';
 import 'package:base_app/src/configs/box.dart';
-import 'package:base_app/src/configs/palette.dart';
+
 import 'package:base_app/src/di/injection.dart/injection.dart';
 import 'package:base_app/src/features/profile/components/profile_avatar.dart';
 import 'package:base_app/src/features/profile/components/profile_list_item.dart';
@@ -8,7 +8,7 @@ import 'package:base_app/src/navigator/app_navigator.dart';
 import 'package:base_app/src/navigator/routers.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 

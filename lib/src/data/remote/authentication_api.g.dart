@@ -48,7 +48,7 @@ class _AuthenticationApi implements AuthenticationApi {
   }
 
   @override
-  Future<ReponeModel> singup(
+  Future<ResponeSignupModel> singup(
     String fistName,
     String lastName,
     String email,
@@ -64,7 +64,7 @@ class _AuthenticationApi implements AuthenticationApi {
       'passWord': passWord,
     };
     final _result = await _dio
-        .fetch<Map<String, dynamic>>(_setStreamType<ReponeModel>(Options(
+        .fetch<Map<String, dynamic>>(_setStreamType<ResponeSignupModel>(Options(
       method: 'POST',
       headers: _headers,
       extra: _extra,
@@ -76,7 +76,71 @@ class _AuthenticationApi implements AuthenticationApi {
               data: _data,
             )
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    final value = ReponeModel.fromJson(_result.data!);
+    final value = ResponeSignupModel.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
+  Future<ActiveAccountModel> activeAcount(
+    String id,
+    String activationCode,
+  ) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = {
+      'id': id,
+      'activationCode': activationCode,
+    };
+    final _result = await _dio
+        .fetch<Map<String, dynamic>>(_setStreamType<ActiveAccountModel>(Options(
+      method: 'PATCH',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              '/account/active',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = ActiveAccountModel.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
+  Future<UpdateProfileModel> updateProfile(
+    String firstName,
+    String lastName,
+    String passwordOld,
+    String password,
+    String avatarFileId,
+  ) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = {
+      'firstName': firstName,
+      'lastName': lastName,
+      'passwordOld': passwordOld,
+      'password': password,
+      'avatarFileId': avatarFileId,
+    };
+    final _result = await _dio
+        .fetch<Map<String, dynamic>>(_setStreamType<UpdateProfileModel>(Options(
+      method: 'PATCH',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              '/account',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = UpdateProfileModel.fromJson(_result.data!);
     return value;
   }
 

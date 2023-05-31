@@ -1,3 +1,5 @@
+import 'package:base_app/src/cubit/active_account_cubit.dart';
+import 'package:base_app/src/cubit/edit_profile_cubit.dart';
 import 'package:base_app/src/cubit/login_cubit_cubit.dart';
 import 'package:base_app/src/di/modules/repository_modules.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -24,7 +26,9 @@ class Injection {
 
   static final List<BlocProvider> cubitProvider = [
     BlocProvider<LoginCubitCubit>(create: (context) => getIt<LoginCubitCubit>()),
-     BlocProvider<SignupCubit>(create: (context) => getIt<SignupCubit>()),
+    BlocProvider<SignupCubit>(create: (context) => getIt<SignupCubit>()),
+    BlocProvider(create: (context) => getIt<ActiveAccountCubit>()),
+    BlocProvider(create: (context) => getIt<EditProfileCubit>()),
   ];
 }
 

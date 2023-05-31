@@ -1,12 +1,18 @@
 import 'package:base_app/src/configs/app_fonts.dart';
 import 'package:base_app/src/configs/box.dart';
 import 'package:base_app/src/configs/palette.dart';
+import 'package:base_app/src/cubit/edit_profile_cubit.dart';
+import 'package:base_app/src/cubit/edit_profile_state.dart';
 import 'package:base_app/src/features/profile/components/profile_avatar.dart';
+import 'package:base_app/src/navigator/app_navigator.dart';
+import 'package:base_app/src/navigator/routers.dart';
 import 'package:base_app/src/share_components/app_bar/my_app_bar.dart';
 import 'package:base_app/src/share_components/share_componets.dart';
 import 'package:base_app/src/utils/until.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../di/injection.dart/injection.dart';
 
 class EditProfileScreen extends StatefulWidget {
   const EditProfileScreen({super.key});
@@ -21,6 +27,17 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   TextEditingController passWordController = TextEditingController();
   TextEditingController passWordOldController = TextEditingController();
   late final _formKey = GlobalKey<FormState>();
+  final editProfileCubit = getIt<EditProfileCubit>();
+  @override
+  void dispose() {
+    firstNameController.dispose();
+    lastNameController.dispose();
+    passWordOldController.dispose();
+    passWordController.dispose();
+    editProfileCubit.close();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     double width = (MediaQuery.of(context).size.width - 40) / 2;
@@ -138,12 +155,32 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     },
                   ),
                   BoxMain.h(48),
-                  ButtonPrimary(
-                    text: 'Lưu',
-                    textStyle: AppFont.t.s(24).w600.white,
-                    action: () {
-                      _formKey.currentState!.validate() ? true : false;
+                  BlocListener<EditProfileCubit, EditProfileState>(
+                    bloc: editProfileCubit,
+                    listener: (context, state) {
+                      Logger.d('State', state.toString());
+                      state.whenOrNull(
+                        loading: showLoading,
+                        succes: () {
+                          dismissLoading();
+                          AppNavigator.push(Routes.profileScreen);
+                        },
+                        failure: dismissLoadingShowError,
+                      );
                     },
+                    child: ButtonPrimary(
+                      text: 'Lưu',
+                      textStyle: AppFont.t.s(24).w600.white,
+                      action: () {
+                        _formKey.currentState!.validate() ? true : false;
+                        editProfileCubit.updateProfile(
+                            firstName: firstNameController.text,
+                            lastName: lastNameController.text,
+                            passwordOld: passWordController.text,
+                            password: passWordController.text,
+                            avatarFileId: '');
+                      },
+                    ),
                   ),
                 ],
               ),

@@ -51,7 +51,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
             ),
             const Spacer(),
             Text(
-              "Chatty talk any person of your \nmother language.",
+              "Whispers talk any person of your \nmother language.",
               textAlign: TextAlign.center,
               style: TextStyle(
                 color: Theme.of(context).textTheme.bodyLarge!.color!.withOpacity(0.64),
