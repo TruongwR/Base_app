@@ -1,9 +1,9 @@
-import 'package:base_app/src/data/model/use_model.dart';
-import 'package:base_app/src/data/repositories/repository/authentication_repository.dart';
-import 'package:base_app/src/di/injection.dart/injection.dart';
-import 'package:base_app/src/navigator/app_navigator.dart';
-import 'package:base_app/src/navigator/routers.dart';
-import 'package:base_app/src/utils/until.dart';
+import 'package:Whispers/src/data/model/use_model.dart';
+import 'package:Whispers/src/data/repositories/repository/authentication_repository.dart';
+import 'package:Whispers/src/di/injection.dart/injection.dart';
+import 'package:Whispers/src/navigator/app_navigator.dart';
+import 'package:Whispers/src/navigator/routers.dart';
+import 'package:Whispers/src/utils/until.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive/hive.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
@@ -28,7 +28,7 @@ class LoginCubitCubit extends Cubit<LoginCubitState> {
       Logger.d("User", userModel.toString());
       appData.userModel = userModel;
       AppNavigator.pushAndRemoveUntil(Routes.homeScreen);
-    
+
       emit(LoginCubitState.success(userModel));
     } else {
       AppNavigator.pushAndRemoveUntil(Routes.signInScreen);

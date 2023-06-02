@@ -1,4 +1,4 @@
-import 'package:base_app/src/data/model/use_model.dart';
+import 'package:Whispers/src/data/model/use_model.dart';
 
 class AppData {
   String accessToken = '';

@@ -1,12 +1,12 @@
-import 'package:base_app/src/configs/app_fonts.dart';
-import 'package:base_app/src/configs/palette.dart';
-import 'package:base_app/src/cubit/login_cubit_cubit.dart';
-import 'package:base_app/src/cubit/login_cubit_state.dart';
-import 'package:base_app/src/di/injection.dart/injection.dart';
-import 'package:base_app/src/navigator/app_navigator.dart';
-import 'package:base_app/src/navigator/routers.dart';
-import 'package:base_app/src/share_components/share_componets.dart';
-import 'package:base_app/src/utils/until.dart';
+import 'package:Whispers/src/configs/app_fonts.dart';
+import 'package:Whispers/src/configs/palette.dart';
+import 'package:Whispers/src/cubit/login_cubit_cubit.dart';
+import 'package:Whispers/src/cubit/login_cubit_state.dart';
+import 'package:Whispers/src/di/injection.dart/injection.dart';
+import 'package:Whispers/src/navigator/app_navigator.dart';
+import 'package:Whispers/src/navigator/routers.dart';
+import 'package:Whispers/src/share_components/share_componets.dart';
+import 'package:Whispers/src/utils/until.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -97,7 +97,7 @@ class _SignInScreenState extends State<SignInScreen> {
                   ),
                   BoxMain.h(20),
                   MyTextField(
-                        required: true,
+                    required: true,
                     title: "Password",
                     titleStyle: AppFont.t.s(16).w600.white,
                     hasBorder: true,
@@ -124,7 +124,7 @@ class _SignInScreenState extends State<SignInScreen> {
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
                       TextButton(
-                          onPressed: () {},
+                          onPressed: () => AppNavigator.push(Routes.fotgetPassword),
                           child: Text(
                             'Forget password?',
                             style: AppFont.t.s(16).underline.white.w600,
@@ -150,7 +150,9 @@ class _SignInScreenState extends State<SignInScreen> {
                       textStyle: AppFont.t.s(24).w600.white,
                       action: () {
                         validate();
-                        _formKey.currentState?.validate() == true ? loginCubit.login(email: emailController.text, passWord: passwordController.text) : null;
+                        _formKey.currentState?.validate() == true
+                            ? loginCubit.login(email: emailController.text, passWord: passwordController.text)
+                            : null;
                       },
                     ),
                   ),

@@ -41,6 +41,10 @@ class $AssetsImagesGen {
   AssetGenImage get videoPlaceHere =>
       const AssetGenImage('assets/images/Video Place Here.png');
 
+  /// File path: assets/images/fotget_passrod.png
+  AssetGenImage get fotgetPassrod =>
+      const AssetGenImage('assets/images/fotget_passrod.png');
+
   /// File path: assets/images/ic_success.svg
   SvgGenImage get icSuccess =>
       const SvgGenImage('assets/images/ic_success.svg');
@@ -73,6 +77,7 @@ class $AssetsImagesGen {
         logoDark,
         logoLight,
         videoPlaceHere,
+        fotgetPassrod,
         icSuccess,
         iconApp,
         user,

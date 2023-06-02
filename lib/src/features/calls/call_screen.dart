@@ -1,9 +1,9 @@
-import 'package:base_app/src/configs/app_fonts.dart';
-import 'package:base_app/src/configs/box.dart';
-import 'package:base_app/src/configs/palette.dart';
-import 'package:base_app/src/data/model/Chat.dart';
-import 'package:base_app/src/features/calls/components/list_calls.dart';
-import 'package:base_app/src/features/messages/message_screen.dart';
+import 'package:Whispers/src/configs/app_fonts.dart';
+import 'package:Whispers/src/configs/box.dart';
+import 'package:Whispers/src/configs/palette.dart';
+import 'package:Whispers/src/data/model/Chat.dart';
+import 'package:Whispers/src/features/calls/components/list_calls.dart';
+import 'package:Whispers/src/features/messages/message_screen.dart';
 import 'package:flutter/material.dart';
 
 class CallScreen extends StatefulWidget {

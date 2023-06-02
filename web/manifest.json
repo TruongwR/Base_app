@@ -1,6 +1,6 @@
 {
-    "name": "base_app",
-    "short_name": "base_app",
+    "name": "Whispers",
+    "short_name": "Whispers",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

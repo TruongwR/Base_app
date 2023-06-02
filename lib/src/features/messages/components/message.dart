@@ -1,4 +1,4 @@
-import 'package:base_app/src/configs/palette.dart';
+import 'package:Whispers/src/configs/palette.dart';
 import 'package:flutter/material.dart';
 
 import '../../../data/model/ChatMessage.dart';
@@ -32,8 +32,7 @@ class Message extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(top: 16),
       child: Row(
-        mainAxisAlignment:
-            message.isSender ? MainAxisAlignment.end : MainAxisAlignment.start,
+        mainAxisAlignment: message.isSender ? MainAxisAlignment.end : MainAxisAlignment.start,
         children: [
           if (!message.isSender) ...[
             const CircleAvatar(

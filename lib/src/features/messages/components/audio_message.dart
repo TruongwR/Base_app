@@ -1,8 +1,7 @@
-import 'package:base_app/src/configs/palette.dart';
+import 'package:Whispers/src/configs/palette.dart';
 import 'package:flutter/material.dart';
 
 import '../../../data/model/ChatMessage.dart';
-
 
 class AudioMessage extends StatelessWidget {
   final ChatMessage? message;
@@ -28,8 +27,7 @@ class AudioMessage extends StatelessWidget {
           ),
           Expanded(
             child: Padding(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 16 / 2),
+              padding: const EdgeInsets.symmetric(horizontal: 16 / 2),
               child: Stack(
                 clipBehavior: Clip.none,
                 alignment: Alignment.center,
@@ -37,9 +35,7 @@ class AudioMessage extends StatelessWidget {
                   Container(
                     width: double.infinity,
                     height: 2,
-                    color: message!.isSender
-                        ? Colors.white
-                        : Palette.primary.withOpacity(0.4),
+                    color: message!.isSender ? Colors.white : Palette.primary.withOpacity(0.4),
                   ),
                   Positioned(
                     left: 0,
@@ -58,8 +54,7 @@ class AudioMessage extends StatelessWidget {
           ),
           Text(
             "0.37",
-            style: TextStyle(
-                fontSize: 12, color: message!.isSender ? Colors.white : null),
+            style: TextStyle(fontSize: 12, color: message!.isSender ? Colors.white : null),
           ),
         ],
       ),

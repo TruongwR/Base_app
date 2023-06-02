@@ -1,7 +1,6 @@
-import 'package:base_app/src/configs/palette.dart';
+import 'package:Whispers/src/configs/palette.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
 
 extension ColorExtension on TextStyle {
   TextStyle get primary => copyWith(color: Palette.primary);
@@ -37,4 +36,3 @@ class AppFont {
         fontWeight: FontWeight.w400,
       );
 }
-

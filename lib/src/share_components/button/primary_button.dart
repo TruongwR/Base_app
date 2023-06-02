@@ -1,7 +1,5 @@
-import 'package:base_app/src/configs/palette.dart';
+import 'package:Whispers/src/configs/palette.dart';
 import 'package:flutter/material.dart';
-
-
 
 class PrimaryButton extends StatelessWidget {
   const PrimaryButton({

@@ -1,11 +1,11 @@
-import 'package:base_app/src/configs/app_fonts.dart';
-import 'package:base_app/src/configs/box.dart';
+import 'package:Whispers/src/configs/app_fonts.dart';
+import 'package:Whispers/src/configs/box.dart';
 
-import 'package:base_app/src/di/injection.dart/injection.dart';
-import 'package:base_app/src/features/profile/components/profile_avatar.dart';
-import 'package:base_app/src/features/profile/components/profile_list_item.dart';
-import 'package:base_app/src/navigator/app_navigator.dart';
-import 'package:base_app/src/navigator/routers.dart';
+import 'package:Whispers/src/di/injection.dart/injection.dart';
+import 'package:Whispers/src/features/profile/components/profile_avatar.dart';
+import 'package:Whispers/src/features/profile/components/profile_list_item.dart';
+import 'package:Whispers/src/navigator/app_navigator.dart';
+import 'package:Whispers/src/navigator/routers.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 

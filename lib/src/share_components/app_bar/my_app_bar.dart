@@ -1,4 +1,4 @@
-import 'package:base_app/src/navigator/app_navigator.dart';
+import 'package:Whispers/src/navigator/app_navigator.dart';
 import 'package:flutter/material.dart';
 
 import '../../configs/Palette.dart';

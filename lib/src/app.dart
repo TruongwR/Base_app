@@ -1,6 +1,6 @@
-import 'package:base_app/src/configs/theme.dart';
-import 'package:base_app/src/navigator/app_navigator.dart';
-import 'package:base_app/src/navigator/routers.dart';
+import 'package:Whispers/src/configs/theme.dart';
+import 'package:Whispers/src/navigator/app_navigator.dart';
+import 'package:Whispers/src/navigator/routers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';

@@ -1,9 +1,11 @@
-import 'package:base_app/src/configs/box.dart';
-import 'package:base_app/src/cubit/active_account_cubit.dart';
-import 'package:base_app/src/cubit/active_account_state.dart';
-import 'package:base_app/src/share_components/app_bar/my_app_bar.dart';
-import 'package:base_app/src/share_components/share_componets.dart';
-import 'package:base_app/src/utils/until.dart';
+import 'package:Whispers/src/configs/box.dart';
+import 'package:Whispers/src/cubit/active_account_cubit.dart';
+import 'package:Whispers/src/cubit/active_account_state.dart';
+import 'package:Whispers/src/navigator/app_navigator.dart';
+import 'package:Whispers/src/navigator/routers.dart';
+import 'package:Whispers/src/share_components/app_bar/my_app_bar.dart';
+import 'package:Whispers/src/share_components/share_componets.dart';
+import 'package:Whispers/src/utils/until.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -23,14 +25,18 @@ class _ActiveAccountScreenState extends State<ActiveAccountScreen> {
   final activeAccount = getIt<ActiveAccountCubit>();
   @override
   void initState() {
-    //otpAuthenEmailController.dispose();
-    activeAccount.close();
     super.initState();
   }
 
   @override
+  void dispose() {
+    otpAuthenEmailController.dispose();
+    activeAccount.close();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    List<String> otpController = otpAuthenEmailController.text.split('/');
     return SafeArea(
       child: Scaffold(
         appBar: const MyAppBar(title: ''),
@@ -50,6 +56,7 @@ class _ActiveAccountScreenState extends State<ActiveAccountScreen> {
               ),
               BoxMain.h(20),
               MyTextField(
+                style: AppFont.t.s(16).grey68.w600,
                 controller: otpAuthenEmailController,
                 hintText: 'Nhập mã xác thực email',
                 hintStyle: AppFont.t.s(16).grey68,
@@ -75,14 +82,22 @@ class _ActiveAccountScreenState extends State<ActiveAccountScreen> {
                       loading: showLoading,
                       succes: () {
                         dismissLoading();
+                        AppNavigator.pushAndRemoveUntil(Routes.signInScreen);
                       },
                       failure: dismissLoadingShowError);
                 },
                 child: ButtonPrimary(
-                  text: "Tiếp Tục",
-                  textStyle: AppFont.t.s(24).w600.white,
-                  action: () => activeAccount.activeAccount(id: otpController[0], activationCode: otpController[1]),
-                ),
+                    text: "Tiếp Tục",
+                    textStyle: AppFont.t.s(24).w600.white,
+                    action: () {
+                      if (otpAuthenEmailController.text != '') {
+                        String stringWithSlash = otpAuthenEmailController.text;
+                        int slashIndex = stringWithSlash.indexOf("/");
+                        String firstString = stringWithSlash.substring(0, slashIndex);
+                        String secondString = stringWithSlash.substring(slashIndex + 1);
+                        activeAccount.activeAccount(id: firstString, activationCode: secondString);
+                      }
+                    }),
               )
             ],
           ),

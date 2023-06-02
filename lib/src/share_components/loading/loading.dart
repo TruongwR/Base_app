@@ -1,7 +1,6 @@
-import 'package:base_app/src/configs/Palette.dart';
+import 'package:Whispers/src/configs/Palette.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-
 
 class Loading extends StatelessWidget {
   const Loading({Key? key, this.size = 40}) : super(key: key);

@@ -1,5 +1,4 @@
-
-import 'package:base_app/src/data/model/use_model.dart';
+import 'package:Whispers/src/data/model/use_model.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 part 'login_cubit_state.freezed.dart';
 

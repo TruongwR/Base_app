@@ -1,8 +1,7 @@
-import 'package:base_app/src/network/handle_response.dart';
+import 'package:Whispers/src/network/handle_response.dart';
 import 'package:dio/dio.dart';
 import 'api_path.dart';
 import 'my_dio_logger.dart';
-
 
 class BaseDio {
   static final BaseOptions _options = BaseOptions(

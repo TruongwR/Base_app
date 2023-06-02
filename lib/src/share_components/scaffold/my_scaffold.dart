@@ -1,8 +1,15 @@
-import 'package:base_app/src/configs/palette.dart';
+import 'package:Whispers/src/configs/palette.dart';
 import 'package:flutter/material.dart';
 
 class MyScaffoldWidget extends StatelessWidget {
-  const MyScaffoldWidget({super.key, this.appBar, this.bodyApp, this.backgroundColor, this.bottomNavigatorWidget, this.drawer, this.resizeToAvoidBottomInset});
+  const MyScaffoldWidget(
+      {super.key,
+      this.appBar,
+      this.bodyApp,
+      this.backgroundColor,
+      this.bottomNavigatorWidget,
+      this.drawer,
+      this.resizeToAvoidBottomInset});
 
   final PreferredSizeWidget? appBar;
   final Widget? bodyApp;

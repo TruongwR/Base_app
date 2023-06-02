@@ -1,5 +1,5 @@
-import 'package:base_app/src/navigator/app_navigator.dart';
-import 'package:base_app/src/navigator/routers.dart';
+import 'package:Whispers/src/navigator/app_navigator.dart';
+import 'package:Whispers/src/navigator/routers.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 

@@ -1,4 +1,4 @@
-import 'package:base_app/src/configs/palette.dart';
+import 'package:Whispers/src/configs/palette.dart';
 import 'package:flutter/material.dart';
 
 import '../../../data/model/Chat.dart';

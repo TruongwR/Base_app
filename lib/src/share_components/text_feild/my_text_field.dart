@@ -1,4 +1,4 @@
-import 'package:base_app/src/configs/box.dart';
+import 'package:Whispers/src/configs/box.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -82,7 +82,8 @@ class MyTextField extends StatelessWidget {
       this.prefixIconConstraints,
       this.textAlign = TextAlign.start,
       this.textInputAction,
-      this.inputBorder = const OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(16)), borderSide: BorderSide(color: Palette.white))})
+      this.inputBorder = const OutlineInputBorder(
+          borderRadius: BorderRadius.all(Radius.circular(16)), borderSide: BorderSide(color: Palette.white))})
       : super(key: key);
 
   @override

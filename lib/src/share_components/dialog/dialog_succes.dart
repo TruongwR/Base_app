@@ -1,4 +1,4 @@
-import 'package:base_app/src/configs/app_fonts.dart';
+import 'package:Whispers/src/configs/app_fonts.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 

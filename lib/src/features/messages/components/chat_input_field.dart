@@ -1,9 +1,9 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:base_app/src/configs/box.dart';
-import 'package:base_app/src/configs/palette.dart';
-import 'package:base_app/src/utils/helpers/logger.dart';
+import 'package:Whispers/src/configs/box.dart';
+import 'package:Whispers/src/configs/palette.dart';
+import 'package:Whispers/src/utils/helpers/logger.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';

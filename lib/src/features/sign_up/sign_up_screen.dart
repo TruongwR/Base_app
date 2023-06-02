@@ -1,10 +1,10 @@
-import 'package:base_app/src/configs/app_fonts.dart';
-import 'package:base_app/src/configs/palette.dart';
-import 'package:base_app/src/cubit/signup_cubit.dart';
-import 'package:base_app/src/cubit/signup_state.dart';
-import 'package:base_app/src/di/injection.dart/injection.dart';
-import 'package:base_app/src/share_components/share_componets.dart';
-import 'package:base_app/src/utils/until.dart';
+import 'package:Whispers/src/configs/app_fonts.dart';
+import 'package:Whispers/src/configs/palette.dart';
+import 'package:Whispers/src/cubit/signup_cubit.dart';
+import 'package:Whispers/src/cubit/signup_state.dart';
+import 'package:Whispers/src/di/injection.dart/injection.dart';
+import 'package:Whispers/src/share_components/share_componets.dart';
+import 'package:Whispers/src/utils/until.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -79,6 +79,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       SizedBox(
                         width: width,
                         child: MyTextField(
+                          style: AppFont.t.s(16).grey68.w600,
                           title: "First Name",
                           titleStyle: AppFont.t.s(16).w600.white,
                           required: true,
@@ -100,6 +101,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       SizedBox(
                         width: width,
                         child: MyTextField(
+                          style: AppFont.t.s(16).grey68.w600,
                           required: true,
                           title: "Last Name",
                           titleStyle: AppFont.t.s(16).w600.white,
@@ -119,6 +121,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   ),
                   BoxMain.h(20),
                   MyTextField(
+                    style: AppFont.t.s(16).grey68.w600,
                     required: true,
                     title: "Email",
                     titleStyle: AppFont.t.s(16).w600.white,
@@ -138,6 +141,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   ),
                   BoxMain.h(20),
                   MyTextField(
+                    style: AppFont.t.s(16).grey68.w600,
                     required: true,
                     title: "Password",
                     titleStyle: AppFont.t.s(16).w600.white,
@@ -164,7 +168,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         loading: showLoading,
                         success: () {
                           dismissLoading();
-                          AppNavigator.pushAndRemoveUntil(Routes.signInScreen);
+                          AppNavigator.pushAndRemoveUntil(Routes.activeAccountScreen);
                         },
                         failure: dismissLoadingShowError,
                       );
@@ -193,7 +197,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   style: AppFont.t.s(16).w500.white,
                 ),
                 TextButton(
-                    onPressed: () => AppNavigator.push(Routes.activeAccountScreen), //signInScreen
+                    onPressed: () => AppNavigator.push(Routes.signInScreen), //signInScreen
                     child: Text(
                       'Login',
                       style: AppFont.t.s(18).w500.success,

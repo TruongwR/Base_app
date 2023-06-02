@@ -48,6 +48,29 @@ class _AuthenticationApi implements AuthenticationApi {
   }
 
   @override
+  Future<FotgetPasswordModel> fotgetPassword(String email) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = {'email': email};
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<FotgetPasswordModel>(Options(
+      method: 'POST',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              '/account/extract',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = FotgetPasswordModel.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
   Future<ResponeSignupModel> singup(
     String fistName,
     String lastName,

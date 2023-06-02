@@ -1,14 +1,14 @@
-import 'package:base_app/src/configs/app_fonts.dart';
-import 'package:base_app/src/configs/box.dart';
-import 'package:base_app/src/configs/palette.dart';
-import 'package:base_app/src/cubit/edit_profile_cubit.dart';
-import 'package:base_app/src/cubit/edit_profile_state.dart';
-import 'package:base_app/src/features/profile/components/profile_avatar.dart';
-import 'package:base_app/src/navigator/app_navigator.dart';
-import 'package:base_app/src/navigator/routers.dart';
-import 'package:base_app/src/share_components/app_bar/my_app_bar.dart';
-import 'package:base_app/src/share_components/share_componets.dart';
-import 'package:base_app/src/utils/until.dart';
+import 'package:Whispers/src/configs/app_fonts.dart';
+import 'package:Whispers/src/configs/box.dart';
+import 'package:Whispers/src/configs/palette.dart';
+import 'package:Whispers/src/cubit/edit_profile_cubit.dart';
+import 'package:Whispers/src/cubit/edit_profile_state.dart';
+import 'package:Whispers/src/features/profile/components/profile_avatar.dart';
+import 'package:Whispers/src/navigator/app_navigator.dart';
+import 'package:Whispers/src/navigator/routers.dart';
+import 'package:Whispers/src/share_components/app_bar/my_app_bar.dart';
+import 'package:Whispers/src/share_components/share_componets.dart';
+import 'package:Whispers/src/utils/until.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -66,6 +66,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                       SizedBox(
                         width: width,
                         child: MyTextField(
+                          style: AppFont.t.s(16).grey68.w600,
                           title: "First Name",
                           titleStyle: AppFont.t.s(16).w600,
                           required: true,
@@ -90,6 +91,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                       SizedBox(
                         width: width,
                         child: MyTextField(
+                          style: AppFont.t.black.s(16),
                           required: true,
                           title: "Last Name",
                           titleStyle: AppFont.t.s(16).w600,
@@ -112,6 +114,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   ),
                   BoxMain.h(20),
                   MyTextField(
+                    style: AppFont.t.black.s(16),
                     required: true,
                     title: "PasswordOld",
                     titleStyle: AppFont.t.s(16).w600,
@@ -134,6 +137,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   ),
                   BoxMain.h(20),
                   MyTextField(
+                    style: AppFont.t.s(16).grey68.w600,
                     required: true,
                     title: "Password",
                     titleStyle: AppFont.t.s(16).w600,

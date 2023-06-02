@@ -1,7 +1,8 @@
-import 'package:base_app/src/features/active_account/active_account_screen.dart';
-import 'package:base_app/src/features/edit_profile/edit_profile_screen.dart';
-import 'package:base_app/src/features/sign_in/sign_in_screen.dart';
-import 'package:base_app/src/navigator/routers.dart';
+import 'package:Whispers/src/features/active_account/active_account_screen.dart';
+import 'package:Whispers/src/features/edit_profile/edit_profile_screen.dart';
+import 'package:Whispers/src/features/fotget_password/fotget_password.dart';
+import 'package:Whispers/src/features/sign_in/sign_in_screen.dart';
+import 'package:Whispers/src/navigator/routers.dart';
 import 'package:flutter/material.dart';
 
 import '../features/home/home_screen.dart';
@@ -26,10 +27,10 @@ class AppNavigator {
           settings,
           const SignInScreen(),
         );
-      case Routes.profileScreen:
+      case Routes.fotgetPassword:
         return _buildRoute(
           settings,
-          const ProfileScreen(),
+          const FotgetPasswordScreen(),
         );
       case Routes.signUpScreen:
         return _buildRoute(
@@ -45,6 +46,11 @@ class AppNavigator {
         return _buildRoute(
           settings,
           const HomeScreen(),
+        );
+      case Routes.profileScreen:
+        return _buildRoute(
+          settings,
+          const ProfileScreen(),
         );
       case Routes.editProfileScreen:
         return _buildRoute(
