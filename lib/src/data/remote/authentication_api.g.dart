@@ -38,7 +38,7 @@ class _AuthenticationApi implements AuthenticationApi {
     )
             .compose(
               _dio.options,
-              '/auth/login',
+              ':9999/auth/login',
               queryParameters: queryParameters,
               data: _data,
             )
@@ -61,7 +61,7 @@ class _AuthenticationApi implements AuthenticationApi {
     )
             .compose(
               _dio.options,
-              '/account/extract',
+              ':9999/account/extract',
               queryParameters: queryParameters,
               data: _data,
             )
@@ -94,7 +94,7 @@ class _AuthenticationApi implements AuthenticationApi {
     )
             .compose(
               _dio.options,
-              '/account',
+              ':9999/account',
               queryParameters: queryParameters,
               data: _data,
             )
@@ -123,7 +123,7 @@ class _AuthenticationApi implements AuthenticationApi {
     )
             .compose(
               _dio.options,
-              '/account/active',
+              ':9999/account/active',
               queryParameters: queryParameters,
               data: _data,
             )
@@ -158,7 +158,7 @@ class _AuthenticationApi implements AuthenticationApi {
     )
             .compose(
               _dio.options,
-              '/account',
+              ':9999/account',
               queryParameters: queryParameters,
               data: _data,
             )

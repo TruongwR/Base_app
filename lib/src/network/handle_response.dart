@@ -1,10 +1,21 @@
+import 'package:Whispers/src/data/model/api_response/api_response.dart';
+import 'package:Whispers/src/data/repositories/repository/device_verification_repository.dart';
+import 'package:Whispers/src/navigator/app_navigator.dart';
+import 'package:Whispers/src/navigator/routers.dart';
+import 'package:Whispers/src/network/api_path.dart';
 import 'package:dio/dio.dart';
-
+import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
 
 import '../di/injection.dart/injection.dart';
 import '../utils/helpers/logger.dart';
 
 class ResponseInterceptor extends Interceptor {
+  late final DeviceVerificationRepository deviceVerificationRepository =
+      getIt<DeviceVerificationRepository>();
+
+  late final tokenCtrl = TextEditingController();
+
   @override
   void onError(DioError err, ErrorInterceptorHandler handler) async {
     super.onError(err, handler);
@@ -43,14 +54,14 @@ class ResponseInterceptor extends Interceptor {
       // showError("Phiên đăng nhập hết hạn, vui lòng đăng nhập lại");
       // appData.clear();
       // AppNavigator.pushAndRemoveUntil(Routes.signInScreen);
-
     } else {
       handler.resolve(response);
     }
   }
 
   @override
-  void onRequest(RequestOptions options, RequestInterceptorHandler handler) async {
+  void onRequest(
+      RequestOptions options, RequestInterceptorHandler handler) async {
     Logger.d('ACCESS TOKEN', appData.accessToken);
     if (appData.accessToken.isNotEmpty) {
       //   var expiration = await TokenRepository().getAccessTokenRemainingTime();
@@ -69,9 +80,88 @@ class ResponseInterceptor extends Interceptor {
       //     }).whenComplete(() => dio.interceptors.requestLock.unlock());
       //   }
       //
-      options.headers['Authorization'] = 'Bearer ${appData.accessToken}';
-    }
 
+      options.headers['Authorization'] = 'Bearer ${appData.accessToken}';
+      if (options.path != ApiPath.checkToken &&
+          options.path != ApiPath.refestToken &&
+          options.path != ApiPath.activeDevice) {
+        await checkToken();
+      }
+    }
     return handler.next(options);
+  }
+
+  Future<void> checkToken() async {
+    final ApiResponse<List<String>> response =
+        await deviceVerificationRepository.checkToken();
+
+    if (response.errorCode == 401) {
+      showDialog(
+        barrierDismissible: false,
+        context: AppNavigator.context!,
+        builder: (context) => WillPopScope(
+          onWillPop: () async => false,
+          child: AlertDialog(
+            title: const Text('Device Activation'),
+            content: SizedBox(
+              height: 150,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  const Text('A new token has been sent to your email'),
+                  const SizedBox(
+                    height: 12,
+                  ),
+                  TextField(
+                    controller: tokenCtrl,
+                    decoration:
+                        const InputDecoration(hintText: 'Enter new token'),
+                  )
+                ],
+              ),
+            ),
+            actions: [
+              TextButton(
+                child: const Text('Cancel'),
+                onPressed: () async {
+                  var userInfor = await Hive.openBox('tbl_user');
+                  appData.clear();
+                  userInfor.deleteAll(["email", "passWord"]);
+                  AppNavigator.pushAndRemoveUntil(Routes.signInScreen);
+                },
+              ),
+              TextButton(
+                onPressed: _activeDevice,
+                child: const Text('Confirm'),
+              ),
+            ],
+          ),
+        ),
+      );
+      await deviceVerificationRepository.refreshToken();
+    }
+  }
+
+  void _activeDevice() async {
+    var tokenList = tokenCtrl.text.split('/');
+    if (tokenList.length == 2) {
+      String id = tokenList[0];
+      String activationCode = tokenList[1];
+      final response = await deviceVerificationRepository.activeDevice(
+          id: id, activationCode: activationCode);
+      bool status = response.success ?? false;
+      if (status) {
+        AppNavigator.pop();
+      } else {
+        _showErrorSnackBar();
+      }
+    } else {
+      _showErrorSnackBar();
+    }
+  }
+
+  void _showErrorSnackBar() {
+    ScaffoldMessenger.of(AppNavigator.context!)
+        .showSnackBar(const SnackBar(content: Text('Token is not valid')));
   }
 }
