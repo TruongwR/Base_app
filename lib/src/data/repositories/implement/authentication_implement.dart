@@ -1,5 +1,7 @@
 import 'package:Whispers/src/data/model/active_account_model.dart';
 import 'package:Whispers/src/data/model/fotget_password_model.dart';
+import 'package:Whispers/src/data/model/get_list_chanel_model.dart';
+
 import 'package:Whispers/src/data/model/respone_update_profile_model.dart';
 import 'package:Whispers/src/network/base_dio.dart';
 
@@ -34,5 +36,10 @@ class AuthenRepoImpl implements AuthenticationRepository {
   Future<UpdateProfileModel> updateProfile(
       String firstName, String lastName, String passwordOld, String password, String avatarFileId) {
     return authenticationApi.updateProfile(firstName, lastName, passwordOld, password, avatarFileId);
+  }
+
+  @override
+  Future<GetListChanelModel> getListChanel(int page, int size, String? name, String? type, String status) {
+    return authenticationApi.getListChanel(page,size,name,type,status);
   }
 }

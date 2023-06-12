@@ -15,7 +15,12 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   int _selectedIndex = 0;
-  List<Widget> listBody = [const Body(), const PeopleScreen(), const CallScreen(), const ProfileScreen()];
+  List<Widget> listBody = [
+    const Body(),
+    const PeopleScreen(),
+    const CallScreen(),
+    const ProfileScreen(),
+  ];
   @override
   Widget build(BuildContext context) {
     return SafeArea(

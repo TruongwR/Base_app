@@ -176,13 +176,14 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                       text: 'Lưu',
                       textStyle: AppFont.t.s(24).w600.white,
                       action: () {
-                        _formKey.currentState!.validate() ? true : false;
-                        editProfileCubit.updateProfile(
-                            firstName: firstNameController.text,
-                            lastName: lastNameController.text,
-                            passwordOld: passWordController.text,
-                            password: passWordController.text,
-                            avatarFileId: '');
+                        _formKey.currentState!.validate() == true
+                            ? editProfileCubit.updateProfile(
+                                firstName: firstNameController.text,
+                                lastName: lastNameController.text,
+                                passwordOld: passWordOldController.text,
+                                password: passWordController.text,
+                                avatarFileId: '')
+                            : null;
                       },
                     ),
                   ),
