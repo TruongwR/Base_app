@@ -1,3 +1,5 @@
+// ignore_for_file: constant_identifier_names
+
 enum StatusChanel {
   sttnew,
   sttcanceled,
@@ -26,3 +28,12 @@ extension StatusChanelExtension on StatusChanel {
     }
   }
 }
+enum TimeUnit {
+  Minute,
+  Hour,
+  Day,
+  Week,
+  Month,
+  Year,
+}
+

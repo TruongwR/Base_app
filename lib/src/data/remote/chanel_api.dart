@@ -18,4 +18,12 @@ abstract class ChanelApi {
     @Query('type') String? type,
     @Query('status') String status,
   );
+  // @GET(ApiPath.getListChanel)
+  // Future<ApiResponse<ListChanelParrentModel>> getListChanel(
+  //   @Query('page') int page,
+  //   @Query('size') int size,
+  //   @Query('name') String? name,
+  //   @Query('type') String? type,
+  //   @Query('status') String status,
+  // );
 }

@@ -11,4 +11,10 @@ class ChanelImplement implements ChanelRepository {
   Future<ApiResponse<ListChanelParrentModel>> getListChanel({required int page, required int size, String? name, String? type, required String status}) {
     return chanelApi.getListChanel(page, size, name, type, status);
   }
+
+  @override
+  Future<ApiResponse<ListChanelParrentModel>> getMessage({required int page, required int size, String? content}) {
+    // TODO: implement getMessage
+    throw UnimplementedError();
+  }
 }

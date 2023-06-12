@@ -43,7 +43,7 @@ class _CallScreenState extends State<CallScreen> {
                   press: () => Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => const MessagesScreen(),
+                      builder: (context) =>  const MessagesScreen(idMessage: ''),
                     ),
                   ),
                 ),

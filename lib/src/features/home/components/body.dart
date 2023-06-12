@@ -6,12 +6,13 @@ import 'package:Whispers/src/di/injection.dart/injection.dart';
 import 'package:Whispers/src/share_components/loading/loading.dart';
 import 'package:Whispers/src/share_components/share_componets.dart';
 import 'package:Whispers/src/utils/enum/enum_status.dart';
+import 'package:Whispers/src/utils/helpers/logger.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../data/model/Chat.dart';
+import '../../../navigator/app_navigator.dart';
+import '../../../navigator/routers.dart';
 import '../../../share_components/button/filled_outline_button.dart';
-import '../../messages/message_screen.dart';
 import 'chat_card.dart';
 
 class Body extends StatefulWidget {
@@ -26,12 +27,13 @@ class _BodyState extends State<Body> {
   int _page = 1;
   final int _size = 10;
   int _totalPage = 1;
-  final List<Chanel> _listChanel = [];
+  List<Chanel> _listChanel = [];
   late ScrollController _sc;
 
   @override
   void initState() {
     _initData();
+
     _sc = ScrollController()
       ..addListener(() {
         if (_sc.position.pixels == _sc.position.maxScrollExtent && _page < _totalPage - 1) {
@@ -46,7 +48,10 @@ class _BodyState extends State<Body> {
     _page++;
   }
 
-  void _initData() {
+  void _initData() async {
+    _page = 1;
+    _totalPage = 1;
+    _listChanel = [];
     _chanelListAllCubit.getlistChanel(page: _page, size: _size, status: StatusChanel.sttaccepted.getString());
   }
 
@@ -70,6 +75,7 @@ class _BodyState extends State<Body> {
           ),
         ),
         BlocListener<ChanelListAllCubit, ChanelListAllState>(
+          bloc: _chanelListAllCubit,
           listener: (context, state) {
             state.maybeMap(
               orElse: () => const Empty(),
@@ -77,22 +83,20 @@ class _BodyState extends State<Body> {
               success: (value) {
                 _totalPage = value.listChanel?.totalPages ?? 1;
                 _listChanel.addAll(value.listChanel?.content as Iterable<Chanel>);
+                setState(() {});
+                Logger.d("lenght", value.listChanel?.content?.length);
               },
               failure: (value) => const Empty(),
             );
           },
           child: Expanded(
             child: ListView.builder(
+              controller: _sc,
               itemCount: _listChanel.length,
               itemBuilder: (context, index) => ChatCard(
                 isStatus: true,
-                chat: chatsData[index],
-                press: () => Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const MessagesScreen(),
-                  ),
-                ),
+                chanel: _listChanel[index],
+                press: () => AppNavigator.push(Routes.messagesScreen, arguments: _listChanel[index].id ?? ""),
               ),
             ),
           ),

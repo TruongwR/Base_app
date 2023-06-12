@@ -4,9 +4,14 @@ import 'package:flutter/material.dart';
 import '../../configs/box.dart';
 import 'components/body.dart';
 
-class MessagesScreen extends StatelessWidget {
-  const MessagesScreen({Key? key}) : super(key: key);
+class MessagesScreen extends StatefulWidget {
+  const MessagesScreen({required this.idMessage,Key? key}) : super(key: key);
+  final String idMessage;
+  @override
+  State<MessagesScreen> createState() => _MessagesScreenState();
+}
 
+class _MessagesScreenState extends State<MessagesScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

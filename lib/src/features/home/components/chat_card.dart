@@ -1,12 +1,11 @@
 import 'package:Whispers/src/configs/palette.dart';
+import 'package:Whispers/src/data/model/list_chanel_parrent_model.dart';
 import 'package:flutter/material.dart';
 
-import '../../../data/model/Chat.dart';
-
 class ChatCard extends StatelessWidget {
-  const ChatCard({Key? key, required this.chat, required this.press, required this.isStatus}) : super(key: key);
+  const ChatCard({Key? key, required this.chanel, required this.press, required this.isStatus}) : super(key: key);
 
-  final Chat chat;
+  final Chanel chanel;
   final VoidCallback press;
   final bool isStatus;
 
@@ -22,22 +21,22 @@ class ChatCard extends StatelessWidget {
               children: [
                 CircleAvatar(
                   radius: 24,
-                  backgroundImage: AssetImage(chat.image),
+                  backgroundImage: AssetImage(chanel.avatarFileId ?? "assets/images/user.png"),
                 ),
-                if (chat.isActive)
-                  Positioned(
-                    right: 0,
-                    bottom: 0,
-                    child: Container(
-                      height: 16,
-                      width: 16,
-                      decoration: BoxDecoration(
-                        color: Palette.primary,
-                        shape: BoxShape.circle,
-                        border: Border.all(color: Theme.of(context).scaffoldBackgroundColor, width: 3),
-                      ),
+                // if (chat.isActive)
+                Positioned(
+                  right: 0,
+                  bottom: 0,
+                  child: Container(
+                    height: 16,
+                    width: 16,
+                    decoration: BoxDecoration(
+                      color: Palette.primary,
+                      shape: BoxShape.circle,
+                      border: Border.all(color: Theme.of(context).scaffoldBackgroundColor, width: 3),
                     ),
-                  )
+                  ),
+                )
               ],
             ),
             Expanded(
@@ -47,14 +46,14 @@ class ChatCard extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      chat.name,
+                      chanel.lastMessage?.content ?? '',
                       style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
                     ),
                     const SizedBox(height: 8),
                     Opacity(
                       opacity: 0.64,
                       child: Text(
-                        isStatus ? chat.lastMessage : 'Whispers',
+                        chanel.lastMessage?.isStatus ?? false ? chanel.lastMessage?.content ?? '' : 'Whispers',
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                       ),
@@ -65,11 +64,37 @@ class ChatCard extends StatelessWidget {
             ),
             Opacity(
               opacity: 0.64,
-              child: Text(isStatus ? chat.time : ''),
+              child: Text(calculateTimeDifference(DateTime.fromMillisecondsSinceEpoch(chanel.lastMessage?.createdDate ?? 0).toLocal(), DateTime.now().toLocal())),
             ),
           ],
         ),
       ),
     );
+  }
+
+  String calculateTimeDifference(DateTime startTime, DateTime endTime) {
+    final difference = endTime.difference(startTime);
+
+    if (difference.inMinutes < 60) {
+      return '${difference.inMinutes} phút';
+    } else if (difference.inHours < 24) {
+      final hours = difference.inHours;
+      final minutes = difference.inMinutes.remainder(60);
+      return '$hours giờ $minutes phút';
+    } else if (difference.inDays < 7) {
+      return '${difference.inDays} ngày';
+    } else if (difference.inDays < 30) {
+      final weeks = (difference.inDays / 7).floor();
+      final days = difference.inDays.remainder(7);
+      return '$weeks tuần $days ngày';
+    } else if (difference.inDays < 365) {
+      final months = (difference.inDays / 30).floor();
+      final weeks = (difference.inDays.remainder(30) / 7).floor();
+      return '$months tháng $weeks tuần';
+    } else {
+      final years = (difference.inDays / 365).floor();
+      final months = (difference.inDays.remainder(365) / 30).floor();
+      return '$years năm $months tháng';
+    }
   }
 }
