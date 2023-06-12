@@ -2,7 +2,6 @@ import 'package:Whispers/src/configs/Palette.dart';
 import 'package:Whispers/src/data/model/Chat.dart';
 import 'package:Whispers/src/features/home/components/chat_card.dart';
 import 'package:Whispers/src/features/messages/message_screen.dart';
-import 'package:Whispers/src/share_components/app_bar/my_app_bar.dart';
 import 'package:flutter/material.dart';
 
 class PeopleScreen extends StatefulWidget {

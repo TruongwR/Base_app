@@ -1,7 +1,9 @@
 import 'package:Whispers/src/cubit/active_account_cubit.dart';
+import 'package:Whispers/src/cubit/chanel_list_all_cubit.dart';
 import 'package:Whispers/src/cubit/edit_profile_cubit.dart';
 import 'package:Whispers/src/cubit/fotget_password_cubit.dart';
 import 'package:Whispers/src/cubit/login_cubit_cubit.dart';
+import 'package:Whispers/src/data/remote/chanel_api.dart';
 import 'package:Whispers/src/data/repositories/repository/authentication_repository.dart';
 import 'package:Whispers/src/di/injection.dart/injection.dart';
 import '../../cubit/signup_cubit.dart';
@@ -24,5 +26,6 @@ class CubitModule extends DIModule {
     getIt.registerFactory(
       () => EditProfileCubit(authen: getIt<AuthenticationRepository>()),
     );
+    getIt.registerFactory(() => ChanelListAllCubit(chanelApi: getIt<ChanelApi>()));
   }
 }

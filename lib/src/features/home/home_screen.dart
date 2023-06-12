@@ -1,6 +1,7 @@
 import 'package:Whispers/src/configs/palette.dart';
 import 'package:Whispers/src/features/calls/call_screen.dart';
 import 'package:Whispers/src/features/people/people_screen.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../profile/profile_screen.dart';
 
@@ -47,9 +48,9 @@ class _HomeScreenState extends State<HomeScreen> {
         });
       },
       items: const [
-        BottomNavigationBarItem(icon: Icon(Icons.messenger), label: "Chats"),
-        BottomNavigationBarItem(icon: Icon(Icons.people), label: "People"),
-        BottomNavigationBarItem(icon: Icon(Icons.call), label: "Calls"),
+        BottomNavigationBarItem(icon: Icon(CupertinoIcons.chat_bubble_2), label: "Chats"),
+        BottomNavigationBarItem(icon: Icon(CupertinoIcons.person_2_fill), label: "People"),
+        BottomNavigationBarItem(icon: Icon(CupertinoIcons.phone_circle), label: "Calls"),
         BottomNavigationBarItem(
           icon: CircleAvatar(
             radius: 14,

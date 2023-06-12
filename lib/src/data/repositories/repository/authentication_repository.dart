@@ -1,4 +1,3 @@
-import 'package:Whispers/src/cubit/fotget_password_cubit.dart';
 import 'package:Whispers/src/data/model/active_account_model.dart';
 import 'package:Whispers/src/data/model/respone_update_profile_model.dart';
 
