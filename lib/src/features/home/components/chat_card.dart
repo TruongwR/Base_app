@@ -1,7 +1,6 @@
 
 import 'package:Whispers/src/configs/palette.dart';
-import 'package:Whispers/src/cubit/get_list_chanel_cubit.dart';
-import 'package:Whispers/src/cubit/get_list_chanel_state.dart';
+
 import 'package:Whispers/src/data/model/get_list_chanel_model.dart';
 import 'package:Whispers/src/di/injection.dart/injection.dart';
 import 'package:Whispers/src/share_components/empty/empty.dart';
@@ -25,40 +24,29 @@ class ChatCard extends StatefulWidget {
 class _ChatCardState extends State<ChatCard> {
   final int _page = 1;
   final int _size = 10;
-  final getChanelListCubit = getIt<GetListChanelCubit>();
+
   List<Chanel> listChanel = [];
 
   @override
   void initState() {
-    getChanelListCubit.getListChanel(page: _page, size: _size, status: 1);
+
     super.initState();
   }
 
   @override
   void dispose() {
-    getChanelListCubit.close();
+
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<GetListChanelCubit, GetListChanelState>(
-      bloc: getChanelListCubit,
-      listener: (context, state) {
-        state.maybeMap(
-          orElse: () => const Empty(),
-          loading: (value) => const Loading(),
-          succes: (value) {
-
-          },
-          failure: (value) => const Empty(),
-        );
-      },
-      child: Scaffold(
+    return
+      Scaffold(
         body: Column(
           children: [...listChanel.map((e) => lisData(chanel: e))],
         ),
-      ),
+
     );
   }
 
