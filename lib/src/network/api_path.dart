@@ -17,10 +17,10 @@ class ApiPath {
   static const String upLoadFile = "$port99/file";
   static const String deleteFile = "$port99/file/delete";
   static const String downLoad = "$port99/file/";
-  static const String getListChanel = "$port98/channel/";
+  static const String getListChanel = "$port98/channel";
   static const String createChanel = "$port98/channel/";
   static const String updateChanel = "$port98/channel/";
-  static const String deletaChanel = "$port98/channel/";
+  static const String deleteChanel = "$port98/channel/";
   static const String getListMesageChanel = "$port98/channel/";
   static const String getListmenberChanel = "$port98/channel/member/";
   static const String addMemberChanel = "$port98/channel/member/";

@@ -1,8 +1,8 @@
 import 'package:Whispers/src/configs/Palette.dart';
 import 'package:Whispers/src/data/model/Chat.dart';
 import 'package:Whispers/src/features/home/components/chat_card.dart';
-import 'package:Whispers/src/features/messages/message_screen.dart';
-import 'package:Whispers/src/share_components/app_bar/my_app_bar.dart';
+import 'package:Whispers/src/navigator/app_navigator.dart';
+import 'package:Whispers/src/navigator/routers.dart';
 import 'package:flutter/material.dart';
 
 class PeopleScreen extends StatefulWidget {
@@ -32,12 +32,9 @@ class _PeopleScreenState extends State<PeopleScreen> {
             itemCount: chatsData.length,
             itemBuilder: (context, index) => ChatCard(
                   isStatus: false,
-                  chat: chatsData[index],
-                  press: () => Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const MessagesScreen(),
-                    ),
+                  chanel: chatsData[index],
+                  press: () => AppNavigator.push(
+                    Routes.messagesScreen,
                   ),
                 )),
       ),

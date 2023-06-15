@@ -6,6 +6,7 @@ import 'package:Whispers/src/navigator/routers.dart';
 import 'package:flutter/material.dart';
 
 import '../features/home/home_screen.dart';
+import '../features/messages/message_screen.dart';
 import '../features/profile/profile_screen.dart';
 import '../features/sign_up/sign_up_screen.dart';
 
@@ -56,6 +57,13 @@ class AppNavigator {
         return _buildRoute(
           settings,
           const EditProfileScreen(),
+        );
+             case Routes.messagesScreen:
+              final idMessage = settings.arguments as String;
+        return _buildRoute(
+
+          settings,
+           MessagesScreen(idMessage: idMessage),
         );
       default:
         return null;

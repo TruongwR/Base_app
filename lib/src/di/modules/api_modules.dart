@@ -1,3 +1,4 @@
+import 'package:Whispers/src/data/remote/chanel_api.dart';
 import 'package:Whispers/src/data/remote/device_verification_api.dart';
 
 import '../../data/remote/authentication_api.dart';
@@ -10,5 +11,6 @@ class ApiModule extends DIModule {
     getIt.registerSingleton(BaseDio.instance.dio);
     getIt.registerSingleton(AuthenticationApi(BaseDio.instance.dio));
     getIt.registerSingleton(DeviceVerificationApi(BaseDio.instance.dio));
+    getIt.registerSingleton(ChanelApi(BaseDio.instance.dio));
   }
 }

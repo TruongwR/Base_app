@@ -194,7 +194,7 @@ class _AuthenticationApi implements AuthenticationApi {
     )
             .compose(
               _dio.options,
-              ':9998/channel/',
+              ':9998/channel',
               queryParameters: queryParameters,
               data: _data,
             )

@@ -1,6 +1,4 @@
 import 'package:Whispers/src/data/repositories/repository/authentication_repository.dart';
-import 'package:Whispers/src/navigator/app_navigator.dart';
-import 'package:Whispers/src/navigator/routers.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'active_account_state.dart';
