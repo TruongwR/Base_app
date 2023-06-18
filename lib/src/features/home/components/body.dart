@@ -12,7 +12,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../navigator/app_navigator.dart';
 import '../../../navigator/routers.dart';
-import '../../../share_components/button/filled_outline_button.dart';
+import '../../../share_components/drawer/nav_drawer.dart';
+import '../../../share_components/shimmer/shimer_widget.dart';
 import 'chat_card.dart';
 
 class Body extends StatefulWidget {
@@ -57,49 +58,71 @@ class _BodyState extends State<Body> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Container(
-          padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
-          color: Palette.primary,
-          child: Row(
-            children: [
-              FillOutlineButton(press: () {}, text: "Recent Message"),
-              const SizedBox(width: 16),
-              FillOutlineButton(
-                press: () {},
-                text: "Active",
-                isFilled: false,
-              ),
-            ],
-          ),
-        ),
-        BlocListener<ChanelListAllCubit, ChanelListAllState>(
-          bloc: _chanelListAllCubit,
-          listener: (context, state) {
-            state.maybeMap(
-              orElse: () => const Empty(),
-              loading: (value) => const Loading(),
-              success: (value) {
-                _totalPage = value.listChanel?.totalPages ?? 1;
-                _listChanel.addAll(value.listChanel?.content as Iterable<Chanel>);
-                setState(() {});
-                Logger.d("lenght", value.listChanel?.content?.length);
-              },
-              failure: (value) => const Empty(),
-            );
-          },
-          child: Expanded(
-            child: ListView.builder(
-              controller: _sc,
-              itemCount: _listChanel.length,
-              itemBuilder: (context, index) => ChatCard(
-                isStatus: true,
-                chanel: _listChanel[index],
-                press: () => AppNavigator.push(Routes.messagesScreen, arguments: _listChanel[index].id ?? ""),
+    return Scaffold(
+      appBar: buildAppBar(),
+      drawer: const DrawerWidget(),
+      endDrawer: const DrawerWidget(),
+      body: Column(
+        children: [
+          // Container(
+          //   padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
+          //   color: Palette.primary,
+          //   child: Row(
+          //     children: [
+          //       FillOutlineButton(press: () {}, text: "Recent Message"),
+          //       const SizedBox(width: 16),
+          //       FillOutlineButton(
+          //         press: () {},
+          //         text: "Active",
+          //         isFilled: false,
+          //       ),
+          //     ],
+          //   ),
+          // ),
+          BlocListener<ChanelListAllCubit, ChanelListAllState>(
+            bloc: _chanelListAllCubit,
+            listener: (context, state) {
+              state.maybeMap(
+                orElse: () => const Empty(),
+                loading: (value) => const Loading(),
+                success: (value) {
+                  _totalPage = value.listChanel?.totalPages ?? 1;
+                  _listChanel.addAll(value.listChanel?.content as Iterable<Chanel>);
+                  setState(() {});
+                  Logger.d("lenght", value.listChanel?.content?.length);
+                },
+                failure: (value) => const Empty(),
+              );
+            },
+            child: Shimmer(
+              linearGradient: linearGradientMain,
+              child: Expanded(
+                child: ListView.builder(
+                  controller: _sc,
+                  itemCount: _listChanel.length,
+                  itemBuilder: (context, index) => ChatCard(
+                    isStatus: true,
+                    chanel: _listChanel[index],
+                    press: () => AppNavigator.push(Routes.messagesScreen, arguments: _listChanel[index].id ?? ""),
+                  ),
+                ),
               ),
             ),
           ),
+        ],
+      ),
+    );
+  }
+
+  AppBar buildAppBar() {
+    return AppBar(
+      backgroundColor: Palette.primary,
+      automaticallyImplyLeading: false,
+      title: const Text("Chats"),
+      actions: [
+        IconButton(
+          icon: const Icon(Icons.search),
+          onPressed: () {},
         ),
       ],
     );

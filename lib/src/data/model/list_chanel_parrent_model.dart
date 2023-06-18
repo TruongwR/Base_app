@@ -85,7 +85,7 @@ class LastMessage {
   String? content;
   dynamic files;
   String? isDeleted;
-  bool? isStatus;
+  String? isWatched;
 
   LastMessage({
     this.id,
@@ -96,7 +96,7 @@ class LastMessage {
     this.content,
     this.files,
     this.isDeleted,
-    this.isStatus
+    this.isWatched
   });
 
   factory LastMessage.fromJson(Map<String, dynamic> json) => LastMessage(
@@ -108,7 +108,7 @@ class LastMessage {
         content: json["content"],
         files: json["files"],
         isDeleted: json["isDeleted"],
-        isStatus: json["isStatus"]
+        isWatched: json["isWatched"]
       );
 
   Map<String, dynamic> toJson() => {
@@ -120,7 +120,7 @@ class LastMessage {
         "content": content,
         "files": files,
         "isDeleted": isDeleted,
-        "isStatus":isStatus
+        "isWatched":isWatched
       };
 }
 

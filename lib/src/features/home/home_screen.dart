@@ -15,13 +15,17 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  @override
+  void initState() {
+    super.initState();
+  }
+
   int _selectedIndex = 0;
   List<Widget> listBody = [const Body(), const PeopleScreen(), const CallScreen(), const ProfileScreen()];
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        appBar: _selectedIndex == 0 ? buildAppBar() : null,
         body: listBody.elementAt(_selectedIndex),
         floatingActionButton: _selectedIndex == 0
             ? FloatingActionButton(
@@ -62,17 +66,5 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  AppBar buildAppBar() {
-    return AppBar(
-      backgroundColor: Palette.primary,
-      automaticallyImplyLeading: false,
-      title: const Text("Chats"),
-      actions: [
-        IconButton(
-          icon: const Icon(Icons.search),
-          onPressed: () {},
-        ),
-      ],
-    );
-  }
+
 }

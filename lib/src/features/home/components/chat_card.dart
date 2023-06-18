@@ -1,3 +1,4 @@
+import 'package:Whispers/src/configs/app_fonts.dart';
 import 'package:Whispers/src/configs/palette.dart';
 import 'package:Whispers/src/data/model/list_chanel_parrent_model.dart';
 import 'package:flutter/material.dart';
@@ -46,16 +47,17 @@ class ChatCard extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      chanel.lastMessage?.content ?? '',
+                      chanel.name ?? '',
                       style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
                     ),
                     const SizedBox(height: 8),
                     Opacity(
                       opacity: 0.64,
                       child: Text(
-                        chanel.lastMessage?.isStatus ?? false ? chanel.lastMessage?.content ?? '' : 'Whispers',
+                        chanel.lastMessage?.content ?? '',
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
+                        style: chanel.lastMessage?.isWatched == "NO" ? AppFont.t.s(16).w600 : AppFont.t,
                       ),
                     ),
                   ],
