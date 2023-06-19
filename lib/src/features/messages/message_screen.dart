@@ -7,14 +7,12 @@ import 'package:Whispers/src/utils/helpers/logger.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../configs/Palette.dart';
 import '../../configs/box.dart';
 import '../../cubit/detail_chanel_cubit.dart';
 import '../../data/model/list_chanel_parrent_model.dart';
 import '../../data/model/message_model.dart';
 import '../../share_components/time/time_extension.dart';
 import 'components/body.dart';
-import 'components/chat_input_field.dart';
 
 class MessagesScreen extends StatefulWidget {
   const MessagesScreen({required this.chanel, Key? key}) : super(key: key);
@@ -32,6 +30,7 @@ class _MessagesScreenState extends State<MessagesScreen> {
   TextEditingController contenController = TextEditingController();
   List<ContentMessage> _listMessageChanel = [];
   late ScrollController _sc;
+  List<Viewer> _viewer = [];
   @override
   void initState() {
     _initData();
@@ -54,6 +53,7 @@ class _MessagesScreenState extends State<MessagesScreen> {
     _page = 1;
     _totalPage = 1;
     _listMessageChanel = [];
+    _viewer = [];
     detailChanelCubit.getListChanel(page: _page, size: _size, content: contenController.text, channelId: widget.chanel.id ?? '');
   }
 
@@ -68,13 +68,14 @@ class _MessagesScreenState extends State<MessagesScreen> {
           failure: (value) => const Empty(),
           success: (value) {
             _totalPage = value.data.message?.totalPages ?? 1;
+            _viewer.addAll(value.data.viewer as Iterable< Viewer>);
             _listMessageChanel.addAll(value.data.message?.content as Iterable<ContentMessage>);
             setState(() {});
             Logger.d("lenght", _listMessageChanel.length);
           },
         );
       },
-      child: Scaffold(appBar: buildAppBar(), body: Body(listDetail: _listMessageChanel)),
+      child: Scaffold(appBar: buildAppBar(), body: Body(listDetail: _listMessageChanel,listViewer: _viewer,)),
     );
   }
 

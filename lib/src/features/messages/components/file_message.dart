@@ -1,11 +1,10 @@
-import 'package:Whispers/src/configs/app_fonts.dart';
 import 'package:Whispers/src/configs/palette.dart';
 import 'package:flutter/material.dart';
 
 import '../../../data/model/message_model.dart';
 
-class TextMessage extends StatelessWidget {
-  const TextMessage({
+class FilesMessage extends StatelessWidget {
+  const FilesMessage({
     Key? key,
     this.message,
   }) : super(key: key);
@@ -27,7 +26,9 @@ class TextMessage extends StatelessWidget {
         width: MediaQuery.of(context).size.width * 2 / 3,
         child: Text(
           message!.content ?? "",
-          style: AppFont.t.s(12),
+          style: TextStyle(
+            color: message!.isSender ?? true ? Colors.white : Theme.of(context).textTheme.bodyLarge!.color,
+          ),
         ),
       ),
     );

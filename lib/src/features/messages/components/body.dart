@@ -5,7 +5,8 @@ import 'message.dart';
 
 class Body extends StatelessWidget {
   final List<ContentMessage> listDetail;
-  const Body({required this.listDetail, Key? key}) : super(key: key);
+  final List<Viewer> listViewer;
+  const Body({required this.listDetail, required this.listViewer, Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +17,7 @@ class Body extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 16),
             child: ListView.builder(
               itemCount: listDetail.length,
-              itemBuilder: (context, index) => Message(message: listDetail[index]),
+              itemBuilder: (context, index) => Message(message: listDetail[index], listViewer: listViewer),
             ),
           ),
         ),

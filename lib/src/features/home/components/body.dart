@@ -37,7 +37,7 @@ class _BodyState extends State<Body> {
 
   @override
   void initState() {
-    _initData();
+    _initData(searchController.text);
 
     _sc = ScrollController()
       ..addListener(() {
@@ -49,15 +49,15 @@ class _BodyState extends State<Body> {
   }
 
   void _loadMore() {
-    _chanelListAllCubit.getlistChanel(page: _page, size: _size, status: StatusChanel.sttaccepted.getString());
+    _chanelListAllCubit.getlistChanel(page: _page, size: _size, name: searchController.text, status: StatusChanel.sttaccepted.getString());
     _page++;
   }
 
-  void _initData() async {
+  void _initData(String name) async {
     _page = 1;
     _totalPage = 1;
     _listChanel = [];
-    _chanelListAllCubit.getlistChanel(page: _page, size: _size, status: StatusChanel.sttaccepted.getString());
+    _chanelListAllCubit.getlistChanel(page: _page, size: _size, name: name, status: StatusChanel.sttaccepted.getString());
   }
 
   @override
@@ -130,11 +130,15 @@ class _BodyState extends State<Body> {
         child: Container(
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
           child: MyTextField(
+            onChanged: (value) {
+              _initData(value);
+            },
             suffixIcon: IconButton(
               icon: const Icon(Icons.clear),
               onPressed: () {
                 searchController.text = '';
                 setState(() {});
+                _initData(searchController.text);
               },
             ),
             prefixIcon: const Icon(Icons.search),
