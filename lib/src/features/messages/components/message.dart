@@ -1,7 +1,9 @@
+import 'package:Whispers/src/configs/box.dart';
 import 'package:Whispers/src/configs/palette.dart';
 import 'package:flutter/material.dart';
 
 import '../../../data/model/ChatMessage.dart';
+import '../../../data/model/message_model.dart';
 import 'audio_message.dart';
 import 'text_message.dart';
 import 'video_message.dart';
@@ -12,12 +14,12 @@ class Message extends StatelessWidget {
     required this.message,
   }) : super(key: key);
 
-  final ChatMessage message;
+  final ContentMessage message;
 
   @override
   Widget build(BuildContext context) {
-    Widget messageContaint(ChatMessage message) {
-      switch (message.messageType) {
+    Widget messageContaint(ContentMessage message) {
+      switch (message.messageType ?? ChatMessageType.text) {
         case ChatMessageType.text:
           return TextMessage(message: message);
         case ChatMessageType.audio:
@@ -32,17 +34,17 @@ class Message extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(top: 16),
       child: Row(
-        mainAxisAlignment: message.isSender ? MainAxisAlignment.end : MainAxisAlignment.start,
+        mainAxisAlignment: message.isSender ?? false ? MainAxisAlignment.end : MainAxisAlignment.start,
         children: [
-          if (!message.isSender) ...[
+          if (!(message.isSender ?? false)) ...[
             const CircleAvatar(
               radius: 12,
               backgroundImage: AssetImage("assets/images/user_2.png"),
             ),
-            const SizedBox(width: 16 / 2),
+            BoxMain.w(8)
           ],
           messageContaint(message),
-          if (message.isSender) MessageStatusDot(status: message.messageStatus)
+          if (message.isSender ?? false) MessageStatusDot(status: message.messageStatus == '' ? MessageStatus.not_view : MessageStatus.not_sent)
         ],
       ),
     );

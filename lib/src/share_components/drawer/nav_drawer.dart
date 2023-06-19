@@ -1,5 +1,7 @@
-
 import 'package:flutter/material.dart';
+
+import '../../configs/app_fonts.dart';
+import '../../di/injection.dart/injection.dart';
 
 class DrawerWidget extends StatelessWidget {
   const DrawerWidget({super.key});
@@ -11,22 +13,10 @@ class DrawerWidget extends StatelessWidget {
         padding: EdgeInsets.zero,
         children: <Widget>[
           _drawerHeader(),
-          _drawerItem(
-              icon: Icons.folder,
-              text: 'My Files',
-              onTap: () => print('Tap My Files')),
-          _drawerItem(
-              icon: Icons.group,
-              text: 'Shared with me',
-              onTap: () => print('Tap Shared menu')),
-          _drawerItem(
-              icon: Icons.access_time,
-              text: 'Recent',
-              onTap: () => print('Tap Recent menu')),
-          _drawerItem(
-              icon: Icons.delete,
-              text: 'Trash',
-              onTap: () => print('Tap Trash menu')),
+          _drawerItem(icon: Icons.folder, text: 'Đoạn Chat', onTap: () => print('Đoạn Chat')),
+          _drawerItem(icon: Icons.group, text: 'Tin Nhắn chờ', onTap: () => print('Tin Nhắn chờ')),
+          _drawerItem(icon: Icons.access_time, text: 'Kho Lưu chữ', onTap: () => print('kho Lưu chữ')),
+          _drawerItem(icon: Icons.delete, text: 'Private', onTap: () => print('Private')),
           const Divider(height: 25, thickness: 1),
           const Padding(
             padding: EdgeInsets.only(left: 20.0, top: 10, bottom: 10),
@@ -36,10 +26,7 @@ class DrawerWidget extends StatelessWidget {
                   color: Colors.black54,
                 )),
           ),
-          _drawerItem(
-              icon: Icons.bookmark,
-              text: 'Family',
-              onTap: () => print('Tap Family menu')),
+          _drawerItem(icon: Icons.bookmark, text: 'Family', onTap: () => print('Tap Family menu')),
         ],
       ),
     );
@@ -47,23 +34,26 @@ class DrawerWidget extends StatelessWidget {
 }
 
 Widget _drawerHeader() {
-  return const UserAccountsDrawerHeader(
-    currentAccountPicture: ClipOval(
-      child: Image(
-          image: AssetImage('assets/images/orang2.jpeg'), fit: BoxFit.cover),
+  return UserAccountsDrawerHeader(
+    currentAccountPicture: const ClipOval(
+      child: Image(image: AssetImage('assets/images/user.png'), fit: BoxFit.cover),
     ),
-    otherAccountsPictures: [
+    otherAccountsPictures: const [
       ClipOval(
-        child: Image(
-            image: AssetImage('assets/images/orang1.jpg'), fit: BoxFit.cover),
+        child: Image(image: AssetImage('assets/images/user_2.png'), fit: BoxFit.cover),
       ),
       ClipOval(
-        child: Image(
-            image: AssetImage('assets/images/orang3.jpeg'), fit: BoxFit.cover),
+        child: Image(image: AssetImage('assets/images/user_3.png'), fit: BoxFit.cover),
       )
     ],
-    accountName: Text('Belajar Flutter'),
-    accountEmail: Text('hallo@belajarflutter.com'),
+    accountName: Text(
+      "${appData.userModel?.account?.firstName} ${appData.userModel?.account?.lastName}",
+      style: AppFont.t.s(16).white.w600,
+    ),
+    accountEmail: Text(
+      '${appData.userModel?.account?.email}',
+      style: AppFont.t.w400.white,
+    ),
   );
 }
 
@@ -75,7 +65,7 @@ Widget _drawerItem({IconData? icon, String? text, GestureTapCallback? onTap}) {
         Padding(
           padding: const EdgeInsets.only(left: 25.0),
           child: Text(
-            text??"",
+            text ?? "",
             style: const TextStyle(
               fontWeight: FontWeight.bold,
             ),

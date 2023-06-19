@@ -7,6 +7,6 @@ part 'detail_chanel_state.freezed.dart';
 class DetailChanelState with _$DetailChanelState {
   const factory DetailChanelState.initial() = _Initial;
    const factory DetailChanelState.loading() = _Loading;
-    const factory DetailChanelState.success(DataMessage data) = _Success;
+    const factory DetailChanelState.success(DataMessageModel data) = _Success;
      const factory DetailChanelState.failure(String error) = _Failure;
 }

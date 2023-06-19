@@ -78,8 +78,8 @@ class Chanel {
 
 class LastMessage {
   String? id;
-  int? createdDate;
-  int? updatedDate;
+  int? createdTime;
+  int? updatedTime;
   Sender? sender;
   String? type;
   String? content;
@@ -87,40 +87,29 @@ class LastMessage {
   String? isDeleted;
   String? isWatched;
 
-  LastMessage({
-    this.id,
-    this.createdDate,
-    this.updatedDate,
-    this.sender,
-    this.type,
-    this.content,
-    this.files,
-    this.isDeleted,
-    this.isWatched
-  });
+  LastMessage({this.id, this.createdTime, this.updatedTime, this.sender, this.type, this.content, this.files, this.isDeleted, this.isWatched});
 
   factory LastMessage.fromJson(Map<String, dynamic> json) => LastMessage(
-        id: json["id"],
-        createdDate: json["createdDate"],
-        updatedDate: json["updatedDate"],
-        sender: json["sender"] == null ? null : Sender.fromJson(json["sender"]),
-        type: json["type"],
-        content: json["content"],
-        files: json["files"],
-        isDeleted: json["isDeleted"],
-        isWatched: json["isWatched"]
-      );
+      id: json["id"],
+      createdTime: json["createdTime"],
+      updatedTime: json["updatedTime"],
+      sender: json["sender"] == null ? null : Sender.fromJson(json["sender"]),
+      type: json["type"],
+      content: json["content"],
+      files: json["files"],
+      isDeleted: json["isDeleted"],
+      isWatched: json["isWatched"]);
 
   Map<String, dynamic> toJson() => {
         "id": id,
-        "createdDate": createdDate,
-        "updatedDate": updatedDate,
+        "createdTime": createdTime,
+        "updatedTime": updatedTime,
         "sender": sender?.toJson(),
         "type": type,
         "content": content,
         "files": files,
         "isDeleted": isDeleted,
-        "isWatched":isWatched
+        "isWatched": isWatched
       };
 }
 

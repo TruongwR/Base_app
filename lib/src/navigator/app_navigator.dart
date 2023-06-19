@@ -1,3 +1,4 @@
+import 'package:Whispers/src/data/model/list_chanel_parrent_model.dart';
 import 'package:Whispers/src/features/active_account/active_account_screen.dart';
 import 'package:Whispers/src/features/edit_profile/edit_profile_screen.dart';
 import 'package:Whispers/src/features/fotget_password/fotget_password.dart';
@@ -59,11 +60,11 @@ class AppNavigator {
           const EditProfileScreen(),
         );
              case Routes.messagesScreen:
-              final idMessage = settings.arguments as String;
+              final chanel = settings.arguments as Chanel;
         return _buildRoute(
 
           settings,
-           MessagesScreen(idMessage: idMessage),
+           MessagesScreen(chanel: chanel),
         );
       default:
         return null;

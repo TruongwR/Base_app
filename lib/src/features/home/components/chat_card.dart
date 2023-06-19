@@ -3,6 +3,8 @@ import 'package:Whispers/src/configs/palette.dart';
 import 'package:Whispers/src/data/model/list_chanel_parrent_model.dart';
 import 'package:flutter/material.dart';
 
+import '../../../share_components/time/time_extension.dart';
+
 class ChatCard extends StatelessWidget {
   const ChatCard({Key? key, required this.chanel, required this.press, required this.isStatus}) : super(key: key);
 
@@ -66,7 +68,7 @@ class ChatCard extends StatelessWidget {
             ),
             Opacity(
               opacity: 0.64,
-              child: Text(calculateTimeDifference(DateTime.fromMillisecondsSinceEpoch(chanel.lastMessage?.createdDate ?? 0).toLocal(), DateTime.now().toLocal())),
+              child: Text(calculateTimeDifference(DateTime.fromMillisecondsSinceEpoch(chanel.lastMessage?.updatedTime ?? 0).toLocal(), DateTime.now().toLocal())),
             ),
           ],
         ),
@@ -74,29 +76,5 @@ class ChatCard extends StatelessWidget {
     );
   }
 
-  String calculateTimeDifference(DateTime startTime, DateTime endTime) {
-    final difference = endTime.difference(startTime);
 
-    if (difference.inMinutes < 60) {
-      return '${difference.inMinutes} phút';
-    } else if (difference.inHours < 24) {
-      final hours = difference.inHours;
-      final minutes = difference.inMinutes.remainder(60);
-      return '$hours giờ $minutes phút';
-    } else if (difference.inDays < 7) {
-      return '${difference.inDays} ngày';
-    } else if (difference.inDays < 30) {
-      final weeks = (difference.inDays / 7).floor();
-      final days = difference.inDays.remainder(7);
-      return '$weeks tuần $days ngày';
-    } else if (difference.inDays < 365) {
-      final months = (difference.inDays / 30).floor();
-      final weeks = (difference.inDays.remainder(30) / 7).floor();
-      return '$months tháng $weeks tuần';
-    } else {
-      final years = (difference.inDays / 365).floor();
-      final months = (difference.inDays.remainder(365) / 30).floor();
-      return '$years năm $months tháng';
-    }
-  }
 }
