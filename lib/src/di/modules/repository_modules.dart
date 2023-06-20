@@ -6,6 +6,7 @@ import 'package:Whispers/src/data/repositories/repository/authentication_reposit
 import 'package:Whispers/src/data/repositories/repository/device_verification_repository.dart';
 import 'package:Whispers/src/di/injection.dart/injection.dart';
 
+import '../../data/repositories/repository/chanel_repository.dart';
 
 class RepositoryMoudules extends DIModule {
   @override
