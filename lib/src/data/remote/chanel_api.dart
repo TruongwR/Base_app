@@ -5,6 +5,7 @@ import 'package:retrofit/http.dart';
 
 import '../model/api_response/api_response.dart';
 import '../model/list_chanel_parrent_model.dart';
+import '../model/message_model.dart';
 
 part 'chanel_api.g.dart';
 
@@ -20,9 +21,10 @@ abstract class ChanelApi {
     @Query('status') String status,
   );
   @GET(ApiPath.getListMesageChanel)
-  Future<ApiResponse<DataMessage>> getMessage(
+  Future<ApiResponse<DataMessageModel>> getListMessageChanel(
     @Query('page') int page,
     @Query('size') int size,
     @Query('content') String? content,
+    @Query('channelId') String channelId,
   );
 }

@@ -1,10 +1,10 @@
 import 'package:Whispers/src/configs/palette.dart';
 import 'package:flutter/material.dart';
 
-import '../../../data/model/ChatMessage.dart';
+import '../../../data/model/message_model.dart';
 
 class AudioMessage extends StatelessWidget {
-  final ChatMessage? message;
+  final ContentMessage? message;
 
   const AudioMessage({Key? key, this.message}) : super(key: key);
   @override
@@ -17,13 +17,13 @@ class AudioMessage extends StatelessWidget {
       ),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(30),
-        color: Palette.primary.withOpacity(message!.isSender ? 1 : 0.1),
+        color: Palette.primary.withOpacity(message!.isSender ?? true ? 1 : 0.1),
       ),
       child: Row(
         children: [
           Icon(
             Icons.play_arrow,
-            color: message!.isSender ? Colors.white : Palette.primary,
+            color: message!.isSender ?? true ? Colors.white : Palette.primary,
           ),
           Expanded(
             child: Padding(
@@ -35,7 +35,7 @@ class AudioMessage extends StatelessWidget {
                   Container(
                     width: double.infinity,
                     height: 2,
-                    color: message!.isSender ? Colors.white : Palette.primary.withOpacity(0.4),
+                    color: message!.isSender ?? true ? Colors.white : Palette.primary.withOpacity(0.4),
                   ),
                   Positioned(
                     left: 0,
@@ -43,7 +43,7 @@ class AudioMessage extends StatelessWidget {
                       height: 8,
                       width: 8,
                       decoration: BoxDecoration(
-                        color: message!.isSender ? Colors.white : Palette.primary,
+                        color: message!.isSender ?? true ? Colors.white : Palette.primary,
                         shape: BoxShape.circle,
                       ),
                     ),
@@ -54,7 +54,7 @@ class AudioMessage extends StatelessWidget {
           ),
           Text(
             "0.37",
-            style: TextStyle(fontSize: 12, color: message!.isSender ? Colors.white : null),
+            style: TextStyle(fontSize: 12, color: message!.isSender ?? true ? Colors.white : null),
           ),
         ],
       ),

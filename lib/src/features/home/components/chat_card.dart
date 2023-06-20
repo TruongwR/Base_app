@@ -1,6 +1,9 @@
+import 'package:Whispers/src/configs/app_fonts.dart';
 import 'package:Whispers/src/configs/palette.dart';
 import 'package:Whispers/src/data/model/list_chanel_parrent_model.dart';
 import 'package:flutter/material.dart';
+
+import '../../../share_components/time/time_extension.dart';
 
 class ChatCard extends StatefulWidget {
   const ChatCard({Key? key, required this.chanel, required this.press, required this.isStatus}) : super(key: key);
@@ -69,16 +72,17 @@ class _ChatCardState extends State<ChatCard> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      chanel.lastMessage?.content ?? '',
+                      chanel.name ?? '',
                       style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
                     ),
                     const SizedBox(height: 8),
                     Opacity(
                       opacity: 0.64,
                       child: Text(
-                        chanel.lastMessage?.isStatus ?? false ? chanel.lastMessage?.content ?? '' : 'Whispers',
+                        chanel.lastMessage?.content ?? '',
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
+                        style: chanel.lastMessage?.isWatched == "NO" ? AppFont.t.s(16).w600 : AppFont.t,
                       ),
                     ),
                   ],
@@ -87,9 +91,7 @@ class _ChatCardState extends State<ChatCard> {
             ),
             Opacity(
               opacity: 0.64,
-              child: Text(calculateTimeDifference(
-                  DateTime.fromMillisecondsSinceEpoch(chanel.lastMessage?.createdDate ?? 0).toLocal(),
-                  DateTime.now().toLocal())),
+              child: Text(calculateTimeDifference(DateTime.fromMillisecondsSinceEpoch(chanel.lastMessage?.updatedTime ?? 0).toLocal(), DateTime.now().toLocal())),
             ),
           ],
         ),
@@ -97,29 +99,5 @@ class _ChatCardState extends State<ChatCard> {
     );
   }
 
-  String calculateTimeDifference(DateTime startTime, DateTime endTime) {
-    final difference = endTime.difference(startTime);
 
-    if (difference.inMinutes < 60) {
-      return '${difference.inMinutes} phút';
-    } else if (difference.inHours < 24) {
-      final hours = difference.inHours;
-      final minutes = difference.inMinutes.remainder(60);
-      return '$hours giờ $minutes phút';
-    } else if (difference.inDays < 7) {
-      return '${difference.inDays} ngày';
-    } else if (difference.inDays < 30) {
-      final weeks = (difference.inDays / 7).floor();
-      final days = difference.inDays.remainder(7);
-      return '$weeks tuần $days ngày';
-    } else if (difference.inDays < 365) {
-      final months = (difference.inDays / 30).floor();
-      final weeks = (difference.inDays.remainder(30) / 7).floor();
-      return '$months tháng $weeks tuần';
-    } else {
-      final years = (difference.inDays / 365).floor();
-      final months = (difference.inDays.remainder(365) / 30).floor();
-      return '$years năm $months tháng';
-    }
-  }
 }

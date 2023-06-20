@@ -1,28 +1,45 @@
+import 'package:Whispers/src/configs/box.dart';
 import 'package:Whispers/src/configs/palette.dart';
+import 'package:Whispers/src/di/injection.dart/injection.dart';
+import 'package:Whispers/src/features/messages/components/setting_message.dart';
 import 'package:flutter/material.dart';
 
-import '../../../data/model/ChatMessage.dart';
+import '../../../data/model/message_model.dart';
+import '../../../utils/enum/enum_status.dart';
 import 'audio_message.dart';
+import 'file_message.dart';
+import 'image_message.dart';
 import 'text_message.dart';
 import 'video_message.dart';
 
 class Message extends StatelessWidget {
-  const Message({
-    Key? key,
-    required this.message,
-  }) : super(key: key);
+  const Message({Key? key, required this.message, required this.listViewer}) : super(key: key);
 
-  final ChatMessage message;
+  final ContentMessage message;
+  final List<Viewer> listViewer;
 
   @override
   Widget build(BuildContext context) {
-    Widget messageContaint(ChatMessage message) {
-      switch (message.messageType) {
-        case ChatMessageType.text:
+    Widget messageContaint(ContentMessage message) {
+      switch (message.type ?? TypeMessage.sttMESSAGE) {
+        case "MESSAGE":
           return TextMessage(message: message);
-        case ChatMessageType.audio:
+        case "SETTING":
+          return SettingMessage(message: message);
+        default:
+          return const SizedBox();
+      }
+    }
+
+    Widget fileContaint(ContentMessage message) {
+      switch (message.type ?? ChatMessageType.file) {
+        case "FILE":
+          return FilesMessage(message: message);
+        case "IMAGE":
+          return ImageMessage(message: message);
+        case "AUDIO":
           return AudioMessage(message: message);
-        case ChatMessageType.video:
+        case "VIDEO":
           return const VideoMessage();
         default:
           return const SizedBox();
@@ -32,17 +49,20 @@ class Message extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(top: 16),
       child: Row(
-        mainAxisAlignment: message.isSender ? MainAxisAlignment.end : MainAxisAlignment.start,
+        mainAxisAlignment: message.id == appData.userModel?.account?.id ? MainAxisAlignment.end : MainAxisAlignment.start,
         children: [
-          if (!message.isSender) ...[
-            const CircleAvatar(
-              radius: 12,
-              backgroundImage: AssetImage("assets/images/user_2.png"),
-            ),
-            const SizedBox(width: 16 / 2),
+          if (!(message.id == appData.userModel?.account?.id)) ...[
+            message.type != "SETTING"
+                ? const CircleAvatar(
+                    radius: 12,
+                    backgroundImage: AssetImage("assets/images/user_2.png"),
+                  )
+                : Container(),
+            BoxMain.w(8)
           ],
           messageContaint(message),
-          if (message.isSender) MessageStatusDot(status: message.messageStatus)
+          if (message.files != []) fileContaint(message),
+          if (message.id == appData.userModel?.account?.id) MessageStatusDot(status: listViewer != [] ? MessageStatus.viewed : MessageStatus.notView)
         ],
       ),
     );
@@ -57,9 +77,9 @@ class MessageStatusDot extends StatelessWidget {
   Widget build(BuildContext context) {
     Color dotColor(MessageStatus status) {
       switch (status) {
-        case MessageStatus.not_sent:
+        case MessageStatus.notSent:
           return Palette.red;
-        case MessageStatus.not_view:
+        case MessageStatus.notView:
           return Theme.of(context).textTheme.bodyLarge!.color!.withOpacity(0.1);
         case MessageStatus.viewed:
           return Palette.success;
@@ -77,7 +97,7 @@ class MessageStatusDot extends StatelessWidget {
         shape: BoxShape.circle,
       ),
       child: Icon(
-        status == MessageStatus.not_sent ? Icons.close : Icons.done,
+        status == MessageStatus.notSent ? Icons.close : Icons.done,
         size: 8,
         color: Theme.of(context).scaffoldBackgroundColor,
       ),

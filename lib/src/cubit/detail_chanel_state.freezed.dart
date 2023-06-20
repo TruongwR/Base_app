@@ -20,7 +20,7 @@ mixin _$DetailChanelState {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(DataMessage? data) success,
+    required TResult Function(DataMessageModel data) success,
     required TResult Function(String error) failure,
   }) =>
       throw _privateConstructorUsedError;
@@ -28,7 +28,7 @@ mixin _$DetailChanelState {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(DataMessage? data)? success,
+    TResult? Function(DataMessageModel data)? success,
     TResult? Function(String error)? failure,
   }) =>
       throw _privateConstructorUsedError;
@@ -36,7 +36,7 @@ mixin _$DetailChanelState {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(DataMessage? data)? success,
+    TResult Function(DataMessageModel data)? success,
     TResult Function(String error)? failure,
     required TResult orElse(),
   }) =>
@@ -125,7 +125,7 @@ class _$_Initial implements _Initial {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(DataMessage? data) success,
+    required TResult Function(DataMessageModel data) success,
     required TResult Function(String error) failure,
   }) {
     return initial();
@@ -136,7 +136,7 @@ class _$_Initial implements _Initial {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(DataMessage? data)? success,
+    TResult? Function(DataMessageModel data)? success,
     TResult? Function(String error)? failure,
   }) {
     return initial?.call();
@@ -147,7 +147,7 @@ class _$_Initial implements _Initial {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(DataMessage? data)? success,
+    TResult Function(DataMessageModel data)? success,
     TResult Function(String error)? failure,
     required TResult orElse(),
   }) {
@@ -238,7 +238,7 @@ class _$_Loading implements _Loading {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(DataMessage? data) success,
+    required TResult Function(DataMessageModel data) success,
     required TResult Function(String error) failure,
   }) {
     return loading();
@@ -249,7 +249,7 @@ class _$_Loading implements _Loading {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(DataMessage? data)? success,
+    TResult? Function(DataMessageModel data)? success,
     TResult? Function(String error)? failure,
   }) {
     return loading?.call();
@@ -260,7 +260,7 @@ class _$_Loading implements _Loading {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(DataMessage? data)? success,
+    TResult Function(DataMessageModel data)? success,
     TResult Function(String error)? failure,
     required TResult orElse(),
   }) {
@@ -318,7 +318,7 @@ abstract class _$$_SuccessCopyWith<$Res> {
           _$_Success value, $Res Function(_$_Success) then) =
       __$$_SuccessCopyWithImpl<$Res>;
   @useResult
-  $Res call({DataMessage? data});
+  $Res call({DataMessageModel data});
 }
 
 /// @nodoc
@@ -337,7 +337,7 @@ class __$$_SuccessCopyWithImpl<$Res>
       freezed == data
           ? _value.data
           : data // ignore: cast_nullable_to_non_nullable
-              as DataMessage?,
+              as DataMessageModel,
     ));
   }
 }
@@ -348,7 +348,7 @@ class _$_Success implements _Success {
   const _$_Success(this.data);
 
   @override
-  final DataMessage? data;
+  final DataMessageModel data;
 
   @override
   String toString() {
@@ -377,7 +377,7 @@ class _$_Success implements _Success {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(DataMessage? data) success,
+    required TResult Function(DataMessageModel data) success,
     required TResult Function(String error) failure,
   }) {
     return success(data);
@@ -388,7 +388,7 @@ class _$_Success implements _Success {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(DataMessage? data)? success,
+    TResult? Function(DataMessageModel data)? success,
     TResult? Function(String error)? failure,
   }) {
     return success?.call(data);
@@ -399,7 +399,7 @@ class _$_Success implements _Success {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(DataMessage? data)? success,
+    TResult Function(DataMessageModel data)? success,
     TResult Function(String error)? failure,
     required TResult orElse(),
   }) {
@@ -448,9 +448,9 @@ class _$_Success implements _Success {
 }
 
 abstract class _Success implements DetailChanelState {
-  const factory _Success(final DataMessage? data) = _$_Success;
+  const factory _Success(final DataMessageModel data) = _$_Success;
 
-  DataMessage? get data;
+  DataMessageModel get data;
   @JsonKey(ignore: true)
   _$$_SuccessCopyWith<_$_Success> get copyWith =>
       throw _privateConstructorUsedError;
@@ -521,7 +521,7 @@ class _$_Failure implements _Failure {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(DataMessage? data) success,
+    required TResult Function(DataMessageModel data) success,
     required TResult Function(String error) failure,
   }) {
     return failure(error);
@@ -532,7 +532,7 @@ class _$_Failure implements _Failure {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(DataMessage? data)? success,
+    TResult? Function(DataMessageModel data)? success,
     TResult? Function(String error)? failure,
   }) {
     return failure?.call(error);
@@ -543,7 +543,7 @@ class _$_Failure implements _Failure {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(DataMessage? data)? success,
+    TResult Function(DataMessageModel data)? success,
     TResult Function(String error)? failure,
     required TResult orElse(),
   }) {

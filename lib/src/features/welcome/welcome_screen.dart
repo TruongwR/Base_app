@@ -37,30 +37,26 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
-        child: Column(
-          children: [
-            const Spacer(flex: 2),
-            Image.asset("assets/images/welcome_image.png"),
-            const Spacer(flex: 3),
-            Text(
-              "Welcome to our Whispers \nmessaging app",
-              textAlign: TextAlign.center,
-              style: Theme.of(context).textTheme.headlineSmall!.copyWith(fontWeight: FontWeight.bold),
-            ),
-            const Spacer(),
-            Text(
-              "Whispers talk any person of your \nmother language.",
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                color: Theme.of(context).textTheme.bodyLarge!.color!.withOpacity(0.64),
-              ),
-            ),
-            const Spacer(flex: 3),
-          ],
+    return Column(
+      children: [
+        const Spacer(flex: 2),
+        Image.asset("assets/images/welcome_image.png"),
+        const Spacer(flex: 3),
+        Text(
+          "Welcome to our Whispers \nmessaging app",
+          textAlign: TextAlign.center,
+          style: Theme.of(context).textTheme.headlineSmall!.copyWith(fontWeight: FontWeight.bold),
         ),
-      ),
+        const Spacer(),
+        Text(
+          "Whispers talk any person of your \nmother language.",
+          textAlign: TextAlign.center,
+          style: TextStyle(
+            color: Theme.of(context).textTheme.bodyLarge!.color!.withOpacity(0.64),
+          ),
+        ),
+        const Spacer(flex: 3),
+      ],
     );
   }
 }

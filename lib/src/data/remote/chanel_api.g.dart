@@ -58,36 +58,38 @@ class _ChanelApi implements ChanelApi {
   }
 
   @override
-  Future<ApiResponse<DataMessage>> getMessage(
+  Future<ApiResponse<DataMessageModel>> getListMessageChanel(
     int page,
     int size,
     String? content,
+    String channelId,
   ) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{
       r'page': page,
       r'size': size,
       r'content': content,
+      r'channelId': channelId,
     };
     queryParameters.removeWhere((k, v) => v == null);
     final _headers = <String, dynamic>{};
     final Map<String, dynamic>? _data = null;
     final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<ApiResponse<DataMessage>>(Options(
+        _setStreamType<ApiResponse<DataMessageModel>>(Options(
       method: 'GET',
       headers: _headers,
       extra: _extra,
     )
             .compose(
               _dio.options,
-              ':9998/channel/',
+              ':9998/message',
               queryParameters: queryParameters,
               data: _data,
             )
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    final value = ApiResponse<DataMessage>.fromJson(
+    final value = ApiResponse<DataMessageModel>.fromJson(
       _result.data!,
-      (json) => DataMessage.fromJson(json as Map<String, dynamic>),
+      (json) => DataMessageModel.fromJson(json as Map<String, dynamic>),
     );
     return value;
   }
