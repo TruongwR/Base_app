@@ -149,7 +149,7 @@ class _SignInScreenState extends State<SignInScreen> {
                       text: 'Login',
                       textStyle: AppFont.t.s(24).w600.white,
                       action: () {
-                        validate();
+                        //validate();
                         _formKey.currentState?.validate() == true
                             ? loginCubit.login(email: emailController.text, passWord: passwordController.text)
                             : null;

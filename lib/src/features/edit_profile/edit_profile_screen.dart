@@ -167,6 +167,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                         loading: showLoading,
                         succes: () {
                           dismissLoading();
+                          showDialogSuccess('Cập nhật tài khoản thành công!');
                           AppNavigator.push(Routes.profileScreen);
                         },
                         failure: dismissLoadingShowError,
@@ -176,13 +177,14 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                       text: 'Lưu',
                       textStyle: AppFont.t.s(24).w600.white,
                       action: () {
-                        _formKey.currentState!.validate() ? true : false;
-                        editProfileCubit.updateProfile(
-                            firstName: firstNameController.text,
-                            lastName: lastNameController.text,
-                            passwordOld: passWordController.text,
-                            password: passWordController.text,
-                            avatarFileId: '');
+                        _formKey.currentState!.validate() == true
+                            ? editProfileCubit.updateProfile(
+                                firstName: firstNameController.text,
+                                lastName: lastNameController.text,
+                                passwordOld: passWordOldController.text,
+                                password: passWordController.text,
+                                avatarFileId: 'f0b92651-8da0-4d92-bc38-6c96a108a276')
+                            : null;
                       },
                     ),
                   ),

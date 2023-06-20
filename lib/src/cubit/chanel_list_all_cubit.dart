@@ -1,5 +1,5 @@
 import 'package:Whispers/src/cubit/chanel_list_all_state.dart';
-import 'package:Whispers/src/data/repositories/repository/chanrl_repository.dart';
+import 'package:Whispers/src/data/repositories/repository/chanel_repository.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../utils/enum/enum_status.dart';

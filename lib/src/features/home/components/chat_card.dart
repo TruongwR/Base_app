@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 
 import '../../../share_components/time/time_extension.dart';
 
-class ChatCard extends StatelessWidget {
+class ChatCard extends StatefulWidget {
   const ChatCard({Key? key, required this.chanel, required this.press, required this.isStatus}) : super(key: key);
 
   final Chanel chanel;
@@ -13,9 +13,32 @@ class ChatCard extends StatelessWidget {
   final bool isStatus;
 
   @override
+  State<ChatCard> createState() => _ChatCardState();
+}
+
+class _ChatCardState extends State<ChatCard> {
+  List<Chanel> listChanel = [];
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    return Column(
+      children: [...listChanel.map((e) => lisData(chanel: e))],
+    );
+  }
+
+  Widget lisData({required Chanel chanel}) {
     return InkWell(
-      onTap: press,
+      onTap: widget.press,
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16 * 0.75),
         child: Row(

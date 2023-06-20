@@ -41,173 +41,177 @@ class _SignUpScreenState extends State<SignUpScreen> {
   @override
   Widget build(BuildContext context) {
     double width = (MediaQuery.of(context).size.width - 40) / 2;
-    return Scaffold(
-      body: Container(
-        decoration: const BoxDecoration(gradient: linearGradientMain),
-        padding: const EdgeInsets.symmetric(horizontal: 16),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            const Spacer(),
-            SizedBox(
-              height: MediaQuery.of(context).size.height / 8,
-              child: Center(
-                child: Column(
-                  children: [
-                    BoxMain.h(40),
-                    Text(
-                      'Sign Up',
-                      style: AppFont.t.s(28).w600.white,
-                    ),
-                    BoxMain.h(4),
-                    Text(
-                      'Create an account to start doing more',
-                      style: AppFont.t.s(18).w500.white,
-                    )
-                  ],
-                ),
-              ),
-            ),
-            const Spacer(),
-            Form(
-              key: _formKey,
-              child: Column(
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    return SafeArea(
+      child: Scaffold(
+        body: Container(
+          decoration: const BoxDecoration(gradient: linearGradientMain),
+          padding: const EdgeInsets.symmetric(horizontal: 16),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              const Spacer(),
+              SizedBox(
+                height: MediaQuery.of(context).size.height / 8,
+                child: Center(
+                  child: Column(
                     children: [
-                      SizedBox(
-                        width: width,
-                        child: MyTextField(
-                          style: AppFont.t.s(16).grey68.w600,
-                          title: "First Name",
-                          titleStyle: AppFont.t.s(16).w600.white,
-                          required: true,
-                          hasBorder: true,
-                          inputFormatters: [
-                            FilteringTextInputFormatter.deny(RegExp(r'\s')),
-                          ],
-                          controller: firstNameController,
-                          hintText: 'First Name',
-                          hintStyle: AppFont.t.s(16).grey68,
-                          validator: (value) {
-                            if (value?.isEmpty == true || !Validators.isValiName(value ?? '')) {
-                              return 'Please enter a valid First Name';
-                            }
-                            return null;
-                          },
-                        ),
+                      BoxMain.h(40),
+                      Text(
+                        'Sign Up',
+                        style: AppFont.t.s(28).w600.white,
                       ),
-                      SizedBox(
-                        width: width,
-                        child: MyTextField(
-                          style: AppFont.t.s(16).grey68.w600,
-                          required: true,
-                          title: "Last Name",
-                          titleStyle: AppFont.t.s(16).w600.white,
-                          hasBorder: true,
-                          controller: lastNameController,
-                          hintText: 'Last Name',
-                          hintStyle: AppFont.t.s(16).grey68,
-                          validator: (value) {
-                            if (value?.isEmpty == true || !Validators.isValiName(value ?? '')) {
-                              return 'Please enter a valid Last Name';
-                            }
-                            return null;
-                          },
-                        ),
+                      BoxMain.h(4),
+                      Text(
+                        'Create an account to start doing more',
+                        style: AppFont.t.s(18).w500.white,
                       )
                     ],
                   ),
-                  BoxMain.h(20),
-                  MyTextField(
-                    style: AppFont.t.s(16).grey68.w600,
-                    required: true,
-                    title: "Email",
-                    titleStyle: AppFont.t.s(16).w600.white,
-                    hasBorder: true,
-                    controller: emailController,
-                    hintText: 'Email',
-                    hintStyle: AppFont.t.s(16).grey68,
-                    validator: (value) {
-                      RegExp regex = RegExp(r'^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$');
-                      if ((value == null || value.isEmpty)) {
-                        return 'Không được để trống';
-                      } else if (value.isNotEmpty && !regex.hasMatch(value)) {
-                        return 'Giá trị không hợp lệ';
-                      }
-                      return null;
-                    },
-                  ),
-                  BoxMain.h(20),
-                  MyTextField(
-                    style: AppFont.t.s(16).grey68.w600,
-                    required: true,
-                    title: "Password",
-                    titleStyle: AppFont.t.s(16).w600.white,
-                    hasBorder: true,
-                    obscureText: true,
-                    controller: passWordController,
-                    hintText: 'Password',
-                    hintStyle: AppFont.t.s(16).grey68,
-                    validator: (value) {
-                      if ((value == null || value.isEmpty)) {
-                        return 'Mật khẩu không được để trống';
-                      } else if (Validators.validatePassword(value) == false) {
-                        return 'Mật khẩu không thỏa mãn';
-                      }
-                      return null;
-                    },
-                  ),
-                  BoxMain.h(48),
-                  BlocListener<SignupCubit, SignupState>(
-                    bloc: signUpCubit,
-                    listener: (context, state) {
-                      Logger.d('State', state.toString());
-                      state.whenOrNull(
-                        loading: showLoading,
-                        success: () {
-                          dismissLoading();
-                          AppNavigator.pushAndRemoveUntil(Routes.activeAccountScreen);
-                        },
-                        failure: dismissLoadingShowError,
-                      );
-                    },
-                    child: ButtonPrimary(
-                      text: 'Sing Up',
-                      textStyle: AppFont.t.s(24).w600.white,
-                      action: () {
-                        signUpCubit.signup(
-                            fistName: firstNameController.text,
-                            lastName: lastNameController.text,
-                            email: emailController.text,
-                            passWord: passWordController.text);
+                ),
+              ),
+              const Spacer(),
+              Form(
+                key: _formKey,
+                child: Column(
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        SizedBox(
+                          width: width,
+                          child: MyTextField(
+                            style: AppFont.t.s(16).grey68.w600,
+                            title: "First Name",
+                            titleStyle: AppFont.t.s(16).w600.white,
+                            required: true,
+                            hasBorder: true,
+                            inputFormatters: [
+                              FilteringTextInputFormatter.deny(RegExp(r'\s')),
+                            ],
+                            controller: firstNameController,
+                            hintText: 'First Name',
+                            hintStyle: AppFont.t.s(16).grey68,
+                            validator: (value) {
+                              if (value?.isEmpty == true || !Validators.isValiName(value ?? '')) {
+                                return 'Please enter a valid First Name';
+                              }
+                              return null;
+                            },
+                          ),
+                        ),
+                        SizedBox(
+                          width: width,
+                          child: MyTextField(
+                            style: AppFont.t.s(16).grey68.w600,
+                            required: true,
+                            title: "Last Name",
+                            titleStyle: AppFont.t.s(16).w600.white,
+                            hasBorder: true,
+                            controller: lastNameController,
+                            hintText: 'Last Name',
+                            hintStyle: AppFont.t.s(16).grey68,
+                            validator: (value) {
+                              if (value?.isEmpty == true || !Validators.isValiName(value ?? '')) {
+                                return 'Please enter a valid Last Name';
+                              }
+                              return null;
+                            },
+                          ),
+                        )
+                      ],
+                    ),
+                    BoxMain.h(16),
+                    MyTextField(
+                      style: AppFont.t.s(16).grey68.w600,
+                      required: true,
+                      title: "Email",
+                      titleStyle: AppFont.t.s(16).w600.white,
+                      hasBorder: true,
+                      controller: emailController,
+                      hintText: 'Email',
+                      hintStyle: AppFont.t.s(16).grey68,
+                      validator: (value) {
+                        RegExp regex = RegExp(r'^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$');
+                        if ((value == null || value.isEmpty)) {
+                          return 'Không được để trống';
+                        } else if (value.isNotEmpty && !regex.hasMatch(value)) {
+                          return 'Giá trị không hợp lệ';
+                        }
+                        return null;
                       },
                     ),
+                    BoxMain.h(16),
+                    MyTextField(
+                      style: AppFont.t.s(16).grey68.w600,
+                      required: true,
+                      title: "Password",
+                      titleStyle: AppFont.t.s(16).w600.white,
+                      hasBorder: true,
+                      obscureText: true,
+                      controller: passWordController,
+                      hintText: 'Password',
+                      hintStyle: AppFont.t.s(16).grey68,
+                      validator: (value) {
+                        if ((value == null || value.isEmpty)) {
+                          return 'Mật khẩu không được để trống';
+                        } else if (Validators.validatePassword(value) == false) {
+                          return 'Mật khẩu không thỏa mãn';
+                        }
+                        return null;
+                      },
+                    ),
+                    BoxMain.h(32),
+                    BlocListener<SignupCubit, SignupState>(
+                      bloc: signUpCubit,
+                      listener: (context, state) {
+                        Logger.d('State', state.toString());
+                        state.whenOrNull(
+                          loading: showLoading,
+                          success: () {
+                            dismissLoading();
+                            AppNavigator.pushAndRemoveUntil(Routes.activeAccountScreen);
+                          },
+                          failure: dismissLoadingShowError,
+                        );
+                      },
+                      child: ButtonPrimary(
+                        text: 'Sing Up',
+                        textStyle: AppFont.t.s(24).w600.white,
+                        action: () {
+                          _formKey.currentState?.validate() == true
+                              ? signUpCubit.signup(
+                                  fistName: firstNameController.text,
+                                  lastName: lastNameController.text,
+                                  email: emailController.text,
+                                  passWord: passWordController.text)
+                              : null;
+                        },
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              BoxMain.h(8),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    'Already have an account?',
+                    style: AppFont.t.s(16).w500.white,
                   ),
+                  TextButton(
+                      onPressed: () => AppNavigator.push(Routes.signInScreen), //signInScreen
+                      child: Text(
+                        'Login',
+                        style: AppFont.t.s(18).w500.success,
+                      ))
                 ],
               ),
-            ),
-            BoxMain.h(8),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  'Already have an account?',
-                  style: AppFont.t.s(16).w500.white,
-                ),
-                TextButton(
-                    onPressed: () => AppNavigator.push(Routes.signInScreen), //signInScreen
-                    child: Text(
-                      'Login',
-                      style: AppFont.t.s(18).w500.success,
-                    ))
-              ],
-            ),
-            const Spacer(
-              flex: 2,
-            )
-          ],
+              const Spacer(
+                flex: 2,
+              )
+            ],
+          ),
         ),
       ),
     );

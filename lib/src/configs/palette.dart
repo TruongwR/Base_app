@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 
 class Palette {
+  static const Color blueAccent = Colors.blueAccent;
   static const Color primary = Color(0xff007EB8);
   static const Color white = Color(0xFFFFFFFF);
   static const Color black = Color(0xFF000000);

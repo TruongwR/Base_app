@@ -26,6 +26,6 @@ class EditProfileCubit extends Cubit<EditProfileState> {
       AppNavigator.push(Routes.editProfileScreen);
       emit(const EditProfileState.failure('Chỉnh sửa thất bại'));
     }
-    // EditProfile editProfile = EditProfile.fromJson(repo.);
+    
   }
 }

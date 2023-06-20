@@ -1,4 +1,5 @@
 import 'package:Whispers/src/data/model/active_account_model.dart';
+import 'package:Whispers/src/data/model/get_list_chanel_model.dart';
 import 'package:Whispers/src/data/model/respone_update_profile_model.dart';
 import 'package:dio/dio.dart';
 import 'package:retrofit/http.dart';
@@ -39,6 +40,14 @@ abstract class AuthenticationApi {
     @Field() String passwordOld,
     @Field() String password,
     @Field() String avatarFileId,
+  );
+  @GET(ApiPath.getListChanel)
+  Future<GetListChanelModel> getListChanel(
+ @Query('page') int page,
+  @Query('size') int size,
+  @Query('name') String? name,
+  @Query('type') String? type,
+    @Query('status') String status,
   );
 
   @GET(":9999/file/{idFiled}")

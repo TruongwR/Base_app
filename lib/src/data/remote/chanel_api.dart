@@ -1,3 +1,4 @@
+import 'package:Whispers/src/data/model/message_model.dart';
 import 'package:Whispers/src/network/api_path.dart';
 import 'package:dio/dio.dart';
 import 'package:retrofit/http.dart';

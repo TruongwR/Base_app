@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of 'detail_chanel_state.dart';
+part of 'get_new_password_state.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -15,12 +15,12 @@ final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 /// @nodoc
-mixin _$DetailChanelState {
+mixin _$GetNewPasswordState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(DataMessageModel data) success,
+    required TResult Function(GetNewPasswordModel? data) succes,
     required TResult Function(String error) failure,
   }) =>
       throw _privateConstructorUsedError;
@@ -28,7 +28,7 @@ mixin _$DetailChanelState {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(DataMessageModel data)? success,
+    TResult? Function(GetNewPasswordModel? data)? succes,
     TResult? Function(String error)? failure,
   }) =>
       throw _privateConstructorUsedError;
@@ -36,7 +36,7 @@ mixin _$DetailChanelState {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(DataMessageModel data)? success,
+    TResult Function(GetNewPasswordModel? data)? succes,
     TResult Function(String error)? failure,
     required TResult orElse(),
   }) =>
@@ -45,7 +45,7 @@ mixin _$DetailChanelState {
   TResult map<TResult extends Object?>({
     required TResult Function(_Initial value) initial,
     required TResult Function(_Loading value) loading,
-    required TResult Function(_Success value) success,
+    required TResult Function(_Succes value) succes,
     required TResult Function(_Failure value) failure,
   }) =>
       throw _privateConstructorUsedError;
@@ -53,7 +53,7 @@ mixin _$DetailChanelState {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Initial value)? initial,
     TResult? Function(_Loading value)? loading,
-    TResult? Function(_Success value)? success,
+    TResult? Function(_Succes value)? succes,
     TResult? Function(_Failure value)? failure,
   }) =>
       throw _privateConstructorUsedError;
@@ -61,7 +61,7 @@ mixin _$DetailChanelState {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Initial value)? initial,
     TResult Function(_Loading value)? loading,
-    TResult Function(_Success value)? success,
+    TResult Function(_Succes value)? succes,
     TResult Function(_Failure value)? failure,
     required TResult orElse(),
   }) =>
@@ -69,16 +69,16 @@ mixin _$DetailChanelState {
 }
 
 /// @nodoc
-abstract class $DetailChanelStateCopyWith<$Res> {
-  factory $DetailChanelStateCopyWith(
-          DetailChanelState value, $Res Function(DetailChanelState) then) =
-      _$DetailChanelStateCopyWithImpl<$Res, DetailChanelState>;
+abstract class $GetNewPasswordStateCopyWith<$Res> {
+  factory $GetNewPasswordStateCopyWith(
+          GetNewPasswordState value, $Res Function(GetNewPasswordState) then) =
+      _$GetNewPasswordStateCopyWithImpl<$Res, GetNewPasswordState>;
 }
 
 /// @nodoc
-class _$DetailChanelStateCopyWithImpl<$Res, $Val extends DetailChanelState>
-    implements $DetailChanelStateCopyWith<$Res> {
-  _$DetailChanelStateCopyWithImpl(this._value, this._then);
+class _$GetNewPasswordStateCopyWithImpl<$Res, $Val extends GetNewPasswordState>
+    implements $GetNewPasswordStateCopyWith<$Res> {
+  _$GetNewPasswordStateCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -95,7 +95,7 @@ abstract class _$$_InitialCopyWith<$Res> {
 
 /// @nodoc
 class __$$_InitialCopyWithImpl<$Res>
-    extends _$DetailChanelStateCopyWithImpl<$Res, _$_Initial>
+    extends _$GetNewPasswordStateCopyWithImpl<$Res, _$_Initial>
     implements _$$_InitialCopyWith<$Res> {
   __$$_InitialCopyWithImpl(_$_Initial _value, $Res Function(_$_Initial) _then)
       : super(_value, _then);
@@ -108,7 +108,7 @@ class _$_Initial implements _Initial {
 
   @override
   String toString() {
-    return 'DetailChanelState.initial()';
+    return 'GetNewPasswordState.initial()';
   }
 
   @override
@@ -125,7 +125,7 @@ class _$_Initial implements _Initial {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(DataMessageModel data) success,
+    required TResult Function(GetNewPasswordModel? data) succes,
     required TResult Function(String error) failure,
   }) {
     return initial();
@@ -136,7 +136,7 @@ class _$_Initial implements _Initial {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(DataMessageModel data)? success,
+    TResult? Function(GetNewPasswordModel? data)? succes,
     TResult? Function(String error)? failure,
   }) {
     return initial?.call();
@@ -147,7 +147,7 @@ class _$_Initial implements _Initial {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(DataMessageModel data)? success,
+    TResult Function(GetNewPasswordModel? data)? succes,
     TResult Function(String error)? failure,
     required TResult orElse(),
   }) {
@@ -162,7 +162,7 @@ class _$_Initial implements _Initial {
   TResult map<TResult extends Object?>({
     required TResult Function(_Initial value) initial,
     required TResult Function(_Loading value) loading,
-    required TResult Function(_Success value) success,
+    required TResult Function(_Succes value) succes,
     required TResult Function(_Failure value) failure,
   }) {
     return initial(this);
@@ -173,7 +173,7 @@ class _$_Initial implements _Initial {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Initial value)? initial,
     TResult? Function(_Loading value)? loading,
-    TResult? Function(_Success value)? success,
+    TResult? Function(_Succes value)? succes,
     TResult? Function(_Failure value)? failure,
   }) {
     return initial?.call(this);
@@ -184,7 +184,7 @@ class _$_Initial implements _Initial {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Initial value)? initial,
     TResult Function(_Loading value)? loading,
-    TResult Function(_Success value)? success,
+    TResult Function(_Succes value)? succes,
     TResult Function(_Failure value)? failure,
     required TResult orElse(),
   }) {
@@ -195,7 +195,7 @@ class _$_Initial implements _Initial {
   }
 }
 
-abstract class _Initial implements DetailChanelState {
+abstract class _Initial implements GetNewPasswordState {
   const factory _Initial() = _$_Initial;
 }
 
@@ -208,7 +208,7 @@ abstract class _$$_LoadingCopyWith<$Res> {
 
 /// @nodoc
 class __$$_LoadingCopyWithImpl<$Res>
-    extends _$DetailChanelStateCopyWithImpl<$Res, _$_Loading>
+    extends _$GetNewPasswordStateCopyWithImpl<$Res, _$_Loading>
     implements _$$_LoadingCopyWith<$Res> {
   __$$_LoadingCopyWithImpl(_$_Loading _value, $Res Function(_$_Loading) _then)
       : super(_value, _then);
@@ -221,7 +221,7 @@ class _$_Loading implements _Loading {
 
   @override
   String toString() {
-    return 'DetailChanelState.loading()';
+    return 'GetNewPasswordState.loading()';
   }
 
   @override
@@ -238,7 +238,7 @@ class _$_Loading implements _Loading {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(DataMessageModel data) success,
+    required TResult Function(GetNewPasswordModel? data) succes,
     required TResult Function(String error) failure,
   }) {
     return loading();
@@ -249,7 +249,7 @@ class _$_Loading implements _Loading {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(DataMessageModel data)? success,
+    TResult? Function(GetNewPasswordModel? data)? succes,
     TResult? Function(String error)? failure,
   }) {
     return loading?.call();
@@ -260,7 +260,7 @@ class _$_Loading implements _Loading {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(DataMessageModel data)? success,
+    TResult Function(GetNewPasswordModel? data)? succes,
     TResult Function(String error)? failure,
     required TResult orElse(),
   }) {
@@ -275,7 +275,7 @@ class _$_Loading implements _Loading {
   TResult map<TResult extends Object?>({
     required TResult Function(_Initial value) initial,
     required TResult Function(_Loading value) loading,
-    required TResult Function(_Success value) success,
+    required TResult Function(_Succes value) succes,
     required TResult Function(_Failure value) failure,
   }) {
     return loading(this);
@@ -286,7 +286,7 @@ class _$_Loading implements _Loading {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Initial value)? initial,
     TResult? Function(_Loading value)? loading,
-    TResult? Function(_Success value)? success,
+    TResult? Function(_Succes value)? succes,
     TResult? Function(_Failure value)? failure,
   }) {
     return loading?.call(this);
@@ -297,7 +297,7 @@ class _$_Loading implements _Loading {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Initial value)? initial,
     TResult Function(_Loading value)? loading,
-    TResult Function(_Success value)? success,
+    TResult Function(_Succes value)? succes,
     TResult Function(_Failure value)? failure,
     required TResult orElse(),
   }) {
@@ -308,24 +308,23 @@ class _$_Loading implements _Loading {
   }
 }
 
-abstract class _Loading implements DetailChanelState {
+abstract class _Loading implements GetNewPasswordState {
   const factory _Loading() = _$_Loading;
 }
 
 /// @nodoc
-abstract class _$$_SuccessCopyWith<$Res> {
-  factory _$$_SuccessCopyWith(
-          _$_Success value, $Res Function(_$_Success) then) =
-      __$$_SuccessCopyWithImpl<$Res>;
+abstract class _$$_SuccesCopyWith<$Res> {
+  factory _$$_SuccesCopyWith(_$_Succes value, $Res Function(_$_Succes) then) =
+      __$$_SuccesCopyWithImpl<$Res>;
   @useResult
-  $Res call({DataMessageModel data});
+  $Res call({GetNewPasswordModel? data});
 }
 
 /// @nodoc
-class __$$_SuccessCopyWithImpl<$Res>
-    extends _$DetailChanelStateCopyWithImpl<$Res, _$_Success>
-    implements _$$_SuccessCopyWith<$Res> {
-  __$$_SuccessCopyWithImpl(_$_Success _value, $Res Function(_$_Success) _then)
+class __$$_SuccesCopyWithImpl<$Res>
+    extends _$GetNewPasswordStateCopyWithImpl<$Res, _$_Succes>
+    implements _$$_SuccesCopyWith<$Res> {
+  __$$_SuccesCopyWithImpl(_$_Succes _value, $Res Function(_$_Succes) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -333,33 +332,33 @@ class __$$_SuccessCopyWithImpl<$Res>
   $Res call({
     Object? data = freezed,
   }) {
-    return _then(_$_Success(
+    return _then(_$_Succes(
       freezed == data
           ? _value.data
           : data // ignore: cast_nullable_to_non_nullable
-              as DataMessageModel,
+              as GetNewPasswordModel?,
     ));
   }
 }
 
 /// @nodoc
 
-class _$_Success implements _Success {
-  const _$_Success(this.data);
+class _$_Succes implements _Succes {
+  const _$_Succes(this.data);
 
   @override
-  final DataMessageModel data;
+  final GetNewPasswordModel? data;
 
   @override
   String toString() {
-    return 'DetailChanelState.success(data: $data)';
+    return 'GetNewPasswordState.succes(data: $data)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_Success &&
+            other is _$_Succes &&
             (identical(other.data, data) || other.data == data));
   }
 
@@ -369,18 +368,18 @@ class _$_Success implements _Success {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_SuccessCopyWith<_$_Success> get copyWith =>
-      __$$_SuccessCopyWithImpl<_$_Success>(this, _$identity);
+  _$$_SuccesCopyWith<_$_Succes> get copyWith =>
+      __$$_SuccesCopyWithImpl<_$_Succes>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(DataMessageModel data) success,
+    required TResult Function(GetNewPasswordModel? data) succes,
     required TResult Function(String error) failure,
   }) {
-    return success(data);
+    return succes(data);
   }
 
   @override
@@ -388,10 +387,10 @@ class _$_Success implements _Success {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(DataMessageModel data)? success,
+    TResult? Function(GetNewPasswordModel? data)? succes,
     TResult? Function(String error)? failure,
   }) {
-    return success?.call(data);
+    return succes?.call(data);
   }
 
   @override
@@ -399,12 +398,12 @@ class _$_Success implements _Success {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(DataMessageModel data)? success,
+    TResult Function(GetNewPasswordModel? data)? succes,
     TResult Function(String error)? failure,
     required TResult orElse(),
   }) {
-    if (success != null) {
-      return success(data);
+    if (succes != null) {
+      return succes(data);
     }
     return orElse();
   }
@@ -414,10 +413,10 @@ class _$_Success implements _Success {
   TResult map<TResult extends Object?>({
     required TResult Function(_Initial value) initial,
     required TResult Function(_Loading value) loading,
-    required TResult Function(_Success value) success,
+    required TResult Function(_Succes value) succes,
     required TResult Function(_Failure value) failure,
   }) {
-    return success(this);
+    return succes(this);
   }
 
   @override
@@ -425,10 +424,10 @@ class _$_Success implements _Success {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Initial value)? initial,
     TResult? Function(_Loading value)? loading,
-    TResult? Function(_Success value)? success,
+    TResult? Function(_Succes value)? succes,
     TResult? Function(_Failure value)? failure,
   }) {
-    return success?.call(this);
+    return succes?.call(this);
   }
 
   @override
@@ -436,23 +435,23 @@ class _$_Success implements _Success {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Initial value)? initial,
     TResult Function(_Loading value)? loading,
-    TResult Function(_Success value)? success,
+    TResult Function(_Succes value)? succes,
     TResult Function(_Failure value)? failure,
     required TResult orElse(),
   }) {
-    if (success != null) {
-      return success(this);
+    if (succes != null) {
+      return succes(this);
     }
     return orElse();
   }
 }
 
-abstract class _Success implements DetailChanelState {
-  const factory _Success(final DataMessageModel data) = _$_Success;
+abstract class _Succes implements GetNewPasswordState {
+  const factory _Succes(final GetNewPasswordModel? data) = _$_Succes;
 
-  DataMessageModel get data;
+  GetNewPasswordModel? get data;
   @JsonKey(ignore: true)
-  _$$_SuccessCopyWith<_$_Success> get copyWith =>
+  _$$_SuccesCopyWith<_$_Succes> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -467,7 +466,7 @@ abstract class _$$_FailureCopyWith<$Res> {
 
 /// @nodoc
 class __$$_FailureCopyWithImpl<$Res>
-    extends _$DetailChanelStateCopyWithImpl<$Res, _$_Failure>
+    extends _$GetNewPasswordStateCopyWithImpl<$Res, _$_Failure>
     implements _$$_FailureCopyWith<$Res> {
   __$$_FailureCopyWithImpl(_$_Failure _value, $Res Function(_$_Failure) _then)
       : super(_value, _then);
@@ -496,7 +495,7 @@ class _$_Failure implements _Failure {
 
   @override
   String toString() {
-    return 'DetailChanelState.failure(error: $error)';
+    return 'GetNewPasswordState.failure(error: $error)';
   }
 
   @override
@@ -521,7 +520,7 @@ class _$_Failure implements _Failure {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(DataMessageModel data) success,
+    required TResult Function(GetNewPasswordModel? data) succes,
     required TResult Function(String error) failure,
   }) {
     return failure(error);
@@ -532,7 +531,7 @@ class _$_Failure implements _Failure {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(DataMessageModel data)? success,
+    TResult? Function(GetNewPasswordModel? data)? succes,
     TResult? Function(String error)? failure,
   }) {
     return failure?.call(error);
@@ -543,7 +542,7 @@ class _$_Failure implements _Failure {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(DataMessageModel data)? success,
+    TResult Function(GetNewPasswordModel? data)? succes,
     TResult Function(String error)? failure,
     required TResult orElse(),
   }) {
@@ -558,7 +557,7 @@ class _$_Failure implements _Failure {
   TResult map<TResult extends Object?>({
     required TResult Function(_Initial value) initial,
     required TResult Function(_Loading value) loading,
-    required TResult Function(_Success value) success,
+    required TResult Function(_Succes value) succes,
     required TResult Function(_Failure value) failure,
   }) {
     return failure(this);
@@ -569,7 +568,7 @@ class _$_Failure implements _Failure {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Initial value)? initial,
     TResult? Function(_Loading value)? loading,
-    TResult? Function(_Success value)? success,
+    TResult? Function(_Succes value)? succes,
     TResult? Function(_Failure value)? failure,
   }) {
     return failure?.call(this);
@@ -580,7 +579,7 @@ class _$_Failure implements _Failure {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Initial value)? initial,
     TResult Function(_Loading value)? loading,
-    TResult Function(_Success value)? success,
+    TResult Function(_Succes value)? succes,
     TResult Function(_Failure value)? failure,
     required TResult orElse(),
   }) {
@@ -591,7 +590,7 @@ class _$_Failure implements _Failure {
   }
 }
 
-abstract class _Failure implements DetailChanelState {
+abstract class _Failure implements GetNewPasswordState {
   const factory _Failure(final String error) = _$_Failure;
 
   String get error;
