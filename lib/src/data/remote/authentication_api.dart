@@ -40,4 +40,9 @@ abstract class AuthenticationApi {
     @Field() String password,
     @Field() String avatarFileId,
   );
+
+  @GET(":9999/file/{idFiled}")
+  Future<dynamic> downLoadFile(@Path("idFiled") String idFiled);
+  @GET(":9999/file/{idFiled}")
+  Future<dynamic> downAvatar(@Path("idFiled") String idFiled);
 }

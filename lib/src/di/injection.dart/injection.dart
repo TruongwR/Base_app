@@ -7,6 +7,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import '../../cubit/chanel_list_all_cubit.dart';
 import '../../cubit/detail_chanel_cubit.dart';
+
 import '../../cubit/signup_cubit.dart';
 import '../../data/data_sources/local/app_data.dart';
 import '../modules/api_modules.dart';
@@ -33,8 +34,8 @@ class Injection {
     BlocProvider<SignupCubit>(create: (context) => getIt<SignupCubit>()),
     BlocProvider<ActiveAccountCubit>(create: (context) => getIt<ActiveAccountCubit>()),
     BlocProvider<EditProfileCubit>(create: (context) => getIt<EditProfileCubit>()),
-    BlocProvider<ChanelListAllCubit>(create: (context) => getIt<ChanelListAllCubit>(),),
-    BlocProvider<DetailChanelCubit>(create: (context) => getIt<DetailChanelCubit>(),)
+    BlocProvider<ChanelListAllCubit>(create: (context) => getIt<ChanelListAllCubit>()),
+    BlocProvider<DetailChanelCubit>(create: (context) => getIt<DetailChanelCubit>()),
   ];
 }
 
