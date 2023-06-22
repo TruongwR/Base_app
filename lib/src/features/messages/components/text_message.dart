@@ -27,7 +27,7 @@ class TextMessage extends StatelessWidget {
         width: MediaQuery.of(context).size.width * 2 / 3,
         child: Text(
           message!.content ?? "",
-          style: AppFont.t.s(12),
+          style: AppFont.t.s(18).white.w500,
         ),
       ),
     );

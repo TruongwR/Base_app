@@ -6,7 +6,7 @@ import 'package:Whispers/src/share_components/share_componets.dart';
 import 'package:Whispers/src/utils/helpers/logger.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
+import '../../cubit/check_messages_cubit.dart';
 import '../../configs/box.dart';
 import '../../cubit/detail_chanel_cubit.dart';
 import '../../data/model/list_chanel_parrent_model.dart';
@@ -45,7 +45,8 @@ class _MessagesScreenState extends State<MessagesScreen> {
   }
 
   void _loadMore() {
-    detailChanelCubit.getListChanel(page: _page, size: _size, content: contenController.text, channelId: widget.chanel.id ?? '');
+    detailChanelCubit.getListMessageChanel(
+        page: _page, size: _size, content: contenController.text, channelId: widget.chanel.id ?? '');
     _page++;
   }
 
@@ -54,7 +55,8 @@ class _MessagesScreenState extends State<MessagesScreen> {
     _totalPage = 1;
     _listMessageChanel = [];
     _viewer = [];
-    detailChanelCubit.getListChanel(page: _page, size: _size, content: contenController.text, channelId: widget.chanel.id ?? '');
+    detailChanelCubit.getListMessageChanel(
+        page: _page, size: _size, content: contenController.text, channelId: widget.chanel.id ?? '');
   }
 
   @override
@@ -68,14 +70,19 @@ class _MessagesScreenState extends State<MessagesScreen> {
           failure: (value) => const Empty(),
           success: (value) {
             _totalPage = value.data.message?.totalPages ?? 1;
-            _viewer.addAll(value.data.viewer as Iterable< Viewer>);
+            _viewer.addAll(value.data.viewer as Iterable<Viewer>);
             _listMessageChanel.addAll(value.data.message?.content as Iterable<ContentMessage>);
             setState(() {});
             Logger.d("lenght", _listMessageChanel.length);
           },
         );
       },
-      child: Scaffold(appBar: buildAppBar(), body: Body(listDetail: _listMessageChanel,listViewer: _viewer,)),
+      child: Scaffold(
+          appBar: buildAppBar(),
+          body: Body(
+            listDetail: _listMessageChanel,
+            listViewer: _viewer,
+          )),
     );
   }
 

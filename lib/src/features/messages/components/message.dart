@@ -1,5 +1,6 @@
 import 'package:Whispers/src/configs/box.dart';
 import 'package:Whispers/src/configs/palette.dart';
+import 'package:Whispers/src/cubit/check_messages_cubit.dart';
 import 'package:Whispers/src/di/injection.dart/injection.dart';
 import 'package:Whispers/src/features/messages/components/setting_message.dart';
 import 'package:flutter/material.dart';
@@ -12,11 +13,24 @@ import 'image_message.dart';
 import 'text_message.dart';
 import 'video_message.dart';
 
-class Message extends StatelessWidget {
+class Message extends StatefulWidget {
   const Message({Key? key, required this.message, required this.listViewer}) : super(key: key);
 
   final ContentMessage message;
   final List<Viewer> listViewer;
+
+  @override
+  State<Message> createState() => _MessageState();
+}
+
+class _MessageState extends State<Message> {
+  final CheckMessagesCubit _checkMessagesCubit = getIt<CheckMessagesCubit>();
+
+  @override
+  // void initState() {
+  //   _checkMessagesCubit.checkMessages(chanelId: widget.dataMessage.id ?? '');
+  //   super.initState();
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -49,10 +63,11 @@ class Message extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(top: 16),
       child: Row(
-        mainAxisAlignment: message.id == appData.userModel?.account?.id ? MainAxisAlignment.end : MainAxisAlignment.start,
+        mainAxisAlignment:
+            widget.message.id == appData.userModel?.account?.id ? MainAxisAlignment.end : MainAxisAlignment.start,
         children: [
-          if (!(message.id == appData.userModel?.account?.id)) ...[
-            message.type != "SETTING"
+          if (!(widget.message.id == appData.userModel?.account?.id)) ...[
+            widget.message.type != "SETTING"
                 ? const CircleAvatar(
                     radius: 12,
                     backgroundImage: AssetImage("assets/images/user_2.png"),
@@ -60,9 +75,10 @@ class Message extends StatelessWidget {
                 : Container(),
             BoxMain.w(8)
           ],
-          messageContaint(message),
-          if (message.files != []) fileContaint(message),
-          if (message.id == appData.userModel?.account?.id) MessageStatusDot(status: listViewer != [] ? MessageStatus.viewed : MessageStatus.notView)
+          messageContaint(widget.message),
+          if (widget.message.files != []) fileContaint(widget.message),
+          if (widget.message.id == appData.userModel?.account?.id)
+            MessageStatusDot(status: widget.listViewer != [] ? MessageStatus.viewed : MessageStatus.notView)
         ],
       ),
     );

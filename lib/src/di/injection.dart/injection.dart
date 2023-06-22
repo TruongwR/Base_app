@@ -1,4 +1,5 @@
 import 'package:Whispers/src/cubit/active_account_cubit.dart';
+import 'package:Whispers/src/cubit/check_messages_cubit.dart';
 import 'package:Whispers/src/cubit/edit_profile_cubit.dart';
 import 'package:Whispers/src/cubit/fotget_password_cubit.dart';
 import 'package:Whispers/src/cubit/login_cubit_cubit.dart';
@@ -36,6 +37,7 @@ class Injection {
     BlocProvider<EditProfileCubit>(create: (context) => getIt<EditProfileCubit>()),
     BlocProvider<ChanelListAllCubit>(create: (context) => getIt<ChanelListAllCubit>()),
     BlocProvider<DetailChanelCubit>(create: (context) => getIt<DetailChanelCubit>()),
+    BlocProvider<CheckMessagesCubit>(create: (context) => getIt<CheckMessagesCubit>()),
   ];
 }
 

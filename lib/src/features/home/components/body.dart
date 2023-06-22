@@ -49,7 +49,8 @@ class _BodyState extends State<Body> {
   }
 
   void _loadMore() {
-    _chanelListAllCubit.getlistChanel(page: _page, size: _size, name: searchController.text, status: StatusChanel.sttaccepted.getString());
+    _chanelListAllCubit.getlistChanel(
+        page: _page, size: _size, name: searchController.text, status: StatusChanel.sttaccepted.getString());
     _page++;
   }
 
@@ -57,7 +58,8 @@ class _BodyState extends State<Body> {
     _page = 1;
     _totalPage = 1;
     _listChanel = [];
-    _chanelListAllCubit.getlistChanel(page: _page, size: _size, name: name, status: StatusChanel.sttaccepted.getString());
+    _chanelListAllCubit.getlistChanel(
+        page: _page, size: _size, name: name, status: StatusChanel.sttaccepted.getString());
   }
 
   @override
@@ -92,6 +94,7 @@ class _BodyState extends State<Body> {
                     controller: _sc,
                     itemCount: _listChanel.length,
                     itemBuilder: (context, index) => ChatCard(
+                      type: 1,
                       isStatus: true,
                       chanel: _listChanel[index],
                       press: () => AppNavigator.push(Routes.messagesScreen, arguments: _listChanel[index]),

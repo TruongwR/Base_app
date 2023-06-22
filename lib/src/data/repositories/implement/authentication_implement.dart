@@ -33,7 +33,8 @@ class AuthenRepoImpl implements AuthenticationRepository {
   }
 
   @override
-  Future<UpdateProfileModel> updateProfile(String firstName, String lastName, String passwordOld, String password, String avatarFileId) {
+  Future<UpdateProfileModel> updateProfile(
+      String firstName, String lastName, String passwordOld, String password, String avatarFileId) {
     return authenticationApi.updateProfile(firstName, lastName, passwordOld, password, avatarFileId);
   }
 
@@ -45,10 +46,5 @@ class AuthenRepoImpl implements AuthenticationRepository {
   @override
   Future downAvatar(String idFiled) {
     return authenticationApi.downAvatar(idFiled);
-  }
-
-  @override
-  Future<GetListChanelModel> getListChanel(int page, int size, String? name, String? type, String status) {
-    return authenticationApi.getListChanel(page,size,name,type,status);
   }
 }

@@ -7,4 +7,5 @@ abstract class ChanelRepository {
       {required int page, required int size, String? name, String? type, required String status});
   Future<ApiResponse<DataMessageModel>> getMessage(
       {required int page, required int size, String? content, required String channelId});
+  Future<ApiResponse<dynamic>> checkMessages({required String chanelId});
 }
