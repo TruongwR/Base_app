@@ -1,6 +1,5 @@
 import 'package:Whispers/src/data/model/active_account_model.dart';
 import 'package:Whispers/src/data/model/fotget_password_model.dart';
-
 import 'package:Whispers/src/data/model/respone_update_profile_model.dart';
 import 'package:Whispers/src/network/base_dio.dart';
 
@@ -45,6 +44,4 @@ class AuthenRepoImpl implements AuthenticationRepository {
   Future downAvatar(String idFiled) {
     return authenticationApi.downAvatar(idFiled);
   }
-
-
 }

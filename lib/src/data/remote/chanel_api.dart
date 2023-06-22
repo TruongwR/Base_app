@@ -1,10 +1,10 @@
-import 'package:Whispers/src/data/model/message_model.dart';
 import 'package:Whispers/src/network/api_path.dart';
 import 'package:dio/dio.dart';
 import 'package:retrofit/http.dart';
 
 import '../model/api_response/api_response.dart';
 import '../model/list_chanel_parrent_model.dart';
+import '../model/message_model.dart';
 
 part 'chanel_api.g.dart';
 
