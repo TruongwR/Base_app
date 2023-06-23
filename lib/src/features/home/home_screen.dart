@@ -1,5 +1,3 @@
-import 'package:Whispers/src/configs/palette.dart';
-import 'package:Whispers/src/features/calls/call_screen.dart';
 import 'package:Whispers/src/features/people/people_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -24,7 +22,6 @@ class _HomeScreenState extends State<HomeScreen> {
   List<Widget> listBody = [
     const Body(),
     const PeopleScreen(),
-    const CallScreen(),
     const ProfileScreen(),
   ];
   @override
@@ -32,16 +29,16 @@ class _HomeScreenState extends State<HomeScreen> {
     return SafeArea(
       child: Scaffold(
         body: listBody.elementAt(_selectedIndex),
-        floatingActionButton: _selectedIndex == 0
-            ? FloatingActionButton(
-                onPressed: () {},
-                backgroundColor: Palette.primary,
-                child: const Icon(
-                  Icons.person_add_alt_1,
-                  color: Colors.white,
-                ),
-              )
-            : null,
+        // floatingActionButton: _selectedIndex == 0
+        //     ? FloatingActionButton(
+        //         onPressed: () {},
+        //         backgroundColor: Palette.primary,
+        //         child: const Icon(
+        //           Icons.person_add_alt_1,
+        //           color: Colors.white,
+        //         ),
+        //       )
+        //     : null,
         bottomNavigationBar: buildBottomNavigationBar(),
       ),
     );
@@ -59,7 +56,6 @@ class _HomeScreenState extends State<HomeScreen> {
       items: const [
         BottomNavigationBarItem(icon: Icon(CupertinoIcons.chat_bubble_2), label: "Chats"),
         BottomNavigationBarItem(icon: Icon(CupertinoIcons.person_2_fill), label: "People"),
-        BottomNavigationBarItem(icon: Icon(CupertinoIcons.phone_circle), label: "Calls"),
         BottomNavigationBarItem(
           icon: CircleAvatar(
             radius: 14,

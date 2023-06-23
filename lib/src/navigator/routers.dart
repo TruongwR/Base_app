@@ -8,4 +8,5 @@ class Routes {
   static const String profileScreen = 'ProfileScreen';
   static const String editProfileScreen = 'EditProfileScreen';
   static const String messagesScreen = "MessagesScreen";
+  static const String channelDetailScreen = "ChannelDetailScreen";
 }

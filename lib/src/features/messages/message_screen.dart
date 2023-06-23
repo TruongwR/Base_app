@@ -1,6 +1,8 @@
 import 'package:Whispers/src/configs/app_fonts.dart';
 import 'package:Whispers/src/cubit/detail_chanel_state.dart';
 import 'package:Whispers/src/di/injection.dart/injection.dart';
+import 'package:Whispers/src/navigator/app_navigator.dart';
+import 'package:Whispers/src/navigator/routers.dart';
 import 'package:Whispers/src/share_components/loading/loading.dart';
 import 'package:Whispers/src/share_components/share_componets.dart';
 import 'package:Whispers/src/utils/helpers/logger.dart';
@@ -23,6 +25,7 @@ class MessagesScreen extends StatefulWidget {
 
 class _MessagesScreenState extends State<MessagesScreen> {
   final DetailChanelCubit detailChanelCubit = getIt<DetailChanelCubit>();
+  final CheckMessagesCubit checkMessagesCubit = getIt<CheckMessagesCubit>();
 
   int _page = 1;
   final int _size = 10;
@@ -34,7 +37,7 @@ class _MessagesScreenState extends State<MessagesScreen> {
   @override
   void initState() {
     _initData();
-
+    _checkMess();
     _sc = ScrollController()
       ..addListener(() {
         if (_sc.position.pixels == _sc.position.maxScrollExtent && _page < _totalPage - 1) {
@@ -57,6 +60,10 @@ class _MessagesScreenState extends State<MessagesScreen> {
     _viewer = [];
     detailChanelCubit.getListMessageChanel(
         page: _page, size: _size, content: contenController.text, channelId: widget.chanel.id ?? '');
+  }
+
+  void _checkMess() async {
+    checkMessagesCubit.checkMessages(chanelId: widget.chanel.id ?? '');
   }
 
   @override
@@ -92,8 +99,11 @@ class _MessagesScreenState extends State<MessagesScreen> {
       title: Row(
         children: [
           const BackButton(),
-          const CircleAvatar(
-            backgroundImage: AssetImage("assets/images/user_2.png"),
+          InkWell(
+            onTap: () => AppNavigator.push(Routes.channelDetailScreen, arguments: widget.chanel),
+            child: const CircleAvatar(
+              backgroundImage: AssetImage("assets/images/user_2.png"),
+            ),
           ),
           BoxMain.w(6 * 0.75),
           Column(
@@ -119,7 +129,7 @@ class _MessagesScreenState extends State<MessagesScreen> {
           icon: const Icon(Icons.videocam),
           onPressed: () {},
         ),
-        BoxMain.w(8),
+        BoxMain.w(4),
       ],
     );
   }

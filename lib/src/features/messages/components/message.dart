@@ -24,14 +24,6 @@ class Message extends StatefulWidget {
 }
 
 class _MessageState extends State<Message> {
-  final CheckMessagesCubit _checkMessagesCubit = getIt<CheckMessagesCubit>();
-
-  @override
-  // void initState() {
-  //   _checkMessagesCubit.checkMessages(chanelId: widget.dataMessage.id ?? '');
-  //   super.initState();
-  // }
-
   @override
   Widget build(BuildContext context) {
     Widget messageContaint(ContentMessage message) {
