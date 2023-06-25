@@ -34,6 +34,7 @@ class MyTextField extends StatelessWidget {
   final TextStyle? style;
   final EdgeInsets? contentPadding;
   final Color? cursorColor;
+  final Color? fillColor;
   final bool autoFocus;
   final bool hasBorder;
   final bool isDense;
@@ -74,6 +75,7 @@ class MyTextField extends StatelessWidget {
       this.prefix,
       this.contentPadding,
       this.cursorColor = Palette.black,
+      this.fillColor = Palette.white,
       this.autoFocus = false,
       this.hasBorder = false,
       this.isDense = false,
@@ -131,7 +133,7 @@ class MyTextField extends StatelessWidget {
               contentPadding: contentPadding,
               counterText: '',
               errorText: errorText,
-              fillColor: Palette.white,
+              fillColor: fillColor,
               filled: true,
               hintText: hintText,
               hintStyle: hintStyle ?? AppFont.t.hint,

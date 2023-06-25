@@ -30,4 +30,11 @@ abstract class ChanelApi {
   Future<ApiResponse<dynamic>> checkMessages(
     @Field() String chanelId,
   );
+  @POST(ApiPath.createChanel)
+  Future<ApiResponse<dynamic>> createChanel(
+    @Field() String name,
+    @Field() String type,
+    @Field() String? otherHalf,
+    @Field() List<String>? members,
+  );
 }

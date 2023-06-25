@@ -7,6 +7,7 @@ import 'package:Whispers/src/features/sign_in/sign_in_screen.dart';
 import 'package:Whispers/src/navigator/routers.dart';
 import 'package:flutter/material.dart';
 
+import '../features/create_chanel/create_chanel_screen.dart';
 import '../features/home/home_screen.dart';
 import '../features/messages/message_screen.dart';
 import '../features/profile/profile_screen.dart';
@@ -73,6 +74,11 @@ class AppNavigator {
           ChannelDetailScreen(
             chanel: chanel,
           ),
+        );
+      case Routes.createChanelScreen:
+        return _buildRoute(
+          settings,
+          const CreateChanelScreen(),
         );
       default:
         return null;

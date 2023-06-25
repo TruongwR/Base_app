@@ -23,4 +23,10 @@ class ChanelImplement implements ChanelRepository {
   Future<ApiResponse<dynamic>> checkMessages({required String chanelId}) {
     return chanelApi.checkMessages(chanelId);
   }
+
+  @override
+  Future<ApiResponse> createChanel(
+      {required String name, required String type, String? otherHalf, List<String>? members}) {
+    return chanelApi.createChanel(name, type, otherHalf, members);
+  }
 }

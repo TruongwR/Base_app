@@ -6,17 +6,20 @@ import '../../../configs/app_fonts.dart';
 import '../../../share_components/time/time_extension.dart';
 
 class ChatCard extends StatelessWidget {
-  const ChatCard({Key? key, required this.chanel, required this.press, required this.isStatus, required this.type})
+  const ChatCard(
+      {Key? key, required this.chanel, required this.press, required this.isStatus, required this.type, this.longPress})
       : super(key: key);
   final int type;
   final Chanel chanel;
   final VoidCallback press;
+  final Function()? longPress;
   final bool isStatus;
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: press,
+      onLongPress: longPress,
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16 * 0.75),
         child: Row(
@@ -65,22 +68,29 @@ class ChatCard extends StatelessWidget {
                             ),
                           ),
                         ]
-                      : [
-                          Text(
-                            chanel.name ?? '',
-                            style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
-                          ),
-                          const SizedBox(height: 8),
-                          Opacity(
-                            opacity: 0.64,
-                            child: Text(
-                              'Whisper',
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
-                              style: AppFont.t.s(16).w600,
-                            ),
-                          ),
-                        ],
+                      : (type == 2
+                          ? <Widget>[
+                              Text(
+                                chanel.name ?? '',
+                                style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+                              ),
+                              const SizedBox(height: 8),
+                              Opacity(
+                                opacity: 0.64,
+                                child: Text(
+                                  'Whisper',
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: AppFont.t.s(16).w600,
+                                ),
+                              ),
+                            ]
+                          : [
+                              Text(
+                                chanel.name ?? '',
+                                style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+                              ),
+                            ]),
                 ),
               ),
             ),
@@ -91,7 +101,12 @@ class ChatCard extends StatelessWidget {
                         DateTime.fromMillisecondsSinceEpoch(chanel.lastMessage?.updatedTime ?? 0).toLocal(),
                         DateTime.now().toLocal())),
                   )
-                : const SizedBox(),
+                : (type == 2
+                    ? const SizedBox()
+                    : const Icon(
+                        Icons.circle_outlined,
+                        color: Palette.gray97,
+                      )),
           ],
         ),
       ),
