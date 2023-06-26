@@ -49,7 +49,8 @@ class _BodyState extends State<Body> {
   }
 
   void _loadMore() {
-    _chanelListAllCubit.getlistChanel(page: _page, size: _size, name: searchController.text, status: StatusChanel.sttaccepted.getString());
+    _chanelListAllCubit.getlistChanel(
+        page: _page, size: _size, name: searchController.text, status: StatusChanel.sttaccepted.getString());
     _page++;
   }
 
@@ -57,7 +58,8 @@ class _BodyState extends State<Body> {
     _page = 1;
     _totalPage = 1;
     _listChanel = [];
-    _chanelListAllCubit.getlistChanel(page: _page, size: _size, name: name, status: StatusChanel.sttaccepted.getString());
+    _chanelListAllCubit.getlistChanel(
+        page: _page, size: _size, name: name, status: StatusChanel.sttaccepted.getString());
   }
 
   @override
@@ -92,14 +94,39 @@ class _BodyState extends State<Body> {
                     controller: _sc,
                     itemCount: _listChanel.length,
                     itemBuilder: (context, index) => ChatCard(
+                      type: 1,
                       isStatus: true,
                       chanel: _listChanel[index],
                       press: () => AppNavigator.push(Routes.messagesScreen, arguments: _listChanel[index]),
+                      longPress: () => buildButtomSheat(),
                     ),
                   ),
                 ),
               ),
             ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  buildButtomSheat() {
+    return showBottomSheet(
+      context: context,
+      builder: (context) => Container(
+        decoration: const BoxDecoration(
+          borderRadius: BorderRadius.only(
+            topRight: Radius.circular(8),
+            topLeft: Radius.circular(8),
+          ),
+        ),
+        height: MediaQuery.of(context).size.height / 4,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            _rowLayout(onTap: () {}, icon: Icons.inventory, title: 'Lưu trữ'),
+            _rowLayout(onTap: () {}, icon: Icons.delete, title: 'Xóa'),
+            _rowLayout(onTap: () {}, icon: Icons.notifications_off, title: 'Tắt'),
           ],
         ),
       ),
@@ -113,7 +140,7 @@ class _BodyState extends State<Body> {
       actions: [
         IconButton(
           icon: const Icon(Icons.edit_note_outlined),
-          onPressed: () {},
+          onPressed: () => AppNavigator.push(Routes.createChanelScreen),
         ),
         BoxMain.w(8),
       ],
@@ -152,6 +179,21 @@ class _BodyState extends State<Body> {
             hintStyle: AppFont.t.s(16).grey68,
           ),
         ),
+      ),
+    );
+  }
+
+  Widget _rowLayout({required Function()? onTap, required IconData icon, required String title}) {
+    return InkWell(
+      onTap: onTap,
+      child: Row(
+        children: [
+          Icon(icon),
+          Text(
+            title,
+            style: AppFont.t.s(18).white,
+          ),
+        ],
       ),
     );
   }

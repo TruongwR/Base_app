@@ -31,7 +31,8 @@ class AuthenRepoImpl implements AuthenticationRepository {
   }
 
   @override
-  Future<UpdateProfileModel> updateProfile(String firstName, String lastName, String passwordOld, String password, String avatarFileId) {
+  Future<UpdateProfileModel> updateProfile(
+      String firstName, String lastName, String passwordOld, String password, String avatarFileId) {
     return authenticationApi.updateProfile(firstName, lastName, passwordOld, password, avatarFileId);
   }
 

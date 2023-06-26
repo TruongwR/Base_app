@@ -168,6 +168,42 @@ class _AuthenticationApi implements AuthenticationApi {
   }
 
   @override
+  Future<GetListChanelModel> getListChanel(
+    int page,
+    int size,
+    String? name,
+    String? type,
+    String status,
+  ) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{
+      r'page': page,
+      r'size': size,
+      r'name': name,
+      r'type': type,
+      r'status': status,
+    };
+    queryParameters.removeWhere((k, v) => v == null);
+    final _headers = <String, dynamic>{};
+    final Map<String, dynamic>? _data = null;
+    final _result = await _dio
+        .fetch<Map<String, dynamic>>(_setStreamType<GetListChanelModel>(Options(
+      method: 'GET',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              ':9998/channel',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = GetListChanelModel.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
   Future<dynamic> downLoadFile(String idFiled) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};

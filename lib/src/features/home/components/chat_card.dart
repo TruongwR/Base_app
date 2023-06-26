@@ -1,21 +1,25 @@
-import 'package:Whispers/src/configs/app_fonts.dart';
-import 'package:Whispers/src/configs/palette.dart';
 import 'package:Whispers/src/data/model/list_chanel_parrent_model.dart';
 import 'package:flutter/material.dart';
 
+import '../../../configs/Palette.dart';
+import '../../../configs/app_fonts.dart';
 import '../../../share_components/time/time_extension.dart';
 
 class ChatCard extends StatelessWidget {
-  const ChatCard({Key? key, required this.chanel, required this.press, required this.isStatus}) : super(key: key);
-
+  const ChatCard(
+      {Key? key, required this.chanel, required this.press, required this.isStatus, required this.type, this.longPress})
+      : super(key: key);
+  final int type;
   final Chanel chanel;
   final VoidCallback press;
+  final Function()? longPress;
   final bool isStatus;
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: press,
+      onLongPress: longPress,
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16 * 0.75),
         child: Row(
@@ -47,29 +51,62 @@ class ChatCard extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      chanel.name ?? '',
-                      style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
-                    ),
-                    const SizedBox(height: 8),
-                    Opacity(
-                      opacity: 0.64,
-                      child: Text(
-                        chanel.lastMessage?.content ?? '',
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                        style: chanel.lastMessage?.isWatched == "NO" ? AppFont.t.s(16).w600 : AppFont.t,
-                      ),
-                    ),
-                  ],
+                  children: type == 1
+                      ? <Widget>[
+                          Text(
+                            chanel.name ?? '',
+                            style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+                          ),
+                          const SizedBox(height: 8),
+                          Opacity(
+                            opacity: 0.64,
+                            child: Text(
+                              chanel.lastMessage?.content ?? '',
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              style: chanel.lastMessage?.isWatched == "NO" ? AppFont.t.s(16).w600 : AppFont.t,
+                            ),
+                          ),
+                        ]
+                      : (type == 2
+                          ? <Widget>[
+                              Text(
+                                chanel.name ?? '',
+                                style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+                              ),
+                              const SizedBox(height: 8),
+                              Opacity(
+                                opacity: 0.64,
+                                child: Text(
+                                  'Whisper',
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: AppFont.t.s(16).w600,
+                                ),
+                              ),
+                            ]
+                          : [
+                              Text(
+                                chanel.name ?? '',
+                                style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+                              ),
+                            ]),
                 ),
               ),
             ),
-            Opacity(
-              opacity: 0.64,
-              child: Text(calculateTimeDifference(DateTime.fromMillisecondsSinceEpoch(chanel.lastMessage?.updatedTime ?? 0).toLocal(), DateTime.now().toLocal())),
-            ),
+            type == 1
+                ? Opacity(
+                    opacity: 0.64,
+                    child: Text(calculateTimeDifference(
+                        DateTime.fromMillisecondsSinceEpoch(chanel.lastMessage?.updatedTime ?? 0).toLocal(),
+                        DateTime.now().toLocal())),
+                  )
+                : (type == 2
+                    ? const SizedBox()
+                    : const Icon(
+                        Icons.circle_outlined,
+                        color: Palette.gray97,
+                      )),
           ],
         ),
       ),

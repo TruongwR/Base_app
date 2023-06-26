@@ -96,11 +96,10 @@ class _PeopleScreenState extends State<PeopleScreen> {
         child: ListView.builder(
             itemCount: _listChanel.length,
             itemBuilder: (context, index) => ChatCard(
+                  type: 2,
                   isStatus: false,
                   chanel: _listChanel[index],
-                  press: () => AppNavigator.push(
-                    Routes.messagesScreen,
-                  ),
+                  press: () => AppNavigator.push(Routes.messagesScreen, arguments: _listChanel[index]),
                 )),
       ),
     ));

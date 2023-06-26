@@ -5,10 +5,11 @@ import 'package:Whispers/src/data/model/api_response/api_response.dart';
 import 'package:Whispers/src/data/model/list_chanel_parrent_model.dart';
 
 import 'package:Whispers/src/data/model/message_model.dart';
-
+import 'package:Whispers/src/data/remote/chanel_api.dart';
+import 'package:Whispers/src/data/repositories/repository/chanel_repository.dart';
 import '../../../network/base_dio.dart';
-import '../../remote/chanel_api.dart';
-import '../repository/chanel_repository.dart';
+import '../../model/api_response/api_response.dart';
+import '../../model/list_chanel_parrent_model.dart';
 
 class ChanelImplement implements ChanelRepository {
  final ChanelApi chanelApi = ChanelApi(BaseDio.instance.dio);
@@ -18,7 +19,19 @@ class ChanelImplement implements ChanelRepository {
   }
 
   @override
-  Future<ApiResponse<DataMessageModel>> getMessage({required int page, required int size, String? content,required String channelId}) {
-return chanelApi.getListMessageChanel(page, size, content, channelId);
+  Future<ApiResponse<DataMessageModel>> getMessage(
+      {required int page, required int size, String? content, required String channelId}) {
+    return chanelApi.getListMessageChanel(page, size, content, channelId);
+  }
+
+  @override
+  Future<ApiResponse<dynamic>> checkMessages({required String chanelId}) {
+    return chanelApi.checkMessages(chanelId);
+  }
+
+  @override
+  Future<ApiResponse> createChanel(
+      {required String name, required String type, String? otherHalf, List<String>? members}) {
+    return chanelApi.createChanel(name, type, otherHalf, members);
   }
 }
