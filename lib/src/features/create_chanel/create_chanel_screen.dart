@@ -1,3 +1,4 @@
+import 'package:Whispers/src/cubit/chanel_list_all_cubit.dart';
 import 'package:Whispers/src/cubit/create_chanel_cubit.dart';
 import 'package:Whispers/src/cubit/create_chanel_state.dart';
 import 'package:Whispers/src/di/injection.dart/injection.dart';
@@ -8,6 +9,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../configs/app_fonts.dart';
 import '../../configs/palette.dart';
 import '../../share_components/share_componets.dart';
+import '../../utils/enum/enum_status.dart';
 
 class CreateChanelScreen extends StatefulWidget {
   const CreateChanelScreen({super.key});
@@ -19,7 +21,37 @@ class CreateChanelScreen extends StatefulWidget {
 class _CreateChanelScreenState extends State<CreateChanelScreen> {
   final searchController = TextEditingController();
   final nameChanelController = TextEditingController();
+  int _page = 1;
+  final int _size = 10;
+  int _totalPage = 1;
+  late ScrollController _sc;
   final CreateChanelCubit _createChanelCubit = getIt<CreateChanelCubit>();
+  final ChanelListAllCubit _chanelListAllCubit = getIt<ChanelListAllCubit>();
+  void initState() {
+    _initData(searchController.text);
+
+    _sc = ScrollController()
+      ..addListener(() {
+        if (_sc.position.pixels == _sc.position.maxScrollExtent && _page < _totalPage - 1) {
+          _loadMore();
+        }
+      });
+    super.initState();
+  }
+
+  void _loadMore() {
+    _chanelListAllCubit.getlistChanel(
+        page: _page, size: _size, name: searchController.text, status: StatusChanel.sttaccepted.getString());
+    _page++;
+  }
+
+  void _initData(String name) async {
+    _page = 1;
+    _totalPage = 10;
+    _chanelListAllCubit.getlistChanel(
+        page: _page, size: _size, name: name, status: StatusChanel.sttaccepted.getString());
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -38,9 +70,7 @@ class _CreateChanelScreenState extends State<CreateChanelScreen> {
       actions: [
         BlocListener<CreateChanelCubit, CreateChanelState>(
           bloc: _createChanelCubit,
-          listener: (context, state) {
-           
-          },
+          listener: (context, state) {},
           child: TextButton(
             onPressed: () {},
             child: Text(
@@ -73,15 +103,15 @@ class _CreateChanelScreenState extends State<CreateChanelScreen> {
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
               child: MyTextField(
-                // onChanged: (value) {
-                //   _initData(value);
-                // },
+                onChanged: (value) {
+                  _initData(value);
+                },
                 suffixIcon: IconButton(
                   icon: const Icon(Icons.clear),
                   onPressed: () {
-                    // searchController.text = '';
-                    // setState(() {});
-                    // _initData(searchController.text);
+                    searchController.text = '';
+                    setState(() {});
+                    _initData(searchController.text);
                   },
                 ),
                 prefixIcon: const Icon(Icons.search),

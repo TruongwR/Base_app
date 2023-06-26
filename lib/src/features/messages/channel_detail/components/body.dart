@@ -14,7 +14,10 @@ class Body extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return bodyContaint(checkTypeChanel);
+    return Padding(
+      padding: const EdgeInsets.all(16),
+      child: bodyContaint(checkTypeChanel),
+    );
   }
 
   Widget bodyContaint(String type) {
@@ -39,7 +42,9 @@ Widget columnLayout(
   return GestureDetector(
     onTap: onTap,
     child: Padding(
-      padding: const EdgeInsets.symmetric(vertical: 16),
+      padding: const EdgeInsets.symmetric(
+        vertical: 16,
+      ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
