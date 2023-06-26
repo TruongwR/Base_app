@@ -114,16 +114,28 @@ class _BodyState extends State<Body> {
     return showBottomSheet(
       context: context,
       builder: (context) => Container(
+        padding: const EdgeInsets.all(16),
         decoration: const BoxDecoration(
+          color: Palette.primary,
           borderRadius: BorderRadius.only(
-            topRight: Radius.circular(8),
-            topLeft: Radius.circular(8),
+            topRight: Radius.circular(12),
+            topLeft: Radius.circular(12),
           ),
         ),
         height: MediaQuery.of(context).size.height / 4,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
+            // Center(
+            //   child: Container(
+            //     decoration: BoxDecoration(
+            //       borderRadius: BorderRadius.all(
+            //         Radius.circular(4),
+            //       ),
+            //     ),
+            //     color: Palette.white,
+            //   ),
+            // ),
             _rowLayout(onTap: () {}, icon: Icons.inventory, title: 'Lưu trữ'),
             _rowLayout(onTap: () {}, icon: Icons.delete, title: 'Xóa'),
             _rowLayout(onTap: () {}, icon: Icons.notifications_off, title: 'Tắt'),
@@ -188,7 +200,11 @@ class _BodyState extends State<Body> {
       onTap: onTap,
       child: Row(
         children: [
-          Icon(icon),
+          Icon(
+            icon,
+            color: Palette.white,
+          ),
+          BoxMain.w(8),
           Text(
             title,
             style: AppFont.t.s(18).white,
