@@ -1,6 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-import '../data/model/list_chanel_parrent_model.dart';
 
 part 'check_messages_state.freezed.dart';
 

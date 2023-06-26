@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'dart:convert';
 import 'dart:io';
 
@@ -7,6 +9,7 @@ import 'package:Whispers/src/utils/helpers/logger.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:microphone/microphone.dart';
 import 'package:path_provider/path_provider.dart';
 
@@ -87,18 +90,7 @@ class ChatInputField extends StatelessWidget {
                           color: Theme.of(context).textTheme.bodyLarge!.color!.withOpacity(0.64),
                         )),
                     IconButton(
-                      onPressed: () async {
-                        Directory? directory = await getExternalStorageDirectory();
-                        String imagePath = '${directory?.path}/Pictures/';
-                        Directory imageDir = Directory(imagePath);
-                        List<FileSystemEntity> images = imageDir.listSync(recursive: true, followLinks: false);
-
-                        for (var image in images) {
-                          if (image is File) {
-                            String imagePath = image.path;
-                          }
-                        }
-                      },
+                      onPressed: () => openImagePicker(context),
                       icon: Icon(
                         Icons.camera_alt_outlined,
                         color: Theme.of(context).textTheme.bodyLarge!.color!.withOpacity(0.64),
@@ -112,5 +104,39 @@ class ChatInputField extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  void openImagePicker(BuildContext context) async {
+    final picker = ImagePicker();
+    final pickedFile = await picker.getImage(source: ImageSource.gallery);
+
+    if (pickedFile != null) {
+      // Đã chọn một ảnh từ máy ảnh thành công
+      File image = File(pickedFile.path);
+
+      // Xử lý ảnh ở đây (ví dụ: tải lên server, lưu vào thư mục khác, ...)
+      // ...
+
+      // Hiển thị ảnh đã chọn
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: const Text('Selected Image'),
+            content: Image.file(image),
+            actions: [
+              TextButton(
+                child: const Text('OK'),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          );
+        },
+      );
+    } else {
+      // Người dùng không chọn ảnh
+    }
   }
 }

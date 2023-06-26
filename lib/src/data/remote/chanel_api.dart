@@ -4,6 +4,7 @@ import 'package:retrofit/http.dart';
 
 import '../model/api_response/api_response.dart';
 import '../model/list_chanel_parrent_model.dart';
+import '../model/message_model.dart';
 
 part 'chanel_api.g.dart';
 

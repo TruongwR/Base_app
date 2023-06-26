@@ -1,6 +1,5 @@
 import 'package:Whispers/src/configs/box.dart';
 import 'package:Whispers/src/configs/palette.dart';
-import 'package:Whispers/src/cubit/check_messages_cubit.dart';
 import 'package:Whispers/src/di/injection.dart/injection.dart';
 import 'package:Whispers/src/features/messages/components/setting_message.dart';
 import 'package:flutter/material.dart';
