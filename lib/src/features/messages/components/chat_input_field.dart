@@ -5,18 +5,47 @@ import 'dart:io';
 
 import 'package:Whispers/src/configs/box.dart';
 import 'package:Whispers/src/configs/palette.dart';
+import 'package:Whispers/src/features/messages/components/image_picker_screen.dart';
 import 'package:Whispers/src/utils/helpers/logger.dart';
 import 'package:file_picker/file_picker.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:microphone/microphone.dart';
-import 'package:path_provider/path_provider.dart';
+import 'package:permission_handler/permission_handler.dart';
 
-class ChatInputField extends StatelessWidget {
+class ChatInputField extends StatefulWidget {
   const ChatInputField({
     Key? key,
   }) : super(key: key);
+
+  @override
+  State<ChatInputField> createState() => _ChatInputFieldState();
+}
+
+class _ChatInputFieldState extends State<ChatInputField> {
+  File? _imageFile;
+
+  Future<void> _captureImage() async {
+    final imagePicker = ImagePicker();
+    final pickedImage = await imagePicker.pickImage(source: ImageSource.camera);
+    if (pickedImage != null) {
+      setState(() {
+        _imageFile = File(pickedImage.path);
+      });
+    }
+  }
+
+  Future<void> _pickImageFromGallery() async {
+    final imagePicker = ImagePicker();
+    final pickedImage = await imagePicker.pickImage(source: ImageSource.gallery);
+    if (pickedImage != null) {
+      setState(() {
+        _imageFile = File(pickedImage.path);
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -90,7 +119,20 @@ class ChatInputField extends StatelessWidget {
                           color: Theme.of(context).textTheme.bodyLarge!.color!.withOpacity(0.64),
                         )),
                     IconButton(
-                      onPressed: () => openImagePicker(context),
+                      // onPressed: () => openImagePicker(context),
+                      onPressed: () {
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return const CupertinoAlertDialog(
+                              title: Text('Tải ảnh lên'),
+                              content: Text("Chọn một ảnh để tải ảnh lên"),
+                              actions: [ImagePickerButton()],
+                            );
+                          },
+                        );
+                        return;
+                      },
                       icon: Icon(
                         Icons.camera_alt_outlined,
                         color: Theme.of(context).textTheme.bodyLarge!.color!.withOpacity(0.64),
@@ -138,5 +180,14 @@ class ChatInputField extends StatelessWidget {
     } else {
       // Người dùng không chọn ảnh
     }
+  }
+
+  Future<bool> requestCameraPermission() async {
+    var status = await Permission.camera.status;
+    if (status.isDenied) {
+      var result = await Permission.camera.request();
+      return result.isGranted;
+    }
+    return status.isGranted;
   }
 }
