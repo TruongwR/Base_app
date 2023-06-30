@@ -140,6 +140,7 @@ class _SignInScreenState extends State<SignInScreen> {
                         loading: showLoading,
                         success: (user) {
                           dismissLoading();
+                          socketHelper.connectSocket();
                           AppNavigator.pushAndRemoveUntil(Routes.homeScreen);
                         },
                         failure: dismissLoadingShowError,
@@ -150,9 +151,7 @@ class _SignInScreenState extends State<SignInScreen> {
                       textStyle: AppFont.t.s(24).w600.white,
                       action: () {
                         //validate();
-                        _formKey.currentState?.validate() == true
-                            ? loginCubit.login(email: emailController.text, passWord: passwordController.text)
-                            : null;
+                        _formKey.currentState?.validate() == true ? loginCubit.login(email: emailController.text, passWord: passwordController.text) : null;
                       },
                     ),
                   ),

@@ -47,8 +47,7 @@ class _BodyState extends State<Body> {
   }
 
   void _loadMore() {
-    _chanelListAllCubit.getlistChanel(
-        page: _page, size: _size, name: searchController.text, status: StatusChanel.sttaccepted.getString());
+    _chanelListAllCubit.getlistChanel(page: _page, size: _size, name: searchController.text, status: StatusChanel.sttaccepted.getString());
     _page++;
   }
 
@@ -56,8 +55,7 @@ class _BodyState extends State<Body> {
     _page = 1;
     _totalPage = 1;
     _listChanel = [];
-    _chanelListAllCubit.getlistChanel(
-        page: _page, size: _size, name: name, status: StatusChanel.sttaccepted.getString());
+    _chanelListAllCubit.getlistChanel(page: _page, size: _size, name: name, status: StatusChanel.sttaccepted.getString());
   }
 
   @override
@@ -124,6 +122,23 @@ class _BodyState extends State<Body> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
+            StreamBuilder(
+              stream: appData.channel?.stream,
+              builder: (context, snapshot) {
+                Logger.d("datatesst", snapshot);
+                return Text(snapshot.hasData ? '${snapshot.data}' : '');
+              },
+            ),
+            // Center(
+            //   child: Container(
+            //     decoration: BoxDecoration(
+            //       borderRadius: BorderRadius.all(
+            //         Radius.circular(4),
+            //       ),
+            //     ),
+            //     color: Palette.white,
+            //   ),
+            // ),
             _rowLayout(onTap: () {}, icon: Icons.inventory, title: 'Lưu trữ'),
             _rowLayout(onTap: () {}, icon: Icons.delete, title: 'Xóa'),
             _rowLayout(onTap: () {}, icon: Icons.notifications_off, title: 'Tắt'),

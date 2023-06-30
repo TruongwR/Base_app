@@ -27,10 +27,10 @@ class LoginCubitCubit extends Cubit<LoginCubitState> {
       UserModel userModel = UserModel.fromJson(JwtDecoder.decode(repo.data!.accessToken!));
       Logger.d("User", userModel.toString());
       appData.userModel = userModel;
-      if (userModel.account?.avatarFileId != null) {
-        final String? avatar = await authen.downAvatar(userModel.account?.avatarFileId ?? '', false);
-        appData.avatar = avatar;
-      }
+      // if (userModel.account?.avatarFileId != null) {
+      //   final String? avatar = await authen.downAvatar(userModel.account?.avatarFileId ?? '');
+      //   appData.avatar = avatar;
+      // }
       AppNavigator.pushAndRemoveUntil(Routes.homeScreen);
       emit(LoginCubitState.success(userModel));
     } else {
@@ -38,4 +38,5 @@ class LoginCubitCubit extends Cubit<LoginCubitState> {
       emit(const LoginCubitState.failure('Đăng nhập thất bại'));
     }
   }
+
 }
