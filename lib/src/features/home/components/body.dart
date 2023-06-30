@@ -47,7 +47,8 @@ class _BodyState extends State<Body> {
   }
 
   void _loadMore() {
-    _chanelListAllCubit.getlistChanel(page: _page, size: _size, name: searchController.text, status: StatusChanel.sttaccepted.getString());
+    _chanelListAllCubit.getlistChanel(
+        page: _page, size: _size, name: searchController.text, status: StatusChanel.sttaccepted.getString());
     _page++;
   }
 
@@ -55,7 +56,8 @@ class _BodyState extends State<Body> {
     _page = 1;
     _totalPage = 1;
     _listChanel = [];
-    _chanelListAllCubit.getlistChanel(page: _page, size: _size, name: name, status: StatusChanel.sttaccepted.getString());
+    _chanelListAllCubit.getlistChanel(
+        page: _page, size: _size, name: name, status: StatusChanel.sttaccepted.getString());
   }
 
   @override
@@ -64,43 +66,41 @@ class _BodyState extends State<Body> {
       appBar: buildAppBar(),
       drawer: const DrawerWidget(),
       endDrawer: const DrawerWidget(),
-      body: SizedBox(
-        height: 300,
-        child: Column(
-          children: [
-            BlocListener<ChanelListAllCubit, ChanelListAllState>(
-              bloc: _chanelListAllCubit,
-              listener: (context, state) {
-                state.maybeMap(
-                  orElse: () => const Empty(),
-                  loading: (value) => const Loading(),
-                  success: (value) {
-                    _totalPage = value.listChanel?.totalPages ?? 1;
-                    _listChanel.addAll(value.listChanel?.content as Iterable<Chanel>);
-                    setState(() {});
-                    Logger.d("lenght", value.listChanel?.content?.length);
-                  },
-                  failure: (value) => const Empty(),
-                );
-              },
-              child: Shimmer(
-                linearGradient: linearGradientMain,
-                child: Expanded(
-                  child: ListView.builder(
-                    controller: _sc,
-                    itemCount: _listChanel.length,
-                    itemBuilder: (context, index) => ChatCard(
-                      type: 1,
-                      isStatus: true,
-                      chanel: _listChanel[index],
-                      press: () => AppNavigator.push(Routes.messagesScreen, arguments: _listChanel[index]),
-                      longPress: () => buildButtomSheat(),
-                    ),
+      body: BlocListener<ChanelListAllCubit, ChanelListAllState>(
+        bloc: _chanelListAllCubit,
+        listener: (context, state) {
+          state.maybeMap(
+            orElse: () => const Empty(),
+            loading: (value) => const Loading(),
+            success: (value) {
+              _totalPage = value.listChanel?.totalPages ?? 1;
+              _listChanel.addAll(value.listChanel?.content as Iterable<Chanel>);
+              setState(() {});
+              Logger.d("lenght", value.listChanel?.content?.length);
+            },
+            failure: (value) => const Empty(),
+          );
+        },
+        child: Shimmer(
+          linearGradient: linearGradientMain,
+          child: Column(
+            children: [
+              Expanded(
+                child: ListView.builder(
+                  physics: const ScrollPhysics(),
+                  controller: _sc,
+                  itemCount: _listChanel.length,
+                  itemBuilder: (context, index) => ChatCard(
+                    type: 1,
+                    isStatus: true,
+                    chanel: _listChanel[index],
+                    press: () => AppNavigator.push(Routes.messagesScreen, arguments: _listChanel[index]),
+                    longPress: () => buildButtomSheat(),
                   ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

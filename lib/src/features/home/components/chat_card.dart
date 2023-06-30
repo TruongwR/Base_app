@@ -8,23 +8,21 @@ import '../../../data/model/list_member_chanel_model.dart';
 import '../../../share_components/time/time_extension.dart';
 
 class ChatCard extends StatelessWidget {
-  const ChatCard(
-      {Key? key,
-      this.chanel,
-      this.member,
-      required this.press,
-      required this.isStatus,
-      this.type,
-      this.longPress,
-      this.isAdmin})
-      : super(key: key);
+  const ChatCard({
+    Key? key,
+    this.chanel,
+    this.member,
+    required this.press,
+    required this.isStatus,
+    this.type,
+    this.longPress,
+  }) : super(key: key);
   final int? type;
   final Chanel? chanel;
   final Member? member;
   final VoidCallback press;
   final Function()? longPress;
   final bool isStatus;
-  final String? isAdmin;
 
   @override
   Widget build(BuildContext context) {

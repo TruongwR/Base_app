@@ -63,11 +63,11 @@ class AppNavigator {
           settings,
           const ProfileScreen(),
         );
-      case Routes.editProfileScreen:
-        return _buildRoute(
-          settings,
-          const EditProfileScreen(),
-        );
+      // case Routes.editProfileScreen:
+      //   return _buildRoute(
+      //     settings,
+      //     const EditProfileScreen(),
+      //   );
       case Routes.messagesScreen:
         final chanel = settings.arguments as Chanel;
         return _buildRoute(

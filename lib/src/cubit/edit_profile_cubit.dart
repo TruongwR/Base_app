@@ -10,22 +10,24 @@ class EditProfileCubit extends Cubit<EditProfileState> {
   EditProfileCubit({required this.authen}) : super(const EditProfileState.initial());
 
   Future<void> updateProfile(
-      {required String firstName,
-      required String lastName,
-      required String passwordOld,
-      required String password,
-      required String avatarFileId}) async {
+      {String? firstName, String? lastName, String? passwordOld, String? password, String? avatarFileId}) async {
     emit(const EditProfileState.loading());
-    final repo = await authen.updateProfile(firstName, lastName, passwordOld, password, avatarFileId);
+    final repo = await authen.updateProfile(
+        firstName: firstName,
+        lastName: lastName,
+        passwordOld: passwordOld,
+        password: password,
+        avatarFileId: avatarFileId);
     if (repo.success == true) {
       var userInfor = await Hive.openBox('tbl_user');
       userInfor.put('passWord', password);
-      AppNavigator.push(Routes.profileScreen);
+      userInfor.put('firstName', firstName);
+      userInfor.put('lastName', lastName);
+      userInfor.put('avatarFileId', avatarFileId);
       emit(const EditProfileState.succes());
     } else {
       AppNavigator.push(Routes.editProfileScreen);
       emit(const EditProfileState.failure('Chỉnh sửa thất bại'));
     }
-    
   }
 }

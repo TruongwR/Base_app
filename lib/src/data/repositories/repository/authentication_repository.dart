@@ -16,7 +16,7 @@ abstract class AuthenticationRepository {
   Future<ResponeSignupModel> signUp(String fistName, String lastName, String email, String passWord);
   Future<ActiveAccountModel> activeAccount(String id, String activationCode);
   Future<UpdateProfileModel> updateProfile(
-      String firstName, String lastName, String passwordOld, String password, String avatarFileId);
+      {String? firstName, String? lastName, String? passwordOld, String? password, String? avatarFileId});
   Future<ApiResponse<dynamic>> upLoadFiles({required String files, String? access});
   Future<dynamic> downLoadFile(String idFiled);
   Future<dynamic> downAvatar(String idFiled, bool responseBase64);

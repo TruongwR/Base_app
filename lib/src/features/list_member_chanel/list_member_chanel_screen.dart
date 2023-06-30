@@ -4,7 +4,6 @@ import 'package:Whispers/src/cubit/get_list_member_chanel_cubit.dart';
 import 'package:Whispers/src/cubit/get_list_member_chanel_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import '../../data/model/list_chanel_parrent_model.dart';
 import '../../data/model/list_member_chanel_model.dart';
 import '../../di/injection.dart/injection.dart';
@@ -27,6 +26,7 @@ class _ListMemberChanelScreenState extends State<ListMemberChanelScreen> with Si
   final int _size = 10;
   int _totalPage = 1;
   List<Member> _listMember = [];
+  List<Member> _listAdmin = [];
 
   late ScrollController _sc;
   final GetListMemberChanelCubit getListMemberChanelCubit = getIt<GetListMemberChanelCubit>();
@@ -76,6 +76,11 @@ class _ListMemberChanelScreenState extends State<ListMemberChanelScreen> with Si
                   succes: (value) {
                     _totalPage = value.listMember?.totalPages ?? 1;
                     _listMember.addAll(value.listMember?.content as Iterable<Member>);
+                    for (var e in _listMember) {
+                      if (e.isAdmin == "YES") {
+                        _listAdmin.add(e);
+                      }
+                    }
                     setState(() {});
                     Logger.d("lenght", value.listMember?.content?.length);
                   },
@@ -91,11 +96,10 @@ class _ListMemberChanelScreenState extends State<ListMemberChanelScreen> with Si
                       )),
             ),
             ListView.builder(
-                itemCount: _listMember.length,
+                itemCount: _listAdmin.length,
                 itemBuilder: (context, index) => ChatCard(
-                      isAdmin: "YES",
                       isStatus: false,
-                      member: _listMember[index],
+                      member: _listAdmin[index],
                       press: () {},
                     )),
           ])),

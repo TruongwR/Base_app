@@ -191,14 +191,15 @@ class _AuthenticationApi implements AuthenticationApi {
 
   @override
   Future<UpdateProfileModel> updateProfile(
-    String firstName,
-    String lastName,
-    String passwordOld,
-    String password,
-    String avatarFileId,
+    String? firstName,
+    String? lastName,
+    String? passwordOld,
+    String? password,
+    String? avatarFileId,
   ) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
+    queryParameters.removeWhere((k, v) => v == null);
     final _headers = <String, dynamic>{};
     final _data = {
       'firstName': firstName,
@@ -207,6 +208,7 @@ class _AuthenticationApi implements AuthenticationApi {
       'password': password,
       'avatarFileId': avatarFileId,
     };
+    _data.removeWhere((k, v) => v == null);
     final _result = await _dio
         .fetch<Map<String, dynamic>>(_setStreamType<UpdateProfileModel>(Options(
       method: 'PATCH',
