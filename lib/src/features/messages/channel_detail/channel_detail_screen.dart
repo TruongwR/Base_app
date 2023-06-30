@@ -1,17 +1,97 @@
 import 'package:Whispers/src/configs/app_fonts.dart';
 import 'package:Whispers/src/configs/box.dart';
+import 'package:Whispers/src/configs/palette.dart';
+import 'package:Whispers/src/cubit/update_chanel_cubit.dart';
+import 'package:Whispers/src/cubit/update_chanel_state.dart';
+import 'package:Whispers/src/di/injection.dart/injection.dart';
 import 'package:Whispers/src/features/messages/channel_detail/components/body.dart';
 import 'package:Whispers/src/features/messages/channel_detail/components/list_icons.dart';
+import 'package:Whispers/src/navigator/app_navigator.dart';
+import 'package:Whispers/src/navigator/routers.dart';
+import 'package:Whispers/src/share_components/loading/loading.dart';
+import 'package:Whispers/src/share_components/share_componets.dart';
+import 'package:Whispers/src/share_components/text_feild/my_text_field.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../data/model/list_chanel_parrent_model.dart';
 import 'components/widget_avatar.dart';
 
-class ChannelDetailScreen extends StatelessWidget {
+class ChannelDetailScreen extends StatefulWidget {
   const ChannelDetailScreen({super.key, required this.chanel});
   final Chanel chanel;
 
   @override
+  State<ChannelDetailScreen> createState() => _ChannelDetailScreenState();
+}
+
+class _ChannelDetailScreenState extends State<ChannelDetailScreen> {
+  late final TextEditingController nameController;
+  late String selectedOption;
+  final UpdateChanelCubit _updateChanelCubit = getIt<UpdateChanelCubit>();
+  @override
+  void initState() {
+    nameController = TextEditingController(text: widget.chanel.name);
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    nameController.dispose();
+    _updateChanelCubit.close();
+    super.dispose();
+  }
+
+  @override
+  void didUpdateWidget(covariant ChannelDetailScreen oldWidget) {
+    super.didUpdateWidget(oldWidget);
+  }
+
+  @override
   Widget build(BuildContext context) {
+    _showdialog(String options) {
+      showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: Text(
+            'Chỉnh sửa tên nhóm',
+            style: AppFont.t.s(18).black,
+          ),
+          content: TextField(
+            controller: nameController,
+            style: AppFont.t.black.w500,
+          ),
+          actions: [
+            TextButton(
+              onPressed: () => AppNavigator.pop(),
+              child: Text(
+                'Hủy',
+                style: AppFont.t.blue,
+              ),
+            ),
+            BlocListener<UpdateChanelCubit, UpdateChanelState>(
+              bloc: _updateChanelCubit,
+              listener: (context, state) {
+                state.whenOrNull(
+                    loading: () => const Loading(),
+                    succes: () {
+                      AppNavigator.push(Routes.channelDetailScreen);
+                    },
+                    failure: (value) => const Empty());
+              },
+              child: TextButton(
+                onPressed: () =>
+                    _updateChanelCubit.updateChanel(channelId: widget.chanel.id ?? '', name: nameController.text),
+                child: Text(
+                  'Lưu',
+                  style: AppFont.t.blue,
+                ),
+              ),
+            ),
+          ],
+        ),
+      );
+    }
+
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
@@ -22,6 +102,12 @@ class ChannelDetailScreen extends StatelessWidget {
               const BackButton(),
               const Spacer(),
               PopupMenuButton(
+                onSelected: (value) {
+                  setState(() {
+                    selectedOption = value;
+                  });
+                  _showdialog(value);
+                },
                 itemBuilder: (context) => [
                   PopupMenuItem(
                     onTap: () {},
@@ -38,7 +124,7 @@ class ChannelDetailScreen extends StatelessWidget {
                     ),
                   ),
                   PopupMenuItem(
-                    onTap: () {},
+                    value: 'option 1',
                     child: Text(
                       'Đổi Tên',
                       style: AppFont.t.s(18).w500,
@@ -68,23 +154,24 @@ class ChannelDetailScreen extends StatelessWidget {
           children: [
             BoxMain.h(24),
             AvatarWidget(
-              chekType: chanel.type ?? '',
+              chekType: widget.chanel.type ?? '',
               context: context,
             ),
             BoxMain.h(8),
             Center(
               child: Text(
-                chanel.name ?? '',
+                widget.chanel.name ?? '',
                 style: AppFont.t.s(24).w600,
               ),
             ),
             BoxMain.h(16),
             ListIcons(
-              checkType: chanel.type ?? '',
+              checkType: widget.chanel.type ?? '',
             ),
             BoxMain.h(32),
             Body(
-              checkTypeChanel: chanel.type ?? '',
+              checkTypeChanel: widget.chanel.type ?? '',
+              chanel: widget.chanel,
             ),
           ],
         ),

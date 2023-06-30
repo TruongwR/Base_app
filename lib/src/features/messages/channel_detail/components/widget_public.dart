@@ -1,6 +1,6 @@
 part of './body.dart';
 
-Widget _bodyPublic() {
+Widget _bodyPublic(Chanel chanel) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -33,7 +33,7 @@ Widget _bodyPublic() {
       ),
       BoxMain.h(16),
       columnLayout(
-        onTap: () {},
+        onTap: () => AppNavigator.push(Routes.listMemberChanelScreen, arguments: chanel),
         title: 'Xem thành viên',
         icon: Icons.groups,
       ),

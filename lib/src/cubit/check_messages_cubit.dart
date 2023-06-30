@@ -5,9 +5,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class CheckMessagesCubit extends Cubit<CheckMessagesState> {
   final ChanelRepository chanelRepository;
   CheckMessagesCubit({required this.chanelRepository}) : super(const CheckMessagesState.initial());
-  void checkMessages({required String chanelId}) async {
+  void checkMessages({required String channelId}) async {
     emit(const CheckMessagesState.loading());
-    final respon = await chanelRepository.checkMessages(chanelId: chanelId);
+    final respon = await chanelRepository.checkMessages(channelId: channelId);
     if (respon.success == true) {
       emit(const CheckMessagesState.success());
     } else {

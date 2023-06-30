@@ -1,6 +1,10 @@
+import 'dart:io';
+
 import 'package:Whispers/src/data/model/active_account_model.dart';
+import 'package:Whispers/src/data/model/api_response/api_response.dart';
 import 'package:Whispers/src/data/model/respone_update_profile_model.dart';
 import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
 import 'package:retrofit/http.dart';
 
 import '../../network/api_path.dart';
@@ -19,7 +23,17 @@ abstract class AuthenticationApi {
     @Field() String password,
   );
   @POST(ApiPath.searchAcoutByEmail)
-  Future<FotgetPasswordModel> fotgetPassword(@Field() String email);
+  Future<ApiResponse<FotgetPasswordModel>> fotgetPassword(@Field() String email);
+  @POST(ApiPath.register)
+  Future<dynamic> confrimPass(
+    @Query('accountId') String accountId,
+  );
+
+  @POST(ApiPath.getNewPass)
+  Future<ApiResponse<dynamic>> getNewPass(
+    @Field() String id,
+    @Field() String activationCode,
+  );
   @POST(ApiPath.singUp)
   Future<ResponeSignupModel> singup(
     @Field() String fistName,
@@ -40,9 +54,16 @@ abstract class AuthenticationApi {
     @Field() String password,
     @Field() String avatarFileId,
   );
-
+  @POST(ApiPath.upLoadFile)
+  Future<ApiResponse<dynamic>> upLoadFile(
+    @Query('files') String files,
+    @Query('access') String? access,
+  );
   @GET(":9999/file/{idFiled}")
   Future<dynamic> downLoadFile(@Path("idFiled") String idFiled);
   @GET(":9999/file/{idFiled}")
-  Future<dynamic> downAvatar(@Path("idFiled") String idFiled);
+  Future<dynamic> downAvatar(
+    @Path("idFiled") String idFiled,
+    @Query('responseBase64') bool responseBase64,
+  );
 }

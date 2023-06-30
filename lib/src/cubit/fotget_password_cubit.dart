@@ -1,3 +1,6 @@
+import 'dart:convert';
+
+import 'package:Whispers/src/data/model/fotget_password_model.dart';
 import 'package:Whispers/src/data/repositories/repository/authentication_repository.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -10,7 +13,9 @@ class FotgetPasswordCubit extends Cubit<FotgetPasswordState> {
     emit(const FotgetPasswordState.loading());
     final repo = await authen.fotgetPassword(email);
     if (repo.success == true) {
-      emit(const FotgetPasswordState.succes());
+      Data fotgetPass = Data.fromJson(jsonDecode(repo.data.toString()) as Map<String, dynamic>);
+      await authen.confirmPass(fotgetPass.id ?? '');
+      emit(FotgetPasswordState.succes(repo.data));
     } else {
       emit(FotgetPasswordState.failure(repo.message ?? ''));
     }

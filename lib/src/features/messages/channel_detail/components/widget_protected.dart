@@ -1,6 +1,7 @@
 part of './body.dart';
 
-Widget _bodyProtected() {
+
+Widget _bodyProtected(Chanel chanel) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -11,7 +12,7 @@ Widget _bodyProtected() {
       ),
       BoxMain.h(16),
       columnLayout(
-        onTap: () {},
+        onTap: () => AppNavigator.push(Routes.listMemberChanelScreen, arguments: chanel),
         title: 'Thành viên trong đoạn chat',
         icon: Icons.groups,
       ),

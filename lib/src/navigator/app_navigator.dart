@@ -2,6 +2,8 @@ import 'package:Whispers/src/data/model/list_chanel_parrent_model.dart';
 import 'package:Whispers/src/features/active_account/active_account_screen.dart';
 import 'package:Whispers/src/features/edit_profile/edit_profile_screen.dart';
 import 'package:Whispers/src/features/fotget_password/fotget_password.dart';
+import 'package:Whispers/src/features/getNewPassword/get_New_Password_screen.dart';
+import 'package:Whispers/src/features/list_member_chanel/list_member_chanel_screen.dart';
 import 'package:Whispers/src/features/messages/channel_detail/channel_detail_screen.dart';
 import 'package:Whispers/src/features/sign_in/sign_in_screen.dart';
 import 'package:Whispers/src/navigator/routers.dart';
@@ -35,6 +37,11 @@ class AppNavigator {
         return _buildRoute(
           settings,
           const FotgetPasswordScreen(),
+        );
+      case Routes.getNewPassword:
+        return _buildRoute(
+          settings,
+          const GetNewPasswordScreen(),
         );
       case Routes.signUpScreen:
         return _buildRoute(
@@ -79,6 +86,14 @@ class AppNavigator {
         return _buildRoute(
           settings,
           const CreateChanelScreen(),
+        );
+      case Routes.listMemberChanelScreen:
+        final chanel = settings.arguments as Chanel;
+        return _buildRoute(
+          settings,
+          ListMemberChanelScreen(
+            chanel: chanel,
+          ),
         );
       default:
         return null;

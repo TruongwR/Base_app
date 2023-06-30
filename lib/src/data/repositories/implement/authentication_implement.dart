@@ -1,7 +1,11 @@
+import 'dart:io';
+
 import 'package:Whispers/src/data/model/active_account_model.dart';
+import 'package:Whispers/src/data/model/api_response/api_response.dart';
 import 'package:Whispers/src/data/model/fotget_password_model.dart';
 import 'package:Whispers/src/data/model/respone_update_profile_model.dart';
 import 'package:Whispers/src/network/base_dio.dart';
+import 'package:flutter/rendering.dart';
 
 import '../../model/login_model.dart';
 import '../../model/respone_signup_model.dart';
@@ -16,8 +20,18 @@ class AuthenRepoImpl implements AuthenticationRepository {
   }
 
   @override
-  Future<FotgetPasswordModel> fotgetPassword(String email) {
+  Future<ApiResponse<FotgetPasswordModel>> fotgetPassword(String email) {
     return authenticationApi.fotgetPassword(email);
+  }
+
+  @override
+  Future confirmPass(String accountId) {
+    return authenticationApi.confrimPass(accountId);
+  }
+
+  @override
+  Future<ApiResponse> getNewPass(String id, String activationCode) {
+    return authenticationApi.getNewPass(id, activationCode);
   }
 
   @override
@@ -37,12 +51,17 @@ class AuthenRepoImpl implements AuthenticationRepository {
   }
 
   @override
+  Future<ApiResponse<dynamic>> upLoadFiles({required String files, String? access}) {
+    return authenticationApi.upLoadFile(files, access);
+  }
+
+  @override
   Future downLoadFile(String idFiled) {
     return authenticationApi.downLoadFile(idFiled);
   }
 
   @override
-  Future downAvatar(String idFiled) {
-    return authenticationApi.downAvatar(idFiled);
+  Future downAvatar(String idFiled, bool responseBase64) {
+    return authenticationApi.downAvatar(idFiled, responseBase64);
   }
 }

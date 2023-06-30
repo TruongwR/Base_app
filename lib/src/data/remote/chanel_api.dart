@@ -4,6 +4,7 @@ import 'package:retrofit/http.dart';
 
 import '../model/api_response/api_response.dart';
 import '../model/list_chanel_parrent_model.dart';
+import '../model/list_member_chanel_model.dart';
 import '../model/message_model.dart';
 
 part 'chanel_api.g.dart';
@@ -28,7 +29,7 @@ abstract class ChanelApi {
   );
   @POST(ApiPath.checkMessages)
   Future<ApiResponse<dynamic>> checkMessages(
-    @Field() String chanelId,
+    @Field() String channelId,
   );
   @POST(ApiPath.createChanel)
   Future<ApiResponse<dynamic>> createChanel(
@@ -36,5 +37,20 @@ abstract class ChanelApi {
     @Field() String type,
     @Field() String? otherHalf,
     @Field() List<String>? members,
+  );
+  @PATCH(ApiPath.updateChanel)
+  Future<ApiResponse<dynamic>> updateChanel(
+    @Field() String channelId,
+    @Field() String? ownerId,
+    @Field() String? avatarFileId,
+    @Field() String? name,
+  );
+  @GET(ApiPath.getListmenberChanel)
+  Future<ApiResponse<ListMemberChanelModel>> listMemberChanel(
+    @Query('page') int page,
+    @Query('size') int size,
+    @Query('name') String? nickname,
+    @Query('status') String? status,
+    @Query('channelId') String channelId,
   );
 }

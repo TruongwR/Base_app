@@ -4,10 +4,12 @@ class Routes {
   static const String signUpScreen = 'signUpScreen';
   static const String activeAccountScreen = 'ActiveAccountScreen';
   static const String fotgetPassword = 'FotgetPasswordScreen';
+  static const String getNewPassword = 'GetNewPassword';
   static const String homeScreen = 'HomeScreen';
   static const String profileScreen = 'ProfileScreen';
   static const String editProfileScreen = 'EditProfileScreen';
   static const String messagesScreen = "MessagesScreen";
   static const String channelDetailScreen = "ChannelDetailScreen";
   static const String createChanelScreen = "CreateChanelScreen";
+  static const String listMemberChanelScreen = "ListMemberChanelScreen";
 }

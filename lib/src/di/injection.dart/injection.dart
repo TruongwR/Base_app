@@ -3,7 +3,10 @@ import 'package:Whispers/src/cubit/check_messages_cubit.dart';
 import 'package:Whispers/src/cubit/create_chanel_cubit.dart';
 import 'package:Whispers/src/cubit/edit_profile_cubit.dart';
 import 'package:Whispers/src/cubit/fotget_password_cubit.dart';
+import 'package:Whispers/src/cubit/get_list_member_chanel_cubit.dart';
+import 'package:Whispers/src/cubit/get_new_password_cubit.dart';
 import 'package:Whispers/src/cubit/login_cubit_cubit.dart';
+import 'package:Whispers/src/cubit/update_chanel_cubit.dart';
 import 'package:Whispers/src/di/modules/repository_modules.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
@@ -33,6 +36,7 @@ class Injection {
   static final List<BlocProvider> cubitProvider = [
     BlocProvider<LoginCubitCubit>(create: (context) => getIt<LoginCubitCubit>()),
     BlocProvider<FotgetPasswordCubit>(create: (context) => getIt<FotgetPasswordCubit>()),
+    BlocProvider<GetNewPasswordCubit>(create: (context) => getIt<GetNewPasswordCubit>()),
     BlocProvider<SignupCubit>(create: (context) => getIt<SignupCubit>()),
     BlocProvider<ActiveAccountCubit>(create: (context) => getIt<ActiveAccountCubit>()),
     BlocProvider<EditProfileCubit>(create: (context) => getIt<EditProfileCubit>()),
@@ -40,6 +44,8 @@ class Injection {
     BlocProvider<DetailChanelCubit>(create: (context) => getIt<DetailChanelCubit>()),
     BlocProvider<CheckMessagesCubit>(create: (context) => getIt<CheckMessagesCubit>()),
     BlocProvider<CreateChanelCubit>(create: (context) => getIt<CreateChanelCubit>()),
+    BlocProvider<UpdateChanelCubit>(create: (context) => getIt<UpdateChanelCubit>()),
+    BlocProvider<GetListMemberChanelCubit>(create: (context) => getIt<GetListMemberChanelCubit>()),
   ];
 }
 

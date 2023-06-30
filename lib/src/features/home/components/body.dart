@@ -10,12 +10,10 @@ import 'package:Whispers/src/utils/enum/enum_status.dart';
 import 'package:Whispers/src/utils/helpers/logger.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import '../../../configs/app_fonts.dart';
 import '../../../configs/box.dart';
 import '../../../navigator/app_navigator.dart';
 import '../../../navigator/routers.dart';
-
 import '../../../share_components/shimmer/shimer_widget.dart';
 import 'chat_card.dart';
 
@@ -126,16 +124,6 @@ class _BodyState extends State<Body> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            // Center(
-            //   child: Container(
-            //     decoration: BoxDecoration(
-            //       borderRadius: BorderRadius.all(
-            //         Radius.circular(4),
-            //       ),
-            //     ),
-            //     color: Palette.white,
-            //   ),
-            // ),
             _rowLayout(onTap: () {}, icon: Icons.inventory, title: 'Lưu trữ'),
             _rowLayout(onTap: () {}, icon: Icons.delete, title: 'Xóa'),
             _rowLayout(onTap: () {}, icon: Icons.notifications_off, title: 'Tắt'),

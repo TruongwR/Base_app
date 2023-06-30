@@ -1,4 +1,3 @@
-
 import 'package:Whispers/src/data/model/use_model.dart';
 import 'package:Whispers/src/data/repositories/repository/authentication_repository.dart';
 import 'package:Whispers/src/di/injection.dart/injection.dart';
@@ -29,7 +28,7 @@ class LoginCubitCubit extends Cubit<LoginCubitState> {
       Logger.d("User", userModel.toString());
       appData.userModel = userModel;
       if (userModel.account?.avatarFileId != null) {
-        final String? avatar = await authen.downAvatar(userModel.account?.avatarFileId ?? '');
+        final String? avatar = await authen.downAvatar(userModel.account?.avatarFileId ?? '', false);
         appData.avatar = avatar;
       }
       AppNavigator.pushAndRemoveUntil(Routes.homeScreen);
@@ -39,5 +38,4 @@ class LoginCubitCubit extends Cubit<LoginCubitState> {
       emit(const LoginCubitState.failure('Đăng nhập thất bại'));
     }
   }
-
 }
