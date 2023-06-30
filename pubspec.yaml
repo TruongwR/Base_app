@@ -40,7 +40,8 @@ dependencies:
   socket_io_client: ^2.0.2
   web_socket_channel: ^2.4.0
   stomp_dart_client: ^0.4.4
-  
+  skeletons: ^0.0.3
+
 
 
 dev_dependencies:

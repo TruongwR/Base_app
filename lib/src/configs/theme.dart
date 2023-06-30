@@ -64,4 +64,19 @@ class AppTheme {
         selectedFillColor: Palette.grayF6,
         activeColor: Palette.grayF6,
       );
+  static LinearGradient skeletonGradient = const LinearGradient(
+    colors: [
+      Color(0xFFD8E3E7),
+      Palette.primary,
+      Color(0xFFD8E3E7),
+    ],
+    stops: [
+      0,
+      0.5,
+      0.9,
+    ],
+    begin: Alignment(-2.4, -0.2),
+    end: Alignment(2.4, 0.2),
+    tileMode: TileMode.clamp,
+  );
 }

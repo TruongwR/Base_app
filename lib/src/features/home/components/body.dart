@@ -10,12 +10,15 @@ import 'package:Whispers/src/utils/enum/enum_status.dart';
 import 'package:Whispers/src/utils/helpers/logger.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:skeletons/skeletons.dart';
 
 import '../../../configs/app_fonts.dart';
 import '../../../configs/box.dart';
 import '../../../navigator/app_navigator.dart';
 import '../../../navigator/routers.dart';
 
+import '../../../share_components/shimmer/my_container.dart';
 import '../../../share_components/shimmer/shimer_widget.dart';
 import 'chat_card.dart';
 
@@ -74,8 +77,8 @@ class _BodyState extends State<Body> {
               bloc: _chanelListAllCubit,
               listener: (context, state) {
                 state.maybeMap(
-                  orElse: () => const Empty(),
-                  loading: (value) => const Loading(),
+                  orElse: () => _buildLoading(),
+                  loading: (value) => _buildLoading(),
                   success: (value) {
                     _totalPage = value.listChanel?.totalPages ?? 1;
                     _listChanel.addAll(value.listChanel?.content as Iterable<Chanel>);
@@ -85,19 +88,16 @@ class _BodyState extends State<Body> {
                   failure: (value) => const Empty(),
                 );
               },
-              child: Shimmer(
-                linearGradient: linearGradientMain,
-                child: Expanded(
-                  child: ListView.builder(
-                    controller: _sc,
-                    itemCount: _listChanel.length,
-                    itemBuilder: (context, index) => ChatCard(
-                      type: 1,
-                      isStatus: true,
-                      chanel: _listChanel[index],
-                      press: () => AppNavigator.push(Routes.messagesScreen, arguments: _listChanel[index]),
-                      longPress: () => buildButtomSheat(),
-                    ),
+              child: Expanded(
+                child: ListView.builder(
+                  controller: _sc,
+                  itemCount: _listChanel.length,
+                  itemBuilder: (context, index) => ChatCard(
+                    type: 1,
+                    isStatus: true,
+                    chanel: _listChanel[index],
+                    press: () => AppNavigator.push(Routes.messagesScreen, arguments: _listChanel[index]),
+                    longPress: () => buildButtomSheat(),
                   ),
                 ),
               ),
@@ -217,5 +217,37 @@ class _BodyState extends State<Body> {
         ],
       ),
     );
+  }
+
+  Widget _buildLoading() {
+    return ListView.builder(
+        itemCount: 7,
+        itemBuilder: (context, index) => MyContainer(
+              leftWidget: SkeletonParagraph(
+                style: SkeletonParagraphStyle(
+                    lines: 2,
+                    spacing: 6,
+                    lineStyle: SkeletonLineStyle(
+                      randomLength: true,
+                      height: 14.h,
+                      borderRadius: BorderRadius.circular(8),
+                      minLength: 0.2.sw,
+                      maxLength: 0.5.sw,
+                    )),
+              ),
+              rightWidget: SkeletonParagraph(
+                style: SkeletonParagraphStyle(
+                    lines: 2,
+                    spacing: 6,
+                    lineStyle: SkeletonLineStyle(
+                      randomLength: true,
+                      height: 14.h,
+                      alignment: Alignment.bottomRight,
+                      borderRadius: BorderRadius.circular(8),
+                      minLength: 0.2.sw,
+                      maxLength: 0.3.sw,
+                    )),
+              ),
+            ));
   }
 }

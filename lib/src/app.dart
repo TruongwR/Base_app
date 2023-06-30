@@ -4,6 +4,7 @@ import 'package:Whispers/src/navigator/routers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:skeletons/skeletons.dart';
 
 GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 final RouteObserver<ModalRoute<void>> routeObserver = RouteObserver<ModalRoute<void>>();
@@ -23,15 +24,18 @@ class MyApp extends StatelessWidget {
         minTextAdapt: true,
         splitScreenMode: true,
         builder: (context, child) {
-          return MaterialApp(
-            builder: EasyLoading.init(),
-            theme: AppTheme.themData,
-            navigatorKey: AppNavigator.navigatorKey,
-            onGenerateRoute: AppNavigator.getRoute,
-            title: 'Chatting',
-            debugShowCheckedModeBanner: false,
-            navigatorObservers: [routeObserver],
-            initialRoute: Routes.wellcomeScreen,
+          return SkeletonTheme(
+            shimmerGradient: AppTheme.skeletonGradient,
+            child: MaterialApp(
+              builder: EasyLoading.init(),
+              theme: AppTheme.themData,
+              navigatorKey: AppNavigator.navigatorKey,
+              onGenerateRoute: AppNavigator.getRoute,
+              title: 'Chatting',
+              debugShowCheckedModeBanner: false,
+              navigatorObservers: [routeObserver],
+              initialRoute: Routes.wellcomeScreen,
+            ),
           );
         },
       ),
