@@ -1,7 +1,6 @@
 import 'package:Whispers/src/di/injection.dart/injection.dart';
 import 'package:Whispers/src/network/handle_response.dart';
 import 'package:dio/dio.dart';
-import 'package:flutter_user_agentx/flutter_user_agent.dart';
 import 'api_path.dart';
 import 'my_dio_logger.dart';
 
