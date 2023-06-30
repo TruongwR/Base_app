@@ -12,8 +12,9 @@ import '../../cubit/detail_chanel_cubit.dart';
 
 import '../../cubit/signup_cubit.dart';
 import '../../data/data_sources/local/app_data.dart';
+import '../../utils/helpers/socket_helper.dart';
 import '../modules/api_modules.dart';
-import '../modules/componetn_modules.dart';
+import '../modules/component_modules.dart';
 import '../modules/cubit_modules.dart';
 
 GetIt getIt = GetIt.I;
@@ -44,3 +45,4 @@ class Injection {
 }
 
 AppData get appData => getIt<AppData>();
+SocketHelper get socketHelper => getIt<SocketHelper>();

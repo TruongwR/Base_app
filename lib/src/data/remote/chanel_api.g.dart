@@ -95,11 +95,11 @@ class _ChanelApi implements ChanelApi {
   }
 
   @override
-  Future<ApiResponse<dynamic>> checkMessages(String chanelId) async {
+  Future<ApiResponse<dynamic>> checkMessages(String channelId) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    final _data = {'chanelId': chanelId};
+    final _data = {'channelId': channelId};
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<ApiResponse<dynamic>>(Options(
       method: 'POST',

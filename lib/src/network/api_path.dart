@@ -29,4 +29,5 @@ class ApiPath {
   static const String createMesage = "$port98/}/message";
   static const String updateMesage = "$port98/message";
   static const String deleteMesage = "$port98/message/";
+  static const String connectSocker = '$baseUrl$port98/ws';
 }

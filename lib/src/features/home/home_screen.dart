@@ -1,3 +1,4 @@
+import 'package:Whispers/src/di/injection.dart/injection.dart';
 import 'package:Whispers/src/features/people/people_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -15,6 +16,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
+    socketHelper.connectSocket();
     super.initState();
   }
 
@@ -29,16 +31,6 @@ class _HomeScreenState extends State<HomeScreen> {
     return SafeArea(
       child: Scaffold(
         body: listBody.elementAt(_selectedIndex),
-        // floatingActionButton: _selectedIndex == 0
-        //     ? FloatingActionButton(
-        //         onPressed: () {},
-        //         backgroundColor: Palette.primary,
-        //         child: const Icon(
-        //           Icons.person_add_alt_1,
-        //           color: Colors.white,
-        //         ),
-        //       )
-        //     : null,
         bottomNavigationBar: buildBottomNavigationBar(),
       ),
     );

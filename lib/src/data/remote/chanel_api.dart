@@ -28,7 +28,7 @@ abstract class ChanelApi {
   );
   @POST(ApiPath.checkMessages)
   Future<ApiResponse<dynamic>> checkMessages(
-    @Field() String chanelId,
+    @Field() String channelId,
   );
   @POST(ApiPath.createChanel)
   Future<ApiResponse<dynamic>> createChanel(
