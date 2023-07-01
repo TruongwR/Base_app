@@ -4,7 +4,6 @@ import 'package:Whispers/src/cubit/chanel_list_all_state.dart';
 import 'package:Whispers/src/data/model/list_chanel_parrent_model.dart';
 import 'package:Whispers/src/di/injection.dart/injection.dart';
 import 'package:Whispers/src/share_components/drawer/nav_drawer.dart';
-import 'package:Whispers/src/share_components/loading/loading.dart';
 import 'package:Whispers/src/share_components/share_componets.dart';
 import 'package:Whispers/src/utils/enum/enum_status.dart';
 import 'package:Whispers/src/utils/helpers/logger.dart';
@@ -19,7 +18,6 @@ import '../../../navigator/app_navigator.dart';
 import '../../../navigator/routers.dart';
 
 import '../../../share_components/shimmer/my_container.dart';
-import '../../../share_components/shimmer/shimer_widget.dart';
 import 'chat_card.dart';
 
 class Body extends StatefulWidget {

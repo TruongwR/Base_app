@@ -140,7 +140,7 @@ class _SignInScreenState extends State<SignInScreen> {
                         loading: showLoading,
                         success: (user) {
                           dismissLoading();
-                          socketHelper.connectSocket();
+
                           AppNavigator.pushAndRemoveUntil(Routes.homeScreen);
                         },
                         failure: dismissLoadingShowError,

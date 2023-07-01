@@ -1,5 +1,7 @@
+import 'dart:async';
+
 import 'package:Whispers/src/data/model/use_model.dart';
-import 'package:web_socket_channel/io.dart';
+import 'package:web_socket_channel/web_socket_channel.dart';
 
 class AppData {
   String accessToken = '';
@@ -7,11 +9,13 @@ class AppData {
   UserModel? userModel;
   String? avatar;
   String userAgent = '';
-  IOWebSocketChannel? channel;
+  WebSocketChannel? channel;
+  StreamController<String> streamController = StreamController<String>();
 
   void clear() {
     userModel = UserModel();
     accessToken = '';
     refestToken = '';
+    streamController.close();
   }
 }

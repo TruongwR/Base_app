@@ -1,3 +1,4 @@
+import 'package:Whispers/src/utils/helpers/logger.dart';
 import 'package:flutter/material.dart';
 
 import '../../configs/app_fonts.dart';
@@ -13,10 +14,10 @@ class DrawerWidget extends StatelessWidget {
         padding: EdgeInsets.zero,
         children: <Widget>[
           _drawerHeader(),
-          _drawerItem(icon: Icons.folder, text: 'Đoạn Chat', onTap: () => print('Đoạn Chat')),
-          _drawerItem(icon: Icons.group, text: 'Tin Nhắn chờ', onTap: () => print('Tin Nhắn chờ')),
-          _drawerItem(icon: Icons.access_time, text: 'Kho Lưu chữ', onTap: () => print('kho Lưu chữ')),
-          _drawerItem(icon: Icons.delete, text: 'Private', onTap: () => print('Private')),
+          _drawerItem(icon: Icons.folder, text: 'Đoạn Chat', onTap: () => Logger.d('Đoạn Chat')),
+          _drawerItem(icon: Icons.group, text: 'Tin Nhắn chờ', onTap: () => Logger.d('Tin Nhắn chờ')),
+          _drawerItem(icon: Icons.access_time, text: 'Kho Lưu chữ', onTap: () => Logger.d('kho Lưu chữ')),
+          _drawerItem(icon: Icons.delete, text: 'Private', onTap: () => Logger.d('Private')),
           const Divider(height: 25, thickness: 1),
           const Padding(
             padding: EdgeInsets.only(left: 20.0, top: 10, bottom: 10),
@@ -26,7 +27,7 @@ class DrawerWidget extends StatelessWidget {
                   color: Colors.black54,
                 )),
           ),
-          _drawerItem(icon: Icons.bookmark, text: 'Family', onTap: () => print('Tap Family menu')),
+          _drawerItem(icon: Icons.bookmark, text: 'Family', onTap: () => Logger.d('Tap Family menu')),
         ],
       ),
     );
