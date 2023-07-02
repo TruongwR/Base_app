@@ -16,6 +16,7 @@ class ChatCard extends StatelessWidget {
     required this.isStatus,
     this.type,
     this.longPress,
+    this.subTitle,
   }) : super(key: key);
   final int? type;
   final Chanel? chanel;
@@ -23,6 +24,7 @@ class ChatCard extends StatelessWidget {
   final VoidCallback press;
   final Function()? longPress;
   final bool isStatus;
+  final String? subTitle;
 
   @override
   Widget build(BuildContext context) {
@@ -88,7 +90,7 @@ class ChatCard extends StatelessWidget {
                                     Opacity(
                                       opacity: 0.64,
                                       child: Text(
-                                        'Whisper',
+                                        subTitle ?? 'Whisper',
                                         maxLines: 1,
                                         overflow: TextOverflow.ellipsis,
                                         style: AppFont.t.s(16).w600,
@@ -142,9 +144,26 @@ class ChatCard extends StatelessWidget {
                     ],
                   ),
                   BoxMain.w(16),
-                  Text(
-                    member?.nickname ?? '',
-                    style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 16),
+                      child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                        Text(
+                          member?.nickname ?? '',
+                          style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+                        ),
+                        const SizedBox(height: 8),
+                        Opacity(
+                          opacity: 0.64,
+                          child: Text(
+                            subTitle ?? '',
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            style: AppFont.t.s(16).w600,
+                          ),
+                        ),
+                      ]),
+                    ),
                   ),
                 ],
         ),

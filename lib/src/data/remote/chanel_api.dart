@@ -53,4 +53,14 @@ abstract class ChanelApi {
     @Query('status') String? status,
     @Query('channelId') String channelId,
   );
+
+  @PATCH(":9998/channel/member/{accountId}")
+  Future<ApiResponse<dynamic>> updateMemberChannel(
+    @Path("accountId") String accountId,
+    @Query('channelId') String channelId,
+    @Field() String? status,
+    @Field() String? nickname,
+    @Field() String? avatarFileId,
+    @Field() String? avatarUrl,
+  );
 }

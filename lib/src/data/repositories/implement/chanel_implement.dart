@@ -43,4 +43,15 @@ class ChanelImplement implements ChanelRepository {
       {required int page, required int size, String? nickname, String? status, required String channelId}) {
     return chanelApi.listMemberChanel(page, size, nickname, status, channelId);
   }
+
+  @override
+  Future<ApiResponse> updateMemberChannel(
+      {required String accountId,
+      required String channelId,
+       String? status,
+      String? nickname,
+      String? avatarFileId,
+      String? avatarUrl}) {
+    return chanelApi.updateMemberChannel(accountId, channelId, status, nickname, avatarFileId, avatarUrl);
+  }
 }

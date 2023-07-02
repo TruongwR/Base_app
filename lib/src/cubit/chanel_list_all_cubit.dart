@@ -9,11 +9,12 @@ class ChanelListAllCubit extends Cubit<ChanelListAllState> {
   ChanelListAllCubit({required this.chanelRepository}) : super(const ChanelListAllState.initial());
   Future<void> getlistChanel({required int page, required int size, String? name, String? type, String? status}) async {
     emit(const ChanelListAllState.loading());
-    final repon = await chanelRepository.getListChanel(page: page,size:  size,name:  name,type:   type,status:  status?? StatusChanel.sttaccepted.getString());
+    final repon = await chanelRepository.getListChanel(
+        page: page, size: size, name: name, type: type, status: status ?? StatusChanel.sttaccepted.getString());
     if (repon.success == true) {
       emit(ChanelListAllState.success(repon.data));
     } else {
-      emit(ChanelListAllState.failure(repon.message??"Không tải được danh sách kênh"));
+      emit(ChanelListAllState.failure(repon.message ?? "Không tải được danh sách kênh"));
     }
   }
 }

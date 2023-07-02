@@ -2,6 +2,9 @@ import 'package:Whispers/src/configs/Palette.dart';
 import 'package:Whispers/src/configs/app_fonts.dart';
 import 'package:Whispers/src/configs/box.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../../../cubit/get_list_member_chanel_cubit.dart';
+import '../../../../cubit/get_list_member_chanel_state.dart';
 import '../../../../data/model/list_chanel_parrent_model.dart';
 import '../../../../navigator/app_navigator.dart';
 import '../../../../navigator/routers.dart';
@@ -30,9 +33,9 @@ class Body extends StatelessWidget {
       case "PROTECTED":
         return _bodyProtected(chanel);
       case "PRIVATE":
-        return _bodyPrivate();
+        return _bodyPrivate(chanel);
       case "DEFAULT":
-        return _bodyDefault();
+        return _bodyDefault(chanel: chanel);
 
       default:
         return _bodyPublic(chanel);

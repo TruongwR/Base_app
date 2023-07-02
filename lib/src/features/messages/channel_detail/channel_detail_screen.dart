@@ -1,6 +1,6 @@
 import 'package:Whispers/src/configs/app_fonts.dart';
 import 'package:Whispers/src/configs/box.dart';
-import 'package:Whispers/src/configs/palette.dart';
+
 import 'package:Whispers/src/cubit/update_chanel_cubit.dart';
 import 'package:Whispers/src/cubit/update_chanel_state.dart';
 import 'package:Whispers/src/di/injection.dart/injection.dart';
@@ -10,7 +10,6 @@ import 'package:Whispers/src/navigator/app_navigator.dart';
 import 'package:Whispers/src/navigator/routers.dart';
 import 'package:Whispers/src/share_components/loading/loading.dart';
 import 'package:Whispers/src/share_components/share_componets.dart';
-import 'package:Whispers/src/share_components/text_feild/my_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../data/model/list_chanel_parrent_model.dart';
@@ -28,6 +27,7 @@ class _ChannelDetailScreenState extends State<ChannelDetailScreen> {
   late final TextEditingController nameController;
   late String selectedOption;
   final UpdateChanelCubit _updateChanelCubit = getIt<UpdateChanelCubit>();
+
   @override
   void initState() {
     nameController = TextEditingController(text: widget.chanel.name);
@@ -74,13 +74,15 @@ class _ChannelDetailScreenState extends State<ChannelDetailScreen> {
                 state.whenOrNull(
                     loading: () => const Loading(),
                     succes: () {
-                      AppNavigator.push(Routes.channelDetailScreen);
+                      AppNavigator.popPush(Routes.channelDetailScreen);
                     },
                     failure: (value) => const Empty());
               },
               child: TextButton(
-                onPressed: () =>
-                    _updateChanelCubit.updateChanel(channelId: widget.chanel.id ?? '', name: nameController.text),
+                onPressed: () => _updateChanelCubit.updateChanel(
+                  channelId: widget.chanel.id ?? '',
+                  name: nameController.text,
+                ),
                 child: Text(
                   'Lưu',
                   style: AppFont.t.blue,
@@ -116,20 +118,22 @@ class _ChannelDetailScreenState extends State<ChannelDetailScreen> {
                       style: AppFont.t.s(18).w500,
                     ),
                   ),
-                  PopupMenuItem(
-                    onTap: () {},
-                    child: Text(
-                      'Đổi ảnh mhóm',
-                      style: AppFont.t.s(18).w500,
+                  if (widget.chanel.type == 'PUBLIC' || widget.chanel.type == 'PROTECTED')
+                    PopupMenuItem(
+                      onTap: () {},
+                      child: Text(
+                        'Đổi ảnh mhóm',
+                        style: AppFont.t.s(18).w500,
+                      ),
                     ),
-                  ),
-                  PopupMenuItem(
-                    value: 'option 1',
-                    child: Text(
-                      'Đổi Tên',
-                      style: AppFont.t.s(18).w500,
+                  if (widget.chanel.type == 'PUBLIC' || widget.chanel.type == 'PROTECTED')
+                    PopupMenuItem(
+                      value: 'option 1',
+                      child: Text(
+                        'Đổi Tên',
+                        style: AppFont.t.s(18).w500,
+                      ),
                     ),
-                  ),
                   PopupMenuItem(
                     onTap: () {},
                     child: Text(
@@ -137,13 +141,14 @@ class _ChannelDetailScreenState extends State<ChannelDetailScreen> {
                       style: AppFont.t.s(18).w500,
                     ),
                   ),
-                  PopupMenuItem(
-                    onTap: () {},
-                    child: Text(
-                      'Rời nhóm',
-                      style: AppFont.t.s(18).w500,
+                  if (widget.chanel.type == 'PUBLIC' || widget.chanel.type == 'PROTECTED')
+                    PopupMenuItem(
+                      onTap: () {},
+                      child: Text(
+                        'Rời nhóm',
+                        style: AppFont.t.s(18).w500,
+                      ),
                     ),
-                  ),
                 ],
               ),
             ],

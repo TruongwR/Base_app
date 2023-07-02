@@ -7,6 +7,7 @@ import 'package:Whispers/src/cubit/get_list_member_chanel_cubit.dart';
 import 'package:Whispers/src/cubit/get_new_password_cubit.dart';
 import 'package:Whispers/src/cubit/login_cubit_cubit.dart';
 import 'package:Whispers/src/cubit/update_chanel_cubit.dart';
+import 'package:Whispers/src/cubit/update_member_channel_cubit.dart';
 import 'package:Whispers/src/di/modules/repository_modules.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
@@ -46,6 +47,7 @@ class Injection {
     BlocProvider<CheckMessagesCubit>(create: (context) => getIt<CheckMessagesCubit>()),
     BlocProvider<CreateChanelCubit>(create: (context) => getIt<CreateChanelCubit>()),
     BlocProvider<UpdateChanelCubit>(create: (context) => getIt<UpdateChanelCubit>()),
+    BlocProvider<UpdateMemberChannelCubit>(create: (context) => getIt<UpdateMemberChannelCubit>()),
     BlocProvider<GetListMemberChanelCubit>(create: (context) => getIt<GetListMemberChanelCubit>()),
   ];
 }

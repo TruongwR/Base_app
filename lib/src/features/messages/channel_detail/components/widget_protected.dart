@@ -8,7 +8,13 @@ Widget _bodyProtected(Chanel chanel) {
     children: [
       Text(
         'Thông tin về đoạn chat',
-        style: AppFont.t.w500,
+        style: AppFont.t.w500.hint,
+      ),
+      BoxMain.h(16),
+      columnLayout(
+        type: 2,
+        onTap: () => AppNavigator.push(Routes.nicknameScreen,arguments: chanel),
+        title: 'Biệt danh',
       ),
       BoxMain.h(16),
       columnLayout(

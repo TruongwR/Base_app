@@ -161,7 +161,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
       builder: (context) => Container(
         padding: const EdgeInsets.all(16),
         decoration: const BoxDecoration(
-          color: Palette.gray68,
+          color: Palette.grayBE,
           borderRadius: BorderRadius.only(
             topRight: Radius.circular(12),
             topLeft: Radius.circular(12),

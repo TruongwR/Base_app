@@ -13,5 +13,13 @@ abstract class ChanelRepository {
       {required String name, required String type, String? otherHalf, List<String>? members});
   Future<ApiResponse<dynamic>> updateChanel(
       {required String channelId, String? ownerId, String? avatarFileId, String? name});
-Future<ApiResponse<ListMemberChanelModel>> listMemberChanel({required int page, required int size, String? nickname,String? status, required String channelId});
+  Future<ApiResponse<ListMemberChanelModel>> listMemberChanel(
+      {required int page, required int size, String? nickname, String? status, required String channelId});
+  Future<ApiResponse<dynamic>> updateMemberChannel(
+      {required String accountId,
+      required String channelId,
+      String? status,
+      String? nickname,
+      String? avatarFileId,
+      String? avatarUrl});
 }

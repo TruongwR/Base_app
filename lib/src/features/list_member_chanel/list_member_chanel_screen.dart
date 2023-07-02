@@ -2,6 +2,9 @@ import 'package:Whispers/src/configs/app_fonts.dart';
 import 'package:Whispers/src/configs/palette.dart';
 import 'package:Whispers/src/cubit/get_list_member_chanel_cubit.dart';
 import 'package:Whispers/src/cubit/get_list_member_chanel_state.dart';
+import 'package:Whispers/src/navigator/app_navigator.dart';
+
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../data/model/list_chanel_parrent_model.dart';
@@ -13,9 +16,9 @@ import '../../utils/helpers/logger.dart';
 import '../home/components/chat_card.dart';
 
 class ListMemberChanelScreen extends StatefulWidget {
-  ListMemberChanelScreen({super.key, required this.chanel, this.member});
+  const ListMemberChanelScreen({super.key, required this.chanel, this.member});
   final Chanel chanel;
-  Member? member;
+ final Member? member;
   @override
   State<ListMemberChanelScreen> createState() => _ListMemberChanelScreenState();
 }
@@ -90,17 +93,21 @@ class _ListMemberChanelScreenState extends State<ListMemberChanelScreen> with Si
               child: ListView.builder(
                   itemCount: _listMember.length,
                   itemBuilder: (context, index) => ChatCard(
+                        type: 2,
+                        subTitle: '${_listMember[index].status}',
                         isStatus: false,
                         member: _listMember[index],
-                        press: () {},
+                        press: () => _showCupertinoModalPopup(_listMember[index]),
                       )),
             ),
             ListView.builder(
                 itemCount: _listAdmin.length,
                 itemBuilder: (context, index) => ChatCard(
+                      subTitle: 'Quản trị viên',
+                      type: 2,
                       isStatus: false,
                       member: _listAdmin[index],
-                      press: () {},
+                      press: () => _showCupertinoModalPopup(_listAdmin[index]),
                     )),
           ])),
     );
@@ -150,5 +157,75 @@ class _ListMemberChanelScreenState extends State<ListMemberChanelScreen> with Si
             ]),
       ),
     );
+  }
+
+  _showCupertinoModalPopup(Member member) {
+    showCupertinoModalPopup(
+        context: context,
+        builder: (BuildContext cont) {
+          return CupertinoActionSheet(
+            actions: member.accountId != appData.userModel?.account?.id
+                ? [
+                    CupertinoActionSheetAction(
+                      onPressed: () {},
+                      child: Text(
+                        'Gọi video',
+                        style: AppFont.t.s(16).primary,
+                      ),
+                    ),
+                    CupertinoActionSheetAction(
+                      onPressed: () {},
+                      child: Text(
+                        'Gọi thoại',
+                        style: AppFont.t.s(16).primary,
+                      ),
+                    ),
+                    CupertinoActionSheetAction(
+                      onPressed: () {},
+                      child: Text(
+                        'Status',
+                        style: AppFont.t.s(16).primary,
+                      ),
+                    ),
+                    CupertinoActionSheetAction(
+                      onPressed: () {},
+                      child: Text(
+                        'Nhắn tin',
+                        style: AppFont.t.s(16).primary,
+                      ),
+                    ),
+                    if (member?.isAdmin == "YES")
+                      CupertinoActionSheetAction(
+                        onPressed: () {},
+                        child: Text(
+                          'Chỉ định làm quản trị viên',
+                          style: AppFont.t.s(16).primary,
+                        ),
+                      ),
+                  ]
+                : [
+                    CupertinoActionSheetAction(
+                      onPressed: () {},
+                      child: Text(
+                        'Xem thông tin cá nhân',
+                        style: AppFont.t.s(16).primary,
+                      ),
+                    ),
+                    CupertinoActionSheetAction(
+                      onPressed: () {},
+                      child: Text(
+                        'Rời khỏi nhóm',
+                        style: AppFont.t.s(16).red,
+                      ),
+                    ),
+                  ],
+            cancelButton: CupertinoActionSheetAction(
+              onPressed: () {
+                AppNavigator.pop();
+              },
+              child: Text('Hủy', style: AppFont.t.red),
+            ),
+          );
+        });
   }
 }

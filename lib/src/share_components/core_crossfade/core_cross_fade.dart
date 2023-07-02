@@ -1,6 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 import '../../configs/Palette.dart';
 import '../../configs/app_fonts.dart';
@@ -22,7 +22,7 @@ class CoreCrossFade extends StatefulWidget {
     required this.child,
     this.onTap,
     this.isList = false,
-    this.isShow = true,
+    this.isShow = false,
     this.padding,
     required this.icon,
     this.text,
@@ -70,7 +70,14 @@ class _CoreCrossFadeState extends State<CoreCrossFade>
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    return buildBody();
+    return InkWell(
+        onTap: widget.isList ? null : widget.onTap,
+        child: widget.isList
+            ? buildBody()
+            : Container(
+                padding: EdgeInsets.zero,
+                child: buildBody(),
+              ));
   }
 
   Column buildBody() {
@@ -104,9 +111,9 @@ class _CoreCrossFadeState extends State<CoreCrossFade>
                   style: AppFont.t.s(16).w500,
                 ),
                 const Spacer(),
-                const Icon(
-                  LineAwesomeIcons.angle_right,
-                  size: 25,
+                RotationTransition(
+                  turns: _animation,
+                  child: Icon(CupertinoIcons.chevron_up, color: widget.isShow ? Palette.white : Palette.black),
                 ),
               ],
             ),
