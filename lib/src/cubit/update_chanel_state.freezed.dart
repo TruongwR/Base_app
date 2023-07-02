@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of 'fotget_password_state.dart';
+part of 'update_chanel_state.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -15,12 +15,12 @@ final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 /// @nodoc
-mixin _$FotgetPasswordState {
+mixin _$UpdateChanelState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(FotgetPasswordModel? fotgetPass) succes,
+    required TResult Function() succes,
     required TResult Function(String error) failure,
   }) =>
       throw _privateConstructorUsedError;
@@ -28,7 +28,7 @@ mixin _$FotgetPasswordState {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(FotgetPasswordModel? fotgetPass)? succes,
+    TResult? Function()? succes,
     TResult? Function(String error)? failure,
   }) =>
       throw _privateConstructorUsedError;
@@ -36,7 +36,7 @@ mixin _$FotgetPasswordState {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(FotgetPasswordModel? fotgetPass)? succes,
+    TResult Function()? succes,
     TResult Function(String error)? failure,
     required TResult orElse(),
   }) =>
@@ -69,16 +69,16 @@ mixin _$FotgetPasswordState {
 }
 
 /// @nodoc
-abstract class $FotgetPasswordStateCopyWith<$Res> {
-  factory $FotgetPasswordStateCopyWith(
-          FotgetPasswordState value, $Res Function(FotgetPasswordState) then) =
-      _$FotgetPasswordStateCopyWithImpl<$Res, FotgetPasswordState>;
+abstract class $UpdateChanelStateCopyWith<$Res> {
+  factory $UpdateChanelStateCopyWith(
+          UpdateChanelState value, $Res Function(UpdateChanelState) then) =
+      _$UpdateChanelStateCopyWithImpl<$Res, UpdateChanelState>;
 }
 
 /// @nodoc
-class _$FotgetPasswordStateCopyWithImpl<$Res, $Val extends FotgetPasswordState>
-    implements $FotgetPasswordStateCopyWith<$Res> {
-  _$FotgetPasswordStateCopyWithImpl(this._value, this._then);
+class _$UpdateChanelStateCopyWithImpl<$Res, $Val extends UpdateChanelState>
+    implements $UpdateChanelStateCopyWith<$Res> {
+  _$UpdateChanelStateCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -95,7 +95,7 @@ abstract class _$$_InitialCopyWith<$Res> {
 
 /// @nodoc
 class __$$_InitialCopyWithImpl<$Res>
-    extends _$FotgetPasswordStateCopyWithImpl<$Res, _$_Initial>
+    extends _$UpdateChanelStateCopyWithImpl<$Res, _$_Initial>
     implements _$$_InitialCopyWith<$Res> {
   __$$_InitialCopyWithImpl(_$_Initial _value, $Res Function(_$_Initial) _then)
       : super(_value, _then);
@@ -108,7 +108,7 @@ class _$_Initial implements _Initial {
 
   @override
   String toString() {
-    return 'FotgetPasswordState.initial()';
+    return 'UpdateChanelState.initial()';
   }
 
   @override
@@ -125,7 +125,7 @@ class _$_Initial implements _Initial {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(FotgetPasswordModel? fotgetPass) succes,
+    required TResult Function() succes,
     required TResult Function(String error) failure,
   }) {
     return initial();
@@ -136,7 +136,7 @@ class _$_Initial implements _Initial {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(FotgetPasswordModel? fotgetPass)? succes,
+    TResult? Function()? succes,
     TResult? Function(String error)? failure,
   }) {
     return initial?.call();
@@ -147,7 +147,7 @@ class _$_Initial implements _Initial {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(FotgetPasswordModel? fotgetPass)? succes,
+    TResult Function()? succes,
     TResult Function(String error)? failure,
     required TResult orElse(),
   }) {
@@ -195,7 +195,7 @@ class _$_Initial implements _Initial {
   }
 }
 
-abstract class _Initial implements FotgetPasswordState {
+abstract class _Initial implements UpdateChanelState {
   const factory _Initial() = _$_Initial;
 }
 
@@ -208,7 +208,7 @@ abstract class _$$_LoadingCopyWith<$Res> {
 
 /// @nodoc
 class __$$_LoadingCopyWithImpl<$Res>
-    extends _$FotgetPasswordStateCopyWithImpl<$Res, _$_Loading>
+    extends _$UpdateChanelStateCopyWithImpl<$Res, _$_Loading>
     implements _$$_LoadingCopyWith<$Res> {
   __$$_LoadingCopyWithImpl(_$_Loading _value, $Res Function(_$_Loading) _then)
       : super(_value, _then);
@@ -221,7 +221,7 @@ class _$_Loading implements _Loading {
 
   @override
   String toString() {
-    return 'FotgetPasswordState.loading()';
+    return 'UpdateChanelState.loading()';
   }
 
   @override
@@ -238,7 +238,7 @@ class _$_Loading implements _Loading {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(FotgetPasswordModel? fotgetPass) succes,
+    required TResult Function() succes,
     required TResult Function(String error) failure,
   }) {
     return loading();
@@ -249,7 +249,7 @@ class _$_Loading implements _Loading {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(FotgetPasswordModel? fotgetPass)? succes,
+    TResult? Function()? succes,
     TResult? Function(String error)? failure,
   }) {
     return loading?.call();
@@ -260,7 +260,7 @@ class _$_Loading implements _Loading {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(FotgetPasswordModel? fotgetPass)? succes,
+    TResult Function()? succes,
     TResult Function(String error)? failure,
     required TResult orElse(),
   }) {
@@ -308,7 +308,7 @@ class _$_Loading implements _Loading {
   }
 }
 
-abstract class _Loading implements FotgetPasswordState {
+abstract class _Loading implements UpdateChanelState {
   const factory _Loading() = _$_Loading;
 }
 
@@ -316,71 +316,44 @@ abstract class _Loading implements FotgetPasswordState {
 abstract class _$$_SuccesCopyWith<$Res> {
   factory _$$_SuccesCopyWith(_$_Succes value, $Res Function(_$_Succes) then) =
       __$$_SuccesCopyWithImpl<$Res>;
-  @useResult
-  $Res call({FotgetPasswordModel? fotgetPass});
 }
 
 /// @nodoc
 class __$$_SuccesCopyWithImpl<$Res>
-    extends _$FotgetPasswordStateCopyWithImpl<$Res, _$_Succes>
+    extends _$UpdateChanelStateCopyWithImpl<$Res, _$_Succes>
     implements _$$_SuccesCopyWith<$Res> {
   __$$_SuccesCopyWithImpl(_$_Succes _value, $Res Function(_$_Succes) _then)
       : super(_value, _then);
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? fotgetPass = freezed,
-  }) {
-    return _then(_$_Succes(
-      freezed == fotgetPass
-          ? _value.fotgetPass
-          : fotgetPass // ignore: cast_nullable_to_non_nullable
-              as FotgetPasswordModel?,
-    ));
-  }
 }
 
 /// @nodoc
 
 class _$_Succes implements _Succes {
-  const _$_Succes(this.fotgetPass);
-
-  @override
-  final FotgetPasswordModel? fotgetPass;
+  const _$_Succes();
 
   @override
   String toString() {
-    return 'FotgetPasswordState.succes(fotgetPass: $fotgetPass)';
+    return 'UpdateChanelState.succes()';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$_Succes &&
-            (identical(other.fotgetPass, fotgetPass) ||
-                other.fotgetPass == fotgetPass));
+        (other.runtimeType == runtimeType && other is _$_Succes);
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, fotgetPass);
-
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$_SuccesCopyWith<_$_Succes> get copyWith =>
-      __$$_SuccesCopyWithImpl<_$_Succes>(this, _$identity);
+  int get hashCode => runtimeType.hashCode;
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(FotgetPasswordModel? fotgetPass) succes,
+    required TResult Function() succes,
     required TResult Function(String error) failure,
   }) {
-    return succes(fotgetPass);
+    return succes();
   }
 
   @override
@@ -388,10 +361,10 @@ class _$_Succes implements _Succes {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(FotgetPasswordModel? fotgetPass)? succes,
+    TResult? Function()? succes,
     TResult? Function(String error)? failure,
   }) {
-    return succes?.call(fotgetPass);
+    return succes?.call();
   }
 
   @override
@@ -399,12 +372,12 @@ class _$_Succes implements _Succes {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(FotgetPasswordModel? fotgetPass)? succes,
+    TResult Function()? succes,
     TResult Function(String error)? failure,
     required TResult orElse(),
   }) {
     if (succes != null) {
-      return succes(fotgetPass);
+      return succes();
     }
     return orElse();
   }
@@ -447,13 +420,8 @@ class _$_Succes implements _Succes {
   }
 }
 
-abstract class _Succes implements FotgetPasswordState {
-  const factory _Succes(final FotgetPasswordModel? fotgetPass) = _$_Succes;
-
-  FotgetPasswordModel? get fotgetPass;
-  @JsonKey(ignore: true)
-  _$$_SuccesCopyWith<_$_Succes> get copyWith =>
-      throw _privateConstructorUsedError;
+abstract class _Succes implements UpdateChanelState {
+  const factory _Succes() = _$_Succes;
 }
 
 /// @nodoc
@@ -467,7 +435,7 @@ abstract class _$$_FailureCopyWith<$Res> {
 
 /// @nodoc
 class __$$_FailureCopyWithImpl<$Res>
-    extends _$FotgetPasswordStateCopyWithImpl<$Res, _$_Failure>
+    extends _$UpdateChanelStateCopyWithImpl<$Res, _$_Failure>
     implements _$$_FailureCopyWith<$Res> {
   __$$_FailureCopyWithImpl(_$_Failure _value, $Res Function(_$_Failure) _then)
       : super(_value, _then);
@@ -496,7 +464,7 @@ class _$_Failure implements _Failure {
 
   @override
   String toString() {
-    return 'FotgetPasswordState.failure(error: $error)';
+    return 'UpdateChanelState.failure(error: $error)';
   }
 
   @override
@@ -521,7 +489,7 @@ class _$_Failure implements _Failure {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(FotgetPasswordModel? fotgetPass) succes,
+    required TResult Function() succes,
     required TResult Function(String error) failure,
   }) {
     return failure(error);
@@ -532,7 +500,7 @@ class _$_Failure implements _Failure {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(FotgetPasswordModel? fotgetPass)? succes,
+    TResult? Function()? succes,
     TResult? Function(String error)? failure,
   }) {
     return failure?.call(error);
@@ -543,7 +511,7 @@ class _$_Failure implements _Failure {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(FotgetPasswordModel? fotgetPass)? succes,
+    TResult Function()? succes,
     TResult Function(String error)? failure,
     required TResult orElse(),
   }) {
@@ -591,7 +559,7 @@ class _$_Failure implements _Failure {
   }
 }
 
-abstract class _Failure implements FotgetPasswordState {
+abstract class _Failure implements UpdateChanelState {
   const factory _Failure(final String error) = _$_Failure;
 
   String get error;

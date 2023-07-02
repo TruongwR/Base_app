@@ -38,5 +38,5 @@ class LoginCubitCubit extends Cubit<LoginCubitState> {
       emit(const LoginCubitState.failure('Đăng nhập thất bại'));
     }
   }
-  
+
 }

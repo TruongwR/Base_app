@@ -3,15 +3,15 @@ import 'package:Whispers/src/configs/box.dart';
 import 'package:Whispers/src/configs/palette.dart';
 import 'package:Whispers/src/cubit/fotget_password_cubit.dart';
 import 'package:Whispers/src/cubit/fotget_password_state.dart';
-
 import 'package:Whispers/src/gen/assets.gen.dart';
 import 'package:Whispers/src/share_components/app_bar/my_app_bar.dart';
 import 'package:Whispers/src/share_components/share_componets.dart';
 import 'package:Whispers/src/utils/helpers/logger.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import '../../di/injection.dart/injection.dart';
+import '../../navigator/app_navigator.dart';
+import '../../navigator/routers.dart';
 
 class FotgetPasswordScreen extends StatefulWidget {
   const FotgetPasswordScreen({super.key});
@@ -21,6 +21,7 @@ class FotgetPasswordScreen extends StatefulWidget {
 }
 
 class _FotgetPasswordScreenState extends State<FotgetPasswordScreen> {
+  TextEditingController tokenCtrl = TextEditingController();
   TextEditingController emailController = TextEditingController();
   late final _formKey = GlobalKey<FormState>();
   final fotgetPasswordCubit = getIt<FotgetPasswordCubit>();
@@ -89,8 +90,9 @@ class _FotgetPasswordScreenState extends State<FotgetPasswordScreen> {
                   Logger.d("Statues", state.toString());
                   state.whenOrNull(
                       loading: showLoading,
-                      succes: () {
+                      succes: (value) {
                         dismissLoading();
+                        AppNavigator.pushAndRemoveUntil(Routes.getNewPassword);
                       },
                       failure: dismissLoadingShowError);
                 },

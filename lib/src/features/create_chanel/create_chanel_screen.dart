@@ -5,7 +5,6 @@ import 'package:Whispers/src/di/injection.dart/injection.dart';
 import 'package:Whispers/src/features/create_chanel/compontents/body_create_chanel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import '../../configs/app_fonts.dart';
 import '../../configs/palette.dart';
 import '../../share_components/share_componets.dart';
@@ -27,6 +26,7 @@ class _CreateChanelScreenState extends State<CreateChanelScreen> {
   late ScrollController _sc;
   final CreateChanelCubit _createChanelCubit = getIt<CreateChanelCubit>();
   final ChanelListAllCubit _chanelListAllCubit = getIt<ChanelListAllCubit>();
+  @override
   void initState() {
     _initData(searchController.text);
 
@@ -84,9 +84,6 @@ class _CreateChanelScreenState extends State<CreateChanelScreen> {
       centerTitle: true,
       toolbarHeight: 60.2,
       toolbarOpacity: 0.8,
-      // shape: const RoundedRectangleBorder(
-      //   borderRadius: BorderRadius.only(bottomRight: Radius.circular(25), bottomLeft: Radius.circular(25)),
-      // ),
       elevation: 0.00,
       bottom: PreferredSize(
         preferredSize: const Size.fromHeight(100.0),
@@ -94,11 +91,13 @@ class _CreateChanelScreenState extends State<CreateChanelScreen> {
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             MyTextField(
+              autoFocus: false,
               controller: nameChanelController,
               fillColor: Palette.primary,
-              style: AppFont.t.s(16).white.w600,
+              style: AppFont.t.s(16).hint.w600,
               hintText: 'Tên nhóm',
-              hintStyle: AppFont.t.s(16).white,
+              hintStyle: AppFont.t.s(16).hint,
+              cursorColor: Palette.black,
             ),
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),

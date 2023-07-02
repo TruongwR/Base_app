@@ -2,9 +2,12 @@
 
 import 'dart:io';
 
+import 'package:Whispers/src/data/repositories/repository/authentication_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:image_picker/image_picker.dart';
+
+import '../../../di/injection.dart/injection.dart';
 
 class ImagePickerButton extends StatefulWidget {
   const ImagePickerButton({super.key});
@@ -15,6 +18,7 @@ class ImagePickerButton extends StatefulWidget {
 
 class _ImagePickerButtonState extends State<ImagePickerButton> {
   File? _imageFile;
+  late final AuthenticationRepository authenticationRepository = getIt<AuthenticationRepository>();
 
   Future<void> _pickImage(ImageSource source) async {
     final imagePicker = ImagePicker();

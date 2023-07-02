@@ -3,6 +3,8 @@ import 'package:Whispers/src/configs/app_fonts.dart';
 import 'package:Whispers/src/configs/box.dart';
 import 'package:flutter/material.dart';
 import '../../../../data/model/list_chanel_parrent_model.dart';
+import '../../../../navigator/app_navigator.dart';
+import '../../../../navigator/routers.dart';
 part './widget_default.dart';
 part './widget_private.dart';
 part './widget_protected.dart';
@@ -10,7 +12,8 @@ part './widget_public.dart';
 
 class Body extends StatelessWidget {
   final String checkTypeChanel;
-  const Body({super.key, required this.checkTypeChanel});
+  final Channel chanel;
+  const Body({super.key, required this.checkTypeChanel, required this.chanel});
 
   @override
   Widget build(BuildContext context) {
@@ -23,21 +26,22 @@ class Body extends StatelessWidget {
   Widget bodyContaint(String type) {
     switch (type) {
       case "PUBLIC":
-        return _bodyPublic();
+        return _bodyPublic(chanel);
       case "PROTECTED":
-        return _bodyProtected();
+        return _bodyProtected(chanel);
       case "PRIVATE":
-        return _bodyPrivate();
+        return _bodyPrivate(chanel);
       case "DEFAULT":
-        return _bodyDefault();
+        return _bodyDefault(chanel: chanel);
 
       default:
-        return _bodyPublic();
+        return _bodyPublic(chanel);
     }
   }
 }
 
-Widget columnLayout({required Function() onTap, required String title, IconData? icon, int type = 1, bool btnCheckOut = false}) {
+Widget columnLayout(
+    {required Function() onTap, required String title, IconData? icon, int type = 1, bool btnCheckOut = false}) {
   return GestureDetector(
     onTap: onTap,
     child: Padding(

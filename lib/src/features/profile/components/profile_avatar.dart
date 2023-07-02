@@ -1,12 +1,13 @@
 import 'package:Whispers/src/configs/Palette.dart';
+import 'package:Whispers/src/di/injection.dart/injection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 
 class ProfileAvatar extends StatelessWidget {
   final Function()? action;
-  final bool check;
-  const ProfileAvatar({super.key, this.action, this.check = true});
+
+  const ProfileAvatar({super.key, this.action});
 
   @override
   Widget build(BuildContext context) {
@@ -16,9 +17,9 @@ class ProfileAvatar extends StatelessWidget {
       margin: const EdgeInsets.only(top: 30),
       child: Stack(
         children: <Widget>[
-          const CircleAvatar(
+          CircleAvatar(
             radius: 50,
-            backgroundImage: AssetImage('assets/images/user.png'),
+            backgroundImage: AssetImage('${appData.avatar}'),
           ),
           Align(
             alignment: Alignment.bottomRight,
@@ -35,8 +36,8 @@ class ProfileAvatar extends StatelessWidget {
                 child: IconButton(
                   onPressed: action,
                   icon: Icon(
-                    check ? LineAwesomeIcons.pen : LineAwesomeIcons.camera,
-                    color: Palette.black,
+                    LineAwesomeIcons.camera,
+                    color: Palette.white,
                     size: ScreenUtil().setSp(16),
                   ),
                 ),

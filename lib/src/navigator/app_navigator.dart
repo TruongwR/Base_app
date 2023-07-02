@@ -1,8 +1,10 @@
 import 'package:Whispers/src/data/model/list_chanel_parrent_model.dart';
 import 'package:Whispers/src/features/active_account/active_account_screen.dart';
-import 'package:Whispers/src/features/edit_profile/edit_profile_screen.dart';
 import 'package:Whispers/src/features/fotget_password/fotget_password.dart';
 import 'package:Whispers/src/features/home/components/body.dart';
+import 'package:Whispers/src/features/getNewPassword/get_New_Password_screen.dart';
+import 'package:Whispers/src/features/list_member_chanel/list_member_chanel_screen.dart';
+import 'package:Whispers/src/features/list_member_chanel/nickname/nickname_screen.dart';
 import 'package:Whispers/src/features/messages/channel_detail/channel_detail_screen.dart';
 import 'package:Whispers/src/features/sign_in/sign_in_screen.dart';
 import 'package:Whispers/src/navigator/routers.dart';
@@ -39,6 +41,11 @@ class AppNavigator {
           settings,
           const FotgetPasswordScreen(),
         );
+      case Routes.getNewPassword:
+        return _buildRoute(
+          settings,
+          const GetNewPasswordScreen(),
+        );
       case Routes.signUpScreen:
         return _buildRoute(
           settings,
@@ -59,11 +66,11 @@ class AppNavigator {
           settings,
           const ProfileScreen(),
         );
-      case Routes.editProfileScreen:
-        return _buildRoute(
-          settings,
-          const EditProfileScreen(),
-        );
+      // case Routes.editProfileScreen:
+      //   return _buildRoute(
+      //     settings,
+      //     const EditProfileScreen(),
+      //   );
       case Routes.messagesScreen:
         final param = settings.arguments as ParamMesage;
         return _buildRoute(
@@ -93,6 +100,22 @@ class AppNavigator {
         return _buildRoute(
           settings,
           const Body(),
+        );
+      case Routes.listMemberChanelScreen:
+        final chanel = settings.arguments as Channel;
+        return _buildRoute(
+          settings,
+          ListMemberChanelScreen(
+            chanel: chanel,
+          ),
+        );
+      case Routes.nicknameScreen:
+        final chanel = settings.arguments as Channel;
+        return _buildRoute(
+          settings,
+          NicknameScreen(
+            chanel: chanel,
+          ),
         );
       default:
         return null;

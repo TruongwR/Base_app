@@ -83,7 +83,7 @@ class _MessagesScreenState extends State<MessagesScreen> {
 
   void _checkMess() async {
     checkMessagesCubit.checkMessages(
-      chanelId: widget.param.chanel.id ?? '',
+      channelId: widget.param.chanel.id ?? '',
     );
   }
 

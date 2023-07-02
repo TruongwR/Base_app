@@ -7,7 +7,7 @@ Widget _bodyDefault({Channel? chanel}) {
     children: [
       Text(
         'Tùy chỉnh',
-        style: AppFont.t.w500,
+        style: AppFont.t.w500.hint,
       ),
       BoxMain.h(16),
       columnLayout(
@@ -23,13 +23,13 @@ Widget _bodyDefault({Channel? chanel}) {
       ),
       columnLayout(
         type: 2,
-        onTap: () {},
+        onTap: () =>AppNavigator.push(Routes.nicknameScreen,arguments: chanel),
         title: 'Biệt danh',
       ),
       BoxMain.h(16),
       Text(
         'Thông tin đoạn chat',
-        style: AppFont.t.w500,
+        style: AppFont.t.w500.hint,
       ),
       BoxMain.h(16),
       columnLayout(

@@ -1,17 +1,24 @@
 part of './body.dart';
 
-Widget _bodyProtected() {
+
+Widget _bodyProtected(Channel chanel) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
     children: [
       Text(
         'Thông tin về đoạn chat',
-        style: AppFont.t.w500,
+        style: AppFont.t.w500.hint,
       ),
       BoxMain.h(16),
       columnLayout(
-        onTap: () {},
+        type: 2,
+        onTap: () => AppNavigator.push(Routes.nicknameScreen,arguments: chanel),
+        title: 'Biệt danh',
+      ),
+      BoxMain.h(16),
+      columnLayout(
+        onTap: () => AppNavigator.push(Routes.listMemberChanelScreen, arguments: chanel),
         title: 'Thành viên trong đoạn chat',
         icon: Icons.groups,
       ),

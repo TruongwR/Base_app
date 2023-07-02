@@ -1,13 +1,13 @@
 part of './body.dart';
 
-Widget _bodyPublic() {
+Widget _bodyPublic(Channel chanel) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
     children: [
       Text(
         'Tùy chỉnh',
-        style: AppFont.t.w500,
+        style: AppFont.t.w500.hint,
       ),
       BoxMain.h(16),
       columnLayout(
@@ -23,17 +23,17 @@ Widget _bodyPublic() {
       ),
       columnLayout(
         type: 2,
-        onTap: () {},
+        onTap: () => AppNavigator.push(Routes.nicknameScreen,arguments: chanel),
         title: 'Biệt danh',
       ),
       BoxMain.h(16),
       Text(
         'Thông tin đoạn chat',
-        style: AppFont.t.w500,
+        style: AppFont.t.w500.hint,
       ),
       BoxMain.h(16),
       columnLayout(
-        onTap: () {},
+        onTap: () => AppNavigator.push(Routes.listMemberChanelScreen, arguments: chanel),
         title: 'Xem thành viên',
         icon: Icons.groups,
       ),

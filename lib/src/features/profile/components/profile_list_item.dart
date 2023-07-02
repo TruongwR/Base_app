@@ -4,10 +4,11 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 
 class ProfileListItem extends StatelessWidget {
-  const ProfileListItem({required this.icon, this.text, this.hasNavigation, super.key});
+  const ProfileListItem({required this.icon, this.text, this.hasNavigation, this.onTap, super.key});
   final IconData icon;
   final String? text;
   final bool? hasNavigation;
+  final Function()? onTap;
 
   @override
   Widget build(BuildContext context) {
@@ -38,10 +39,22 @@ class ProfileListItem extends StatelessWidget {
           ),
           const Spacer(),
           if (hasNavigation ?? false)
-            const Icon(
-              LineAwesomeIcons.angle_right,
-              size: 25,
+            GestureDetector(
+              onTap: onTap,
+              child: const Icon(
+                LineAwesomeIcons.angle_right,
+                size: 25,
+              ),
             ),
+          // CoreCrossFade(
+          //     child: Column(
+          //   children: [
+          //     Text(
+          //       'text',
+          //       style: AppFont.t.s(30),
+          //     )
+          //   ],
+          // ))
         ],
       ),
     );

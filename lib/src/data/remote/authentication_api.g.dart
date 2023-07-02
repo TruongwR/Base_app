@@ -48,13 +48,13 @@ class _AuthenticationApi implements AuthenticationApi {
   }
 
   @override
-  Future<FotgetPasswordModel> fotgetPassword(String email) async {
+  Future<ApiResponse<FotgetPasswordModel>> fotgetPassword(String email) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = {'email': email};
     final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<FotgetPasswordModel>(Options(
+        _setStreamType<ApiResponse<FotgetPasswordModel>>(Options(
       method: 'POST',
       headers: _headers,
       extra: _extra,
@@ -66,7 +66,64 @@ class _AuthenticationApi implements AuthenticationApi {
               data: _data,
             )
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    final value = FotgetPasswordModel.fromJson(_result.data!);
+    final value = ApiResponse<FotgetPasswordModel>.fromJson(
+      _result.data!,
+      (json) => FotgetPasswordModel.fromJson(json as Map<String, dynamic>),
+    );
+    return value;
+  }
+
+  @override
+  Future<dynamic> confrimPass(String accountId) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{r'accountId': accountId};
+    final _headers = <String, dynamic>{};
+    final Map<String, dynamic>? _data = null;
+    final _result = await _dio.fetch(_setStreamType<dynamic>(Options(
+      method: 'POST',
+      headers: _headers,
+      extra: _extra,
+    )
+        .compose(
+          _dio.options,
+          ':9999/account',
+          queryParameters: queryParameters,
+          data: _data,
+        )
+        .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = _result.data;
+    return value;
+  }
+
+  @override
+  Future<ApiResponse<dynamic>> getNewPass(
+    String id,
+    String activationCode,
+  ) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = {
+      'id': id,
+      'activationCode': activationCode,
+    };
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<ApiResponse<dynamic>>(Options(
+      method: 'POST',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              ':9999/account/get-new-password',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = ApiResponse<dynamic>.fromJson(
+      _result.data!,
+      (json) => json as dynamic,
+    );
     return value;
   }
 
@@ -134,14 +191,15 @@ class _AuthenticationApi implements AuthenticationApi {
 
   @override
   Future<UpdateProfileModel> updateProfile(
-    String firstName,
-    String lastName,
-    String passwordOld,
-    String password,
-    String avatarFileId,
+    String? firstName,
+    String? lastName,
+    String? passwordOld,
+    String? password,
+    String? avatarFileId,
   ) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
+    queryParameters.removeWhere((k, v) => v == null);
     final _headers = <String, dynamic>{};
     final _data = {
       'firstName': firstName,
@@ -150,6 +208,7 @@ class _AuthenticationApi implements AuthenticationApi {
       'password': password,
       'avatarFileId': avatarFileId,
     };
+    _data.removeWhere((k, v) => v == null);
     final _result = await _dio
         .fetch<Map<String, dynamic>>(_setStreamType<UpdateProfileModel>(Options(
       method: 'PATCH',
@@ -164,6 +223,39 @@ class _AuthenticationApi implements AuthenticationApi {
             )
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = UpdateProfileModel.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
+  Future<ApiResponse<dynamic>> upLoadFile(
+    String files,
+    String? access,
+  ) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{
+      r'files': files,
+      r'access': access,
+    };
+    queryParameters.removeWhere((k, v) => v == null);
+    final _headers = <String, dynamic>{};
+    final Map<String, dynamic>? _data = null;
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<ApiResponse<dynamic>>(Options(
+      method: 'POST',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              ':9999/file',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = ApiResponse<dynamic>.fromJson(
+      _result.data!,
+      (json) => json as dynamic,
+    );
     return value;
   }
 
@@ -190,9 +282,14 @@ class _AuthenticationApi implements AuthenticationApi {
   }
 
   @override
-  Future<dynamic> downAvatar(String idFiled) async {
+  Future<dynamic> downAvatar(
+    String idFiled,
+    bool responseBase64,
+  ) async {
     const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{
+      r'responseBase64': responseBase64
+    };
     final _headers = <String, dynamic>{};
     final Map<String, dynamic>? _data = null;
     final _result = await _dio.fetch(_setStreamType<dynamic>(Options(
