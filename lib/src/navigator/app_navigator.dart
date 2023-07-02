@@ -1,6 +1,8 @@
+import 'package:Whispers/src/data/model/list_chanel_parrent_model.dart';
 import 'package:Whispers/src/features/active_account/active_account_screen.dart';
 import 'package:Whispers/src/features/edit_profile/edit_profile_screen.dart';
 import 'package:Whispers/src/features/fotget_password/fotget_password.dart';
+import 'package:Whispers/src/features/home/components/body.dart';
 import 'package:Whispers/src/features/messages/channel_detail/channel_detail_screen.dart';
 import 'package:Whispers/src/features/sign_in/sign_in_screen.dart';
 import 'package:Whispers/src/navigator/routers.dart';
@@ -8,6 +10,7 @@ import 'package:flutter/material.dart';
 
 import '../data/model/api_response/param_message_model.dart';
 import '../features/create_chanel/create_chanel_screen.dart';
+import '../features/home/components/new_message_screen.dart';
 import '../features/home/home_screen.dart';
 import '../features/messages/message_screen.dart';
 import '../features/profile/profile_screen.dart';
@@ -68,17 +71,28 @@ class AppNavigator {
           MessagesScreen(param: param),
         );
       case Routes.channelDetailScreen:
-        final param = settings.arguments as ParamMesage;
+        final chanel = settings.arguments as Channel;
         return _buildRoute(
           settings,
           ChannelDetailScreen(
-            param: param,
+            chanel: chanel,
           ),
         );
       case Routes.createChanelScreen:
         return _buildRoute(
           settings,
           const CreateChanelScreen(),
+        );
+      case Routes.newMessageScreen:
+        final type = settings.arguments as int;
+        return _buildRoute(
+          settings,
+          NewMessageSceen(type: type),
+        );
+      case Routes.body:
+        return _buildRoute(
+          settings,
+          const Body(),
         );
       default:
         return null;

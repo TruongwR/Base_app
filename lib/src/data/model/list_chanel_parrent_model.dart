@@ -9,7 +9,7 @@ ListChanelParrentModel listChanelParrentModelFromJson(String str) => ListChanelP
 String listChanelParrentModelToJson(ListChanelParrentModel data) => json.encode(data.toJson());
 
 class ListChanelParrentModel {
-  List<Chanel>? content;
+  List<Channel>? content;
   int? page;
   int? size;
   int? totalPages;
@@ -24,7 +24,7 @@ class ListChanelParrentModel {
   });
 
   factory ListChanelParrentModel.fromJson(Map<String, dynamic> json) => ListChanelParrentModel(
-        content: json["content"] == null ? [] : List<Chanel>.from(json["content"]!.map((x) => Chanel.fromJson(x))),
+        content: json["content"] == null ? [] : List<Channel>.from(json["content"]!.map((x) => Channel.fromJson(x))),
         page: json["page"],
         size: json["size"],
         totalPages: json["totalPages"],
@@ -40,7 +40,7 @@ class ListChanelParrentModel {
       };
 }
 
-class Chanel {
+class Channel {
   String? id;
   String? name;
   dynamic avatarFileId;
@@ -48,7 +48,7 @@ class Chanel {
   String? status;
   LastMessage? lastMessage;
 
-  Chanel({
+  Channel({
     this.id,
     this.name,
     this.avatarFileId,
@@ -57,7 +57,7 @@ class Chanel {
     this.lastMessage,
   });
 
-  factory Chanel.fromJson(Map<String, dynamic> json) => Chanel(
+  factory Channel.fromJson(Map<String, dynamic> json) => Channel(
         id: json["id"],
         name: json["name"],
         avatarFileId: json["avatarFileId"],

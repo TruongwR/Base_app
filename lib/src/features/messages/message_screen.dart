@@ -1,20 +1,33 @@
+import 'dart:async';
+import 'dart:convert';
+import 'dart:io';
+
 import 'package:Whispers/src/configs/app_fonts.dart';
+import 'package:Whispers/src/configs/palette.dart';
 import 'package:Whispers/src/cubit/detail_chanel_state.dart';
 import 'package:Whispers/src/di/injection.dart/injection.dart';
+import 'package:Whispers/src/features/messages/components/image_picker_screen.dart';
 import 'package:Whispers/src/navigator/app_navigator.dart';
 import 'package:Whispers/src/navigator/routers.dart';
 import 'package:Whispers/src/share_components/loading/loading.dart';
 import 'package:Whispers/src/share_components/share_componets.dart';
 import 'package:Whispers/src/utils/helpers/logger.dart';
+import 'package:file_picker/file_picker.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:microphone/microphone.dart';
+import 'package:permission_handler/permission_handler.dart';
 import '../../cubit/check_messages_cubit.dart';
 import '../../configs/box.dart';
 import '../../cubit/detail_chanel_cubit.dart';
 import '../../data/model/api_response/param_message_model.dart';
 import '../../data/model/message_model.dart';
 import '../../share_components/time/time_extension.dart';
-import 'components/body.dart';
+
+import 'components/message.dart';
 
 class MessagesScreen extends StatefulWidget {
   const MessagesScreen({required this.param, Key? key}) : super(key: key);
@@ -31,16 +44,23 @@ class _MessagesScreenState extends State<MessagesScreen> {
   final int _size = 20;
   int _totalPage = 1;
   TextEditingController contenController = TextEditingController();
+  TextEditingController textInputMessage = TextEditingController();
+  FocusNode textInputMessageFouce = FocusNode();
   List<ContentMessage> _listMessageChanel = [];
   late ScrollController _sc;
   List<Viewer> _viewer = [];
+  late Timer timer;
   @override
   void initState() {
+    // timer = Timer.periodic(const Duration(seconds: 3), (timer) {
+    //   _initData();
+    // });
     _initData();
     _checkMess();
+
     _sc = ScrollController()
       ..addListener(() {
-        if (_sc.position.pixels == _sc.position.maxScrollExtent && _page < _totalPage - 1) {
+        if (_sc.position.atEdge == true && _sc.position.pixels == 0 && _page < _totalPage) {
           _loadMore();
         }
       });
@@ -48,6 +68,7 @@ class _MessagesScreenState extends State<MessagesScreen> {
   }
 
   void _loadMore() {
+    Logger.d("page", _page);
     detailChanelCubit.getListMessageChanel(page: _page, size: _size, content: contenController.text, channelId: widget.param.chanel.id ?? '');
     _page++;
   }
@@ -61,7 +82,9 @@ class _MessagesScreenState extends State<MessagesScreen> {
   }
 
   void _checkMess() async {
-    checkMessagesCubit.checkMessages(chanelId: widget.param.chanel.id ?? '');
+    checkMessagesCubit.checkMessages(
+      chanelId: widget.param.chanel.id ?? '',
+    );
   }
 
   @override
@@ -76,7 +99,10 @@ class _MessagesScreenState extends State<MessagesScreen> {
           success: (value) {
             _totalPage = value.data.message?.totalPages ?? 1;
             _viewer.addAll(value.data.viewer as Iterable<Viewer>);
-            _listMessageChanel.addAll(value.data.message?.content as Iterable<ContentMessage>);
+            if (value.data.message?.content != null) {
+              _listMessageChanel.addAll(value.data.message?.content?.reversed.toList() as Iterable<ContentMessage>);
+            }
+
             setState(() {});
             Logger.d("lenght", _listMessageChanel.length);
           },
@@ -84,9 +110,123 @@ class _MessagesScreenState extends State<MessagesScreen> {
       },
       child: Scaffold(
           appBar: buildAppBar(),
-          body: Body(
-            listDetail: _listMessageChanel,
-            listViewer: _viewer,
+          body: Column(
+            children: [
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  child: ListView.builder(
+                    controller: _sc,
+                    itemCount: _listMessageChanel.length,
+                    itemBuilder: (context, index) => Message(message: _listMessageChanel[index], listViewer: _viewer),
+                  ),
+                ),
+              ),
+            ],
+          ),
+          bottomNavigationBar: Container(
+            padding: const EdgeInsets.symmetric(
+              horizontal: 16,
+              vertical: 16 / 2,
+            ),
+            decoration: BoxDecoration(
+              color: Theme.of(context).scaffoldBackgroundColor,
+              boxShadow: [
+                BoxShadow(
+                  offset: const Offset(0, 4),
+                  blurRadius: 32,
+                  color: const Color(0xFF087949).withOpacity(0.08),
+                ),
+              ],
+            ),
+            child: SafeArea(
+              child: Row(
+                children: [
+                  const Icon(Icons.mic, color: Palette.primary),
+                  const SizedBox(width: 16),
+                  Expanded(
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 12,
+                      ),
+                      decoration: BoxDecoration(
+                        color: Palette.primary.withOpacity(0.05),
+                        borderRadius: BorderRadius.circular(40),
+                      ),
+                      child: Row(
+                        children: [
+                          IconButton(
+                            onPressed: () async {
+                              MicrophoneRecorder recorder = MicrophoneRecorder();
+                              await recorder.start();
+                              await Future.delayed(const Duration(seconds: 5));
+                              await recorder.stop();
+                              Uint8List data = await recorder.toBytes();
+                              Logger.d("Data mic", utf8.decode(data));
+                            },
+                            icon: Icon(
+                              Icons.sentiment_satisfied_alt_outlined,
+                              color: Theme.of(context).textTheme.bodyLarge!.color!.withOpacity(0.64),
+                            ),
+                          ),
+                          BoxMain.w(4),
+                          Expanded(
+                            child: TextField(
+                              focusNode: textInputMessageFouce,
+                              controller: textInputMessage,
+                              decoration: const InputDecoration(
+                                hintText: "Type message",
+                                border: InputBorder.none,
+                              ),
+                            ),
+                          ),
+                          IconButton(
+                              onPressed: () async {
+                                FilePickerResult? result = await FilePicker.platform.pickFiles();
+                                if (result != null) {
+                                  String? filePath = result.files.single.path;
+                                  if (filePath != null) {
+                                    // Tải tệp lên API
+                                    Logger.d("Update file");
+                                  }
+                                }
+                              },
+                              icon: Icon(
+                                Icons.attach_file,
+                                color: Theme.of(context).textTheme.bodyLarge!.color!.withOpacity(0.64),
+                              )),
+                          IconButton(
+                            // onPressed: () => openImagePicker(context),
+                            onPressed: () {
+                              showBottomSheet(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return const Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      CupertinoAlertDialog(
+                                        title: Text('Tải ảnh lên'),
+                                        content: Text("Chọn một ảnh để tải ảnh lên"),
+                                        actions: [ImagePickerButton()],
+                                      ),
+                                    ],
+                                  );
+                                },
+                              );
+                              return;
+                            },
+                            icon: Icon(
+                              Icons.camera_alt_outlined,
+                              color: Theme.of(context).textTheme.bodyLarge!.color!.withOpacity(0.64),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
           )),
     );
   }
@@ -98,11 +238,10 @@ class _MessagesScreenState extends State<MessagesScreen> {
         children: [
           const BackButton(),
           InkWell(
-            onTap: () => AppNavigator.push(Routes.channelDetailScreen,
-                arguments: ParamMesage(
-                  chanel: widget.param.chanel,
-                  chanelListAllCubit: widget.param.chanelListAllCubit,
-                )),
+            onTap: () => AppNavigator.push(
+              Routes.channelDetailScreen,
+              arguments: widget.param.chanel,
+            ),
             child: const CircleAvatar(
               backgroundImage: AssetImage("assets/images/user_2.png"),
             ),
@@ -134,5 +273,49 @@ class _MessagesScreenState extends State<MessagesScreen> {
         BoxMain.w(4),
       ],
     );
+  }
+
+  void openImagePicker(BuildContext context) async {
+    final picker = ImagePicker();
+    final pickedFile = await picker.getImage(source: ImageSource.gallery);
+
+    if (pickedFile != null) {
+      // Đã chọn một ảnh từ máy ảnh thành công
+      File image = File(pickedFile.path);
+
+      // Xử lý ảnh ở đây (ví dụ: tải lên server, lưu vào thư mục khác, ...)
+      // ...
+
+      // Hiển thị ảnh đã chọn
+      // ignore: use_build_context_synchronously
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: const Text('Selected Image'),
+            content: Image.file(image),
+            actions: [
+              TextButton(
+                child: const Text('OK'),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          );
+        },
+      );
+    } else {
+      // Người dùng không chọn ảnh
+    }
+  }
+
+  Future<bool> requestCameraPermission() async {
+    var status = await Permission.camera.status;
+    if (status.isDenied) {
+      var result = await Permission.camera.request();
+      return result.isGranted;
+    }
+    return status.isGranted;
   }
 }

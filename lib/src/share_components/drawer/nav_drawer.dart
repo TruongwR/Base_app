@@ -5,7 +5,12 @@ import '../../configs/app_fonts.dart';
 import '../../di/injection.dart/injection.dart';
 
 class DrawerWidget extends StatelessWidget {
-  const DrawerWidget({super.key});
+  final Function()? ontapDoanChat;
+  final Function()? ontapTinNhanTro;
+  final Function()? ontapMoiThamGia;
+  final Function()? ontapKenhTuChoiThamGia;
+  final Function()? ontapKenhDaThoat;
+  const DrawerWidget({this.ontapDoanChat, this.ontapTinNhanTro, this.ontapKenhDaThoat, this.ontapKenhTuChoiThamGia, this.ontapMoiThamGia, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -14,10 +19,11 @@ class DrawerWidget extends StatelessWidget {
         padding: EdgeInsets.zero,
         children: <Widget>[
           _drawerHeader(),
-          _drawerItem(icon: Icons.folder, text: 'Đoạn Chat', onTap: () => Logger.d('Đoạn Chat')),
-          _drawerItem(icon: Icons.group, text: 'Tin Nhắn chờ', onTap: () => Logger.d('Tin Nhắn chờ')),
-          _drawerItem(icon: Icons.access_time, text: 'Kho Lưu chữ', onTap: () => Logger.d('kho Lưu chữ')),
-          _drawerItem(icon: Icons.delete, text: 'Private', onTap: () => Logger.d('Private')),
+          _drawerItem(icon: Icons.folder, text: 'Đoạn Chat', onTap: ontapDoanChat),
+          _drawerItem(icon: Icons.add_task_outlined, text: 'Kênh được mời tham gia', onTap: ontapMoiThamGia),
+          _drawerItem(icon: Icons.warning_amber_rounded, text: 'Kênh trờ phê duyệt', onTap: ontapTinNhanTro),
+          _drawerItem(icon: Icons.close_rounded, text: 'Kênh đã từ chối tham gia', onTap: ontapKenhTuChoiThamGia),
+          _drawerItem(icon: Icons.logout_outlined, text: 'kênh đã thoát', onTap: ontapKenhDaThoat),
           const Divider(height: 25, thickness: 1),
           const Padding(
             padding: EdgeInsets.only(left: 20.0, top: 10, bottom: 10),

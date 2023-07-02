@@ -27,7 +27,7 @@ class _PeopleScreenState extends State<PeopleScreen> {
   int _page = 1;
   final int _size = 10;
   int _totalPage = 1;
-  List<Chanel> _listChanel = [];
+  List<Channel> _listChanel = [];
   late ScrollController _sc;
 
   @override
@@ -86,7 +86,7 @@ class _PeopleScreenState extends State<PeopleScreen> {
             loading: (value) => const Loading(),
             success: (value) {
               _totalPage = value.listChanel?.totalPages ?? 1;
-              _listChanel.addAll(value.listChanel?.content as Iterable<Chanel>);
+              _listChanel.addAll(value.listChanel?.content as Iterable<Channel>);
               setState(() {});
               Logger.d("lenght", value.listChanel?.content?.length);
             },

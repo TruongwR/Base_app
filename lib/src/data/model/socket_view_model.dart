@@ -4,6 +4,8 @@
 
 import 'dart:convert';
 
+import 'list_chanel_parrent_model.dart';
+
 SocketViewModel socketViewModelFromJson(String str) => SocketViewModel.fromJson(json.decode(str));
 
 String socketViewModelToJson(SocketViewModel data) => json.encode(data.toJson());
@@ -32,37 +34,7 @@ class SocketViewModel {
     };
 }
 
-class Channel {
-    String? id;
-    String? name;
-    String? avatarFileId;
-    dynamic avatarUrl;
-    String? type;
 
-    Channel({
-        this.id,
-        this.name,
-        this.avatarFileId,
-        this.avatarUrl,
-        this.type,
-    });
-
-    factory Channel.fromJson(Map<String, dynamic> json) => Channel(
-        id: json["id"],
-        name: json["name"],
-        avatarFileId: json["avatarFileId"],
-        avatarUrl: json["avatarUrl"],
-        type: json["type"],
-    );
-
-    Map<String, dynamic> toJson() => {
-        "id": id,
-        "name": name,
-        "avatarFileId": avatarFileId,
-        "avatarUrl": avatarUrl,
-        "type": type,
-    };
-}
 
 class Message {
     String? id;

@@ -66,7 +66,25 @@ class _ImagePickerButtonState extends State<ImagePickerButton> {
             ),
             ElevatedButton(
               onPressed: () {
-                // Đẩy ảnh lên server tại đây
+                showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return AlertDialog(
+                      title: const Text('Selected Image'),
+                      content: Image.file(
+                        _imageFile!,
+                      ),
+                      actions: [
+                        TextButton(
+                          child: const Text('OK'),
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                          },
+                        ),
+                      ],
+                    );
+                  },
+                );
               },
               child: const Text('Đẩy ảnh lên'),
             ),

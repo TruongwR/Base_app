@@ -10,7 +10,7 @@ class ChatCard extends StatelessWidget {
       {Key? key, required this.chanel, required this.press, required this.isStatus, required this.type, this.longPress})
       : super(key: key);
   final int type;
-  final Chanel chanel;
+  final Channel chanel;
   final VoidCallback press;
   final Function()? longPress;
   final bool isStatus;

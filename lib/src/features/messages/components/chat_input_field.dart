@@ -16,7 +16,11 @@ import 'package:microphone/microphone.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 class ChatInputField extends StatefulWidget {
+  final TextEditingController? textEditingController;
+  final FocusNode? textFieldFocusNode;
   const ChatInputField({
+    this.textEditingController,
+    this.textFieldFocusNode,
     Key? key,
   }) : super(key: key);
 
@@ -25,28 +29,6 @@ class ChatInputField extends StatefulWidget {
 }
 
 class _ChatInputFieldState extends State<ChatInputField> {
-  File? _imageFile;
-
-  Future<void> _captureImage() async {
-    final imagePicker = ImagePicker();
-    final pickedImage = await imagePicker.pickImage(source: ImageSource.camera);
-    if (pickedImage != null) {
-      setState(() {
-        _imageFile = File(pickedImage.path);
-      });
-    }
-  }
-
-  Future<void> _pickImageFromGallery() async {
-    final imagePicker = ImagePicker();
-    final pickedImage = await imagePicker.pickImage(source: ImageSource.gallery);
-    if (pickedImage != null) {
-      setState(() {
-        _imageFile = File(pickedImage.path);
-      });
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -95,9 +77,11 @@ class _ChatInputFieldState extends State<ChatInputField> {
                       ),
                     ),
                     BoxMain.w(4),
-                    const Expanded(
+                    Expanded(
                       child: TextField(
-                        decoration: InputDecoration(
+                        focusNode: widget.textFieldFocusNode,
+                        controller: widget.textEditingController,
+                        decoration: const InputDecoration(
                           hintText: "Type message",
                           border: InputBorder.none,
                         ),
@@ -121,13 +105,18 @@ class _ChatInputFieldState extends State<ChatInputField> {
                     IconButton(
                       // onPressed: () => openImagePicker(context),
                       onPressed: () {
-                        showDialog(
+                        showBottomSheet(
                           context: context,
                           builder: (BuildContext context) {
-                            return const CupertinoAlertDialog(
-                              title: Text('Tải ảnh lên'),
-                              content: Text("Chọn một ảnh để tải ảnh lên"),
-                              actions: [ImagePickerButton()],
+                            return const Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                CupertinoAlertDialog(
+                                  title: Text('Tải ảnh lên'),
+                                  content: Text("Chọn một ảnh để tải ảnh lên"),
+                                  actions: [ImagePickerButton()],
+                                ),
+                              ],
                             );
                           },
                         );

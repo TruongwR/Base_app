@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import '../../../data/model/message_model.dart';
-import 'chat_input_field.dart';
 import 'message.dart';
 
 class Body extends StatelessWidget {
@@ -22,7 +21,6 @@ class Body extends StatelessWidget {
             ),
           ),
         ),
-        const ChatInputField(),
       ],
     );
   }

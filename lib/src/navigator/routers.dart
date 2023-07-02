@@ -10,4 +10,6 @@ class Routes {
   static const String messagesScreen = "MessagesScreen";
   static const String channelDetailScreen = "ChannelDetailScreen";
   static const String createChanelScreen = "CreateChanelScreen";
+  static const String newMessageScreen = "NewMessageScreen";
+  static const String body = "body";
 }

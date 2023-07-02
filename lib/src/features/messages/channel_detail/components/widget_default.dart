@@ -1,6 +1,6 @@
 part of './body.dart';
 
-Widget _bodyDefault({Chanel? chanel}) {
+Widget _bodyDefault({Channel? chanel}) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     mainAxisAlignment: MainAxisAlignment.spaceEvenly,

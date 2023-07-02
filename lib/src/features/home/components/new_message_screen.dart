@@ -1,7 +1,4 @@
-import 'dart:async';
-
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:Whispers/src/configs/palette.dart';
 import 'package:Whispers/src/cubit/chanel_list_all_cubit.dart';
 import 'package:Whispers/src/cubit/chanel_list_all_state.dart';
 import 'package:Whispers/src/data/model/list_chanel_parrent_model.dart';
@@ -10,10 +7,11 @@ import 'package:Whispers/src/share_components/drawer/nav_drawer.dart';
 import 'package:Whispers/src/share_components/share_componets.dart';
 import 'package:Whispers/src/utils/enum/enum_status.dart';
 import 'package:Whispers/src/utils/helpers/logger.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:skeletons/skeletons.dart';
 
-import '../../../configs/Palette.dart';
 import '../../../configs/app_fonts.dart';
 import '../../../configs/box.dart';
 import '../../../data/model/api_response/param_message_model.dart';
@@ -23,14 +21,15 @@ import '../../../navigator/routers.dart';
 import '../../../share_components/shimmer/my_container.dart';
 import 'chat_card.dart';
 
-class Body extends StatefulWidget {
-  const Body({Key? key}) : super(key: key);
+class NewMessageSceen extends StatefulWidget {
+  final int type;
+  const NewMessageSceen({required this.type, Key? key}) : super(key: key);
 
   @override
-  State<Body> createState() => _BodyState();
+  State<NewMessageSceen> createState() => _NewMessageSceenState();
 }
 
-class _BodyState extends State<Body> {
+class _NewMessageSceenState extends State<NewMessageSceen> {
   final TextEditingController searchController = TextEditingController();
   final ChanelListAllCubit _chanelListAllCubit = getIt<ChanelListAllCubit>();
   int _page = 1;
@@ -39,16 +38,8 @@ class _BodyState extends State<Body> {
   List<Channel> _listChanel = [];
   late ScrollController _sc;
 
-  late Timer timer;
-
   @override
   void initState() {
-    // timer = Timer.periodic(const Duration(seconds: 3), (timer) {
-    //   _initData(searchController.text);
-    // });
-    Future.delayed(const Duration(seconds: 3), () {
-      _initData(searchController.text);
-    });
     _initData(searchController.text);
 
     _sc = ScrollController()
@@ -61,7 +52,7 @@ class _BodyState extends State<Body> {
   }
 
   void _loadMore() {
-    _chanelListAllCubit.getlistChanel(page: _page, size: _size, name: searchController.text, status: StatusChanel.sttaccepted.getString());
+    _chanelListAllCubit.getlistChanel(page: _page, size: _size, name: searchController.text, status: getTypeChanel(widget.type));
     _page++;
   }
 
@@ -69,38 +60,51 @@ class _BodyState extends State<Body> {
     _page = 1;
     _totalPage = 1;
     _listChanel = [];
-    _chanelListAllCubit.getlistChanel(page: _page, size: _size, name: name, status: StatusChanel.sttaccepted.getString());
+    _chanelListAllCubit.getlistChanel(page: _page, size: _size, name: name, status: getTypeChanel(widget.type));
+  }
+
+  String getTypeChanel(int type) {
+    switch (type) {
+      case 0:
+        return StatusChanel.sttaccepted.getString();
+      case 1:
+        return StatusChanel.sttnew.getString();
+      case 2:
+        return StatusChanel.sttwaiting.getString();
+      case 3:
+        return StatusChanel.sttrejected.getString();
+      case 4:
+        return StatusChanel.sttcanceled.getString();
+      default:
+        return StatusChanel.sttaccepted.getString();
+    }
+  }
+
+  String getNameTypeChanel(int type) {
+    Logger.d("type", type);
+    switch (type) {
+      case 0:
+        return "Đoạn chat";
+      case 1:
+        return "Kênh được mời";
+      case 2:
+        return "kênh chờ phê duyệt";
+      case 3:
+        return "Từ chối Tham gia kênh";
+      case 4:
+        return "Kênh đã thoát";
+      default:
+        return StatusChanel.sttaccepted.getString();
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: buildAppBar(),
-      drawer: DrawerWidget(
-        ontapDoanChat: () => AppNavigator.pushAndRemoveUntil(Routes.newMessageScreen, arguments: 0),
-        ontapTinNhanTro: () => AppNavigator.pushAndRemoveUntil(Routes.newMessageScreen, arguments: 2),
-        ontapKenhDaThoat: () => AppNavigator.pushAndRemoveUntil(Routes.newMessageScreen, arguments: 4),
-        ontapKenhTuChoiThamGia: () => () => AppNavigator.pushAndRemoveUntil(Routes.newMessageScreen, arguments: 3),
-        ontapMoiThamGia: () => () => AppNavigator.pushAndRemoveUntil(Routes.newMessageScreen, arguments: 1),
-      ),
+      drawer: drawer(widget.type),
       body: Column(
         children: [
-          // StreamBuilder<SocketViewModel>(
-          //   stream: appData.streamController.socketDataStream,
-          //   builder: (context, snapshot) {
-          //     if (snapshot.hasData) {
-          //       return ChatCard(
-          //         type: 1,
-          //         isStatus: true,
-          //         chanel: snapshot.data!.channel!,
-          //         press: () => AppNavigator.push(Routes.messagesScreen, arguments: ParamMesage(chanel: snapshot.data!.channel!, chanelListAllCubit: _chanelListAllCubit)),
-          //         longPress: () => buildButtomSheat(),
-          //       );
-          //     } else {
-          //       return Container();
-          //     }
-          //   },
-          // ),
           BlocListener<ChanelListAllCubit, ChanelListAllState>(
               bloc: _chanelListAllCubit,
               listener: (context, state) {
@@ -178,16 +182,16 @@ class _BodyState extends State<Body> {
 
   buildAppBar() {
     return AppBar(
-      title: const Text('Đoạn Chat'),
+      title: Text(getNameTypeChanel(widget.type)),
       backgroundColor: Palette.primary,
-      actions: [
-        IconButton(
-          icon: const Icon(Icons.edit_note_outlined),
-          onPressed: () => AppNavigator.push(Routes.createChanelScreen),
-        ),
-        BoxMain.w(8),
-      ],
-      titleSpacing: 0.0,
+      // actions: [
+      //   IconButton(
+      //     icon: const Icon(Icons.edit_note_outlined),
+      //     onPressed: () => AppNavigator.push(Routes.createChanelScreen),
+      //   ),
+      //   BoxMain.w(8),
+      // ],
+      titleSpacing: 00.0,
       centerTitle: true,
       toolbarHeight: 60.2,
       toolbarOpacity: 0.8,
@@ -275,5 +279,57 @@ class _BodyState extends State<Body> {
                     )),
               ),
             ));
+  }
+
+  Widget drawer(int type) {
+    switch (type) {
+      case 0:
+        return DrawerWidget(
+          ontapDoanChat: () => AppNavigator.pushAndRemoveUntil(Routes.newMessageScreen, arguments: 0),
+          ontapTinNhanTro: () => AppNavigator.pushAndRemoveUntil(Routes.newMessageScreen, arguments: 2),
+          ontapKenhDaThoat: () => AppNavigator.pushAndRemoveUntil(Routes.newMessageScreen, arguments: 4),
+          ontapKenhTuChoiThamGia: () => AppNavigator.pushAndRemoveUntil(Routes.newMessageScreen, arguments: 3),
+          ontapMoiThamGia: () => AppNavigator.pushAndRemoveUntil(Routes.newMessageScreen, arguments: 1),
+        );
+      case 1:
+        return DrawerWidget(
+          ontapDoanChat: () => AppNavigator.pushAndRemoveUntil(Routes.newMessageScreen, arguments: 0),
+          ontapTinNhanTro: () => AppNavigator.pushAndRemoveUntil(Routes.newMessageScreen, arguments: 0),
+          ontapKenhDaThoat: () => AppNavigator.pushAndRemoveUntil(Routes.newMessageScreen, arguments: 4),
+          ontapKenhTuChoiThamGia: () => AppNavigator.pushAndRemoveUntil(Routes.newMessageScreen, arguments: 3),
+          ontapMoiThamGia: () => AppNavigator.pop(),
+        );
+      case 2:
+        return DrawerWidget(
+          ontapDoanChat: () => AppNavigator.pushAndRemoveUntil(Routes.newMessageScreen, arguments: 0),
+          ontapTinNhanTro: () => AppNavigator.pop(),
+          ontapKenhDaThoat: () => AppNavigator.pushAndRemoveUntil(Routes.newMessageScreen, arguments: 4),
+          ontapKenhTuChoiThamGia: () => AppNavigator.pushAndRemoveUntil(Routes.newMessageScreen, arguments: 3),
+          ontapMoiThamGia: () => AppNavigator.pushAndRemoveUntil(Routes.newMessageScreen, arguments: 1),
+        );
+      case 3:
+        return DrawerWidget(
+          ontapDoanChat: () => AppNavigator.pushAndRemoveUntil(Routes.newMessageScreen, arguments: 0),
+          ontapTinNhanTro: () => AppNavigator.pushAndRemoveUntil(Routes.newMessageScreen, arguments: 0),
+          ontapKenhDaThoat: () => AppNavigator.pushAndRemoveUntil(Routes.newMessageScreen, arguments: 4),
+          ontapKenhTuChoiThamGia: () => AppNavigator.pop(),
+          ontapMoiThamGia: () => AppNavigator.pushAndRemoveUntil(Routes.newMessageScreen, arguments: 1),
+        );
+      case 4:
+        return DrawerWidget(
+          ontapDoanChat: () => AppNavigator.pushAndRemoveUntil(Routes.newMessageScreen, arguments: 0),
+          ontapTinNhanTro: () => AppNavigator.pushAndRemoveUntil(Routes.newMessageScreen, arguments: 0),
+          ontapKenhDaThoat: () => AppNavigator.pushAndRemoveUntil(Routes.newMessageScreen, arguments: 4),
+          ontapKenhTuChoiThamGia: () => AppNavigator.pushAndRemoveUntil(Routes.newMessageScreen, arguments: 3),
+          ontapMoiThamGia: () => AppNavigator.pop(),
+        );
+      default:
+        return DrawerWidget(
+          ontapDoanChat: () => AppNavigator.pop(),
+          ontapTinNhanTro: () => AppNavigator.push(Routes.newMessageScreen, arguments: 0),
+          // khoLuuChu: () => Logger.d("Kho Lưu Trữ"),
+          // private: () => AppNavigator.push(Routes.newMessageScreen, arguments: 1),
+        );
+    }
   }
 }

@@ -4,7 +4,7 @@ import '../../../cubit/chanel_list_all_cubit.dart';
 
 
 class ParamMesage {
-  Chanel chanel;
+  Channel chanel;
   ChanelListAllCubit chanelListAllCubit;
   ParamMesage({
     required this.chanel,

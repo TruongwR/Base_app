@@ -52,10 +52,9 @@ class _MessageState extends State<Message> {
     }
 
     return Padding(
-      padding: const EdgeInsets.only(top: 16),
+      padding: const EdgeInsets.symmetric(vertical: 8),
       child: Row(
-        mainAxisAlignment:
-            widget.message.id == appData.userModel?.account?.id ? MainAxisAlignment.end : MainAxisAlignment.start,
+        mainAxisAlignment: widget.message.id == appData.userModel?.account?.id ? MainAxisAlignment.end : MainAxisAlignment.start,
         children: [
           if (!(widget.message.id == appData.userModel?.account?.id)) ...[
             widget.message.type != "SETTING"
@@ -68,8 +67,7 @@ class _MessageState extends State<Message> {
           ],
           messageContaint(widget.message),
           if (widget.message.files != []) fileContaint(widget.message),
-          if (widget.message.id == appData.userModel?.account?.id)
-            MessageStatusDot(status: widget.listViewer != [] ? MessageStatus.viewed : MessageStatus.notView)
+          if (widget.message.id == appData.userModel?.account?.id) MessageStatusDot(status: widget.listViewer != [] ? MessageStatus.viewed : MessageStatus.notView)
         ],
       ),
     );
