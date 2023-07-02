@@ -1,4 +1,3 @@
-import 'package:Whispers/src/data/model/list_chanel_parrent_model.dart';
 import 'package:Whispers/src/features/active_account/active_account_screen.dart';
 import 'package:Whispers/src/features/edit_profile/edit_profile_screen.dart';
 import 'package:Whispers/src/features/fotget_password/fotget_password.dart';
@@ -7,6 +6,7 @@ import 'package:Whispers/src/features/sign_in/sign_in_screen.dart';
 import 'package:Whispers/src/navigator/routers.dart';
 import 'package:flutter/material.dart';
 
+import '../data/model/api_response/param_message_model.dart';
 import '../features/create_chanel/create_chanel_screen.dart';
 import '../features/home/home_screen.dart';
 import '../features/messages/message_screen.dart';
@@ -62,17 +62,17 @@ class AppNavigator {
           const EditProfileScreen(),
         );
       case Routes.messagesScreen:
-        final chanel = settings.arguments as Chanel;
+        final param = settings.arguments as ParamMesage;
         return _buildRoute(
           settings,
-          MessagesScreen(chanel: chanel),
+          MessagesScreen(param: param),
         );
       case Routes.channelDetailScreen:
-        final chanel = settings.arguments as Chanel;
+        final param = settings.arguments as ParamMesage;
         return _buildRoute(
           settings,
           ChannelDetailScreen(
-            chanel: chanel,
+            param: param,
           ),
         );
       case Routes.createChanelScreen:

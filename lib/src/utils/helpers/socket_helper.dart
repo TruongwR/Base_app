@@ -3,13 +3,14 @@ import 'package:stomp_dart_client/stomp.dart';
 import 'package:stomp_dart_client/stomp_config.dart';
 import 'package:stomp_dart_client/stomp_frame.dart';
 
+import '../../data/model/socket_view_model.dart';
 import '../../di/injection.dart/injection.dart';
 
 class SocketHelper {
-  late StompClient stompClient; // Declare stompClient as a class member
+  // Declare stompClient as a class member
 
   void initializeStompClient() {
-    stompClient = StompClient(
+    appData.stompClient = StompClient(
       config: StompConfig(
         url: 'wss://cuongnh2k.space:9998/ws?User-Agent=${appData.userAgent}&Authorization=Bearer%20${appData.accessToken}', // URL of the WebSocket server
         onConnect: onConnectCallback, // Callback function called on successful connection
@@ -17,15 +18,15 @@ class SocketHelper {
       ),
     );
 
-    stompClient.activate();
+    appData.stompClient?.activate();
   }
 
   void onConnectCallback(StompFrame connectFrame) {
     Logger.d("Connect", '/user/${appData.userModel?.account?.id}/private');
-    stompClient.subscribe(
+    appData.stompClient?.subscribe(
       destination: '/user/${appData.userModel?.account?.id}/private',
       callback: (value) {
-        appData.streamController.add(value.body??'');
+        appData.streamController.updateSocketData(socketViewModelFromJson(value.body ?? ""));
         Logger.d("value", value);
         Logger.d("value", value.body);
       },

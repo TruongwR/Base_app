@@ -1,9 +1,7 @@
 import 'package:Whispers/src/di/injection.dart/injection.dart';
 import 'package:Whispers/src/features/people/people_screen.dart';
-import 'package:Whispers/src/utils/helpers/logger.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:web_socket_channel/io.dart';
 import '../profile/profile_screen.dart';
 
 import 'components/body.dart';
@@ -19,17 +17,8 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     socketHelper.initializeStompClient();
-    getStream();
-    super.initState();
-  }
 
-  void getStream() {
-    appData.channel = IOWebSocketChannel.connect('wss://cuongnh2k.space:9998/ws?User-Agent=${appData.userAgent}&Authorization=Bearer%20${appData.accessToken}');
-    setState(() {});
-    appData.channel?.stream.listen((message) {
-      appData.channel?.sink.add('/user/+${appData.userModel?.account?.id}+/private');
-      Logger.d('SOCKET', message.toString());
-    });
+    super.initState();
   }
 
   int _selectedIndex = 0;

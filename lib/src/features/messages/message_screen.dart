@@ -11,14 +11,14 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../cubit/check_messages_cubit.dart';
 import '../../configs/box.dart';
 import '../../cubit/detail_chanel_cubit.dart';
-import '../../data/model/list_chanel_parrent_model.dart';
+import '../../data/model/api_response/param_message_model.dart';
 import '../../data/model/message_model.dart';
 import '../../share_components/time/time_extension.dart';
 import 'components/body.dart';
 
 class MessagesScreen extends StatefulWidget {
-  const MessagesScreen({required this.chanel, Key? key}) : super(key: key);
-  final Chanel chanel;
+  const MessagesScreen({required this.param, Key? key}) : super(key: key);
+  final ParamMesage param;
   @override
   State<MessagesScreen> createState() => _MessagesScreenState();
 }
@@ -28,7 +28,7 @@ class _MessagesScreenState extends State<MessagesScreen> {
   final CheckMessagesCubit checkMessagesCubit = getIt<CheckMessagesCubit>();
 
   int _page = 1;
-  final int _size = 10;
+  final int _size = 20;
   int _totalPage = 1;
   TextEditingController contenController = TextEditingController();
   List<ContentMessage> _listMessageChanel = [];
@@ -48,8 +48,7 @@ class _MessagesScreenState extends State<MessagesScreen> {
   }
 
   void _loadMore() {
-    detailChanelCubit.getListMessageChanel(
-        page: _page, size: _size, content: contenController.text, channelId: widget.chanel.id ?? '');
+    detailChanelCubit.getListMessageChanel(page: _page, size: _size, content: contenController.text, channelId: widget.param.chanel.id ?? '');
     _page++;
   }
 
@@ -58,12 +57,11 @@ class _MessagesScreenState extends State<MessagesScreen> {
     _totalPage = 1;
     _listMessageChanel = [];
     _viewer = [];
-    detailChanelCubit.getListMessageChanel(
-        page: _page, size: _size, content: contenController.text, channelId: widget.chanel.id ?? '');
+    detailChanelCubit.getListMessageChanel(page: _page, size: _size, content: contenController.text, channelId: widget.param.chanel.id ?? '');
   }
 
   void _checkMess() async {
-    checkMessagesCubit.checkMessages(chanelId: widget.chanel.id ?? '');
+    checkMessagesCubit.checkMessages(chanelId: widget.param.chanel.id ?? '');
   }
 
   @override
@@ -100,7 +98,11 @@ class _MessagesScreenState extends State<MessagesScreen> {
         children: [
           const BackButton(),
           InkWell(
-            onTap: () => AppNavigator.push(Routes.channelDetailScreen, arguments: widget.chanel),
+            onTap: () => AppNavigator.push(Routes.channelDetailScreen,
+                arguments: ParamMesage(
+                  chanel: widget.param.chanel,
+                  chanelListAllCubit: widget.param.chanelListAllCubit,
+                )),
             child: const CircleAvatar(
               backgroundImage: AssetImage("assets/images/user_2.png"),
             ),
@@ -110,11 +112,11 @@ class _MessagesScreenState extends State<MessagesScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                widget.chanel.name ?? '',
+                widget.param.chanel.name ?? '',
                 style: AppFont.t.w600.white,
               ),
               Text(
-                  "Hoạt động ${calculateTimeDifference(DateTime.fromMillisecondsSinceEpoch(widget.chanel.lastMessage?.updatedTime ?? 0).toLocal(), DateTime.now().toLocal())} trước",
+                  "Hoạt động ${calculateTimeDifference(DateTime.fromMillisecondsSinceEpoch(widget.param.chanel.lastMessage?.updatedTime ?? 0).toLocal(), DateTime.now().toLocal())} trước",
                   style: AppFont.t.s(12).white)
             ],
           )

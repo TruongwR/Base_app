@@ -3,12 +3,12 @@ import 'package:Whispers/src/configs/box.dart';
 import 'package:Whispers/src/features/messages/channel_detail/components/body.dart';
 import 'package:Whispers/src/features/messages/channel_detail/components/list_icons.dart';
 import 'package:flutter/material.dart';
-import '../../../data/model/list_chanel_parrent_model.dart';
+import '../../../data/model/api_response/param_message_model.dart';
 import 'components/widget_avatar.dart';
 
 class ChannelDetailScreen extends StatelessWidget {
-  const ChannelDetailScreen({super.key, required this.chanel});
-  final Chanel chanel;
+  const ChannelDetailScreen({super.key, required this.param});
+  final ParamMesage param;
 
   @override
   Widget build(BuildContext context) {
@@ -68,23 +68,23 @@ class ChannelDetailScreen extends StatelessWidget {
           children: [
             BoxMain.h(24),
             AvatarWidget(
-              chekType: chanel.type ?? '',
+              chekType: param.chanel.type ?? '',
               context: context,
             ),
             BoxMain.h(8),
             Center(
               child: Text(
-                chanel.name ?? '',
+                param.chanel.name ?? '',
                 style: AppFont.t.s(24).w600,
               ),
             ),
             BoxMain.h(16),
             ListIcons(
-              checkType: chanel.type ?? '',
+              checkType: param.chanel.type ?? '',
             ),
             BoxMain.h(32),
             Body(
-              checkTypeChanel: chanel.type ?? '',
+              checkTypeChanel: param.chanel.type ?? '',
             ),
           ],
         ),

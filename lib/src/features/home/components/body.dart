@@ -14,6 +14,7 @@ import 'package:skeletons/skeletons.dart';
 
 import '../../../configs/app_fonts.dart';
 import '../../../configs/box.dart';
+import '../../../data/model/api_response/param_message_model.dart';
 import '../../../navigator/app_navigator.dart';
 import '../../../navigator/routers.dart';
 
@@ -31,7 +32,7 @@ class _BodyState extends State<Body> {
   final TextEditingController searchController = TextEditingController();
   final ChanelListAllCubit _chanelListAllCubit = getIt<ChanelListAllCubit>();
   int _page = 1;
-  final int _size = 10;
+  final int _size = 20;
   int _totalPage = 1;
   List<Chanel> _listChanel = [];
   late ScrollController _sc;
@@ -67,41 +68,42 @@ class _BodyState extends State<Body> {
       appBar: buildAppBar(),
       drawer: const DrawerWidget(),
       endDrawer: const DrawerWidget(),
-      body: SizedBox(
-        height: 300,
-        child: Column(
-          children: [
-            BlocListener<ChanelListAllCubit, ChanelListAllState>(
-              bloc: _chanelListAllCubit,
-              listener: (context, state) {
-                state.maybeMap(
-                  orElse: () => _buildLoading(),
-                  loading: (value) => _buildLoading(),
-                  success: (value) {
-                    _totalPage = value.listChanel?.totalPages ?? 1;
-                    _listChanel.addAll(value.listChanel?.content as Iterable<Chanel>);
-                    setState(() {});
-                    Logger.d("lenght", value.listChanel?.content?.length);
+      body: Column(
+        children: [
+          StreamBuilder<Object>(
+              stream: null,
+              builder: (context, snapshot) {
+                return BlocListener<ChanelListAllCubit, ChanelListAllState>(
+                  bloc: _chanelListAllCubit,
+                  listener: (context, state) {
+                    state.maybeMap(
+                      orElse: () => _buildLoading(),
+                      loading: (value) => _buildLoading(),
+                      success: (value) {
+                        _totalPage = value.listChanel?.totalPages ?? 1;
+                        _listChanel.addAll(value.listChanel?.content as Iterable<Chanel>);
+                        setState(() {});
+                        Logger.d("lenght", value.listChanel?.content?.length);
+                      },
+                      failure: (value) => const Empty(),
+                    );
                   },
-                  failure: (value) => const Empty(),
-                );
-              },
-              child: Expanded(
-                child: ListView.builder(
-                  controller: _sc,
-                  itemCount: _listChanel.length,
-                  itemBuilder: (context, index) => ChatCard(
-                    type: 1,
-                    isStatus: true,
-                    chanel: _listChanel[index],
-                    press: () => AppNavigator.push(Routes.messagesScreen, arguments: _listChanel[index]),
-                    longPress: () => buildButtomSheat(),
+                  child: Expanded(
+                    child: ListView.builder(
+                      controller: _sc,
+                      itemCount: _listChanel.length,
+                      itemBuilder: (context, index) => ChatCard(
+                        type: 1,
+                        isStatus: true,
+                        chanel: _listChanel[index],
+                        press: () => AppNavigator.push(Routes.messagesScreen, arguments: ParamMesage(chanel:_listChanel[index], chanelListAllCubit: _chanelListAllCubit )),
+                        longPress: () => buildButtomSheat(),
+                      ),
+                    ),
                   ),
-                ),
-              ),
-            ),
-          ],
-        ),
+                );
+              }),
+        ],
       ),
     );
   }
