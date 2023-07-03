@@ -9,6 +9,7 @@ import '../../network/api_path.dart';
 import '../model/fotget_password_model.dart';
 import '../model/login_model.dart';
 import '../model/respone_signup_model.dart';
+import '../model/use_model.dart';
 
 part 'authentication_api.g.dart';
 
@@ -21,7 +22,7 @@ abstract class AuthenticationApi {
     @Field() String password,
   );
   @POST(ApiPath.searchAcoutByEmail)
-  Future<ApiResponse<FotgetPasswordModel>> fotgetPassword(@Field() String email);
+  Future<ApiResponse<Account>> fotgetPassword(@Field() String emails);
   @POST(ApiPath.register)
   Future<dynamic> confrimPass(
     @Query('accountId') String accountId,
@@ -37,7 +38,7 @@ abstract class AuthenticationApi {
     @Field() String fistName,
     @Field() String lastName,
     @Field() String email,
-    @Field() String passWord,
+    @Field() String password,
   );
   @PATCH(ApiPath.activeAcount)
   Future<ActiveAccountModel> activeAcount(

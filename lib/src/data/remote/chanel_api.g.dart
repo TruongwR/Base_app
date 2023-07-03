@@ -146,7 +146,7 @@ class _ChanelApi implements ChanelApi {
     )
             .compose(
               _dio.options,
-              ':9998/channel/',
+              ':9998/channel',
               queryParameters: queryParameters,
               data: _data,
             )

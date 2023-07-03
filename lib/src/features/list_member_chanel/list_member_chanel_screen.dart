@@ -18,7 +18,7 @@ import '../home/components/chat_card.dart';
 class ListMemberChanelScreen extends StatefulWidget {
   const ListMemberChanelScreen({super.key, required this.chanel, this.member});
   final Channel chanel;
- final Member? member;
+  final Member? member;
   @override
   State<ListMemberChanelScreen> createState() => _ListMemberChanelScreenState();
 }
@@ -64,6 +64,44 @@ class _ListMemberChanelScreenState extends State<ListMemberChanelScreen> with Si
     getListMemberChanelCubit.listMemberChanel(page: _page, size: _size, chanelId: widget.chanel.id ?? '');
   }
 
+  void _showdialog({TextEditingController? textEditingController, String? accountId}) {
+    showCupertinoDialog(
+      context: context,
+      builder: (context) => CupertinoAlertDialog(
+        content: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              'Chỉnh sửa status',
+              style: AppFont.t.s(18).w600,
+            ),
+            TextField(
+              controller: textEditingController,
+              style: AppFont.t.w500.black,
+            ),
+          ],
+        ),
+        actions: [
+          CupertinoDialogAction(
+            onPressed: () {
+              AppNavigator.pop();
+            },
+            child: Text(
+              "Hủy",
+              style: AppFont.t.s(16).w600.primary,
+            ),
+          ),
+          CupertinoDialogAction(
+              onPressed: () {},
+              child: Text(
+                "Lưu",
+                style: AppFont.t.s(16).w600.primary,
+              )),
+        ],
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -92,23 +130,33 @@ class _ListMemberChanelScreenState extends State<ListMemberChanelScreen> with Si
               },
               child: ListView.builder(
                   itemCount: _listMember.length,
-                  itemBuilder: (context, index) => ChatCard(
-                        type: 2,
-                        subTitle: '${_listMember[index].status}',
-                        isStatus: false,
-                        member: _listMember[index],
-                        press: () => _showCupertinoModalPopup(_listMember[index]),
-                      )),
+                  itemBuilder: (context, index) {
+                    final TextEditingController textEditingController =
+                        TextEditingController(text: _listMember[index].status);
+                    final String accoutId = _listMember[index].accountId ?? '';
+                    return ChatCard(
+                      type: 2,
+                      subTitle: '${_listMember[index].status}',
+                      isStatus: false,
+                      member: _listMember[index],
+                      press: () => _showCupertinoModalPopup(_listMember[index], textEditingController, accoutId),
+                    );
+                  }),
             ),
             ListView.builder(
                 itemCount: listAdmin.length,
-                itemBuilder: (context, index) => ChatCard(
-                      subTitle: 'Quản trị viên',
-                      type: 2,
-                      isStatus: false,
-                      member: listAdmin[index],
-                      press: () => _showCupertinoModalPopup(listAdmin[index]),
-                    )),
+                itemBuilder: (context, index) {
+                  final TextEditingController textEditingController =
+                      TextEditingController(text: _listMember[index].status);
+                  final String accoutId = _listMember[index].accountId ?? '';
+                  return ChatCard(
+                    subTitle: 'Quản trị viên',
+                    type: 2,
+                    isStatus: false,
+                    member: listAdmin[index],
+                    press: () => _showCupertinoModalPopup(listAdmin[index], textEditingController, accoutId),
+                  );
+                }),
           ])),
     );
   }
@@ -159,7 +207,7 @@ class _ListMemberChanelScreenState extends State<ListMemberChanelScreen> with Si
     );
   }
 
-  _showCupertinoModalPopup(Member member) {
+  _showCupertinoModalPopup(Member member, TextEditingController? textEditingController, String? accountId) {
     showCupertinoModalPopup(
         context: context,
         builder: (BuildContext cont) {
@@ -181,7 +229,9 @@ class _ListMemberChanelScreenState extends State<ListMemberChanelScreen> with Si
                       ),
                     ),
                     CupertinoActionSheetAction(
-                      onPressed: () {},
+                      onPressed: () {
+                        _showdialog(textEditingController: textEditingController, accountId: accountId);
+                      },
                       child: Text(
                         'Status',
                         style: AppFont.t.s(16).primary,

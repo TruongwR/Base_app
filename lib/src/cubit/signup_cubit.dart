@@ -9,9 +9,9 @@ class SignupCubit extends Cubit<SignupState> {
   SignupCubit({required this.authen}) : super(const SignupState.initial());
 
   Future<void> signup(
-      {required String fistName, required String lastName, required String email, required String passWord}) async {
+      {required String firstName, required String lastName, required String email, required String password}) async {
     emit(const SignupState.loading());
-    final repo = await authen.signUp(fistName, lastName, email, passWord);
+    final repo = await authen.signUp(firstName, lastName, email, password);
     if (repo.errorCode == null) {
       AppNavigator.push(Routes.signUpScreen);
       emit(const SignupState.success());

@@ -8,16 +8,17 @@ import '../../../data/model/list_member_chanel_model.dart';
 import '../../../share_components/time/time_extension.dart';
 
 class ChatCard extends StatelessWidget {
-  const ChatCard({
-    Key? key,
-    this.chanel,
-    this.member,
-    required this.press,
-    required this.isStatus,
-    this.type,
-    this.longPress,
-    this.subTitle,
-  }) : super(key: key);
+  const ChatCard(
+      {Key? key,
+      this.chanel,
+      this.member,
+      required this.press,
+      required this.isStatus,
+      this.type,
+      this.longPress,
+      this.subTitle,
+      this.check = false})
+      : super(key: key);
   final int? type;
   final Channel? chanel;
   final Member? member;
@@ -25,6 +26,7 @@ class ChatCard extends StatelessWidget {
   final Function()? longPress;
   final bool isStatus;
   final String? subTitle;
+  final bool check;
 
   @override
   Widget build(BuildContext context) {
@@ -115,9 +117,9 @@ class ChatCard extends StatelessWidget {
                         )
                       : (type == 2
                           ? const SizedBox()
-                          : const Icon(
-                              Icons.circle_outlined,
-                              color: Palette.gray97,
+                          : Icon(
+                              check ? Icons.check_circle_outline : Icons.circle_outlined,
+                              color: check ? Palette.success : Palette.gray97,
                             )),
                 ]
               : [

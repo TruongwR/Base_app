@@ -24,21 +24,24 @@ class _DeviceVerificationApi implements DeviceVerificationApi {
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final Map<String, dynamic>? _data = null;
-    final _result = await _dio.fetch<Map<String, dynamic>>(_setStreamType<ApiResponse<List<String>>>(Options(
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<ApiResponse<List<String>>>(Options(
       method: 'GET',
       headers: _headers,
       extra: _extra,
     )
-        .compose(
-          _dio.options,
-          ':9999/auth/check',
-          queryParameters: queryParameters,
-          data: _data,
-        )
-        .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+            .compose(
+              _dio.options,
+              ':9999/auth/check',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = ApiResponse<List<String>>.fromJson(
       _result.data!,
-      (json) => json is List<dynamic> ? json.map<String>((i) => i as String).toList() : List.empty(),
+      (json) => json is List<dynamic>
+          ? json.map<String>((i) => i as String).toList()
+          : List.empty(),
     );
     return value;
   }
@@ -49,21 +52,24 @@ class _DeviceVerificationApi implements DeviceVerificationApi {
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final Map<String, dynamic>? _data = null;
-    final _result = await _dio.fetch<Map<String, dynamic>>(_setStreamType<ApiResponse<List<String>>>(Options(
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<ApiResponse<List<String>>>(Options(
       method: 'PATCH',
       headers: _headers,
       extra: _extra,
     )
-        .compose(
-          _dio.options,
-          ':9999/auth/refresh-token',
-          queryParameters: queryParameters,
-          data: _data,
-        )
-        .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+            .compose(
+              _dio.options,
+              ':9999/auth/refresh-token',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = ApiResponse<List<String>>.fromJson(
       _result.data!,
-      (json) => json is List<dynamic> ? json.map<String>((i) => i as String).toList() : List.empty(),
+      (json) => json is List<dynamic>
+          ? json.map<String>((i) => i as String).toList()
+          : List.empty(),
     );
     return value;
   }
@@ -80,18 +86,19 @@ class _DeviceVerificationApi implements DeviceVerificationApi {
       'id': id,
       'activationCode': activationCode,
     };
-    final _result = await _dio.fetch<Map<String, dynamic>>(_setStreamType<ApiResponse<dynamic>>(Options(
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<ApiResponse<dynamic>>(Options(
       method: 'PATCH',
       headers: _headers,
       extra: _extra,
     )
-        .compose(
-          _dio.options,
-          ':9999/device/active',
-          queryParameters: queryParameters,
-          data: _data,
-        )
-        .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+            .compose(
+              _dio.options,
+              ':9999/device/active',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = ApiResponse<dynamic>.fromJson(
       _result.data!,
       (json) => json as dynamic,
@@ -101,7 +108,8 @@ class _DeviceVerificationApi implements DeviceVerificationApi {
 
   RequestOptions _setStreamType<T>(RequestOptions requestOptions) {
     if (T != dynamic &&
-        !(requestOptions.responseType == ResponseType.bytes || requestOptions.responseType == ResponseType.stream)) {
+        !(requestOptions.responseType == ResponseType.bytes ||
+            requestOptions.responseType == ResponseType.stream)) {
       if (T == String) {
         requestOptions.responseType = ResponseType.plain;
       } else {

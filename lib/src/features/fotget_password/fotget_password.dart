@@ -100,7 +100,7 @@ class _FotgetPasswordScreenState extends State<FotgetPasswordScreen> {
                   text: 'Tiếp Tục',
                   textStyle: AppFont.t.s(24).w600.white,
                   action: () => _formKey.currentState?.validate() == true
-                      ? fotgetPasswordCubit.fotgetPassword(email: emailController.text)
+                      ? fotgetPasswordCubit.fotgetPassword(emails: emailController.text)
                       : null,
                 ),
               ),

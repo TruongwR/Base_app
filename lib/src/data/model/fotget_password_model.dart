@@ -1,61 +1,33 @@
-// To parse this JSON data, do
-//
-//     final fotgetPasswordModel = fotgetPasswordModelfromJson(jsonString);
+// // To parse this JSON data, do
+// //
+// //     final fotgetPasswordModel = fotgetPasswordModelfromJson(jsonString);
+// import 'package:Whispers/src/data/model/use_model.dart';
+// import 'dart:convert';
 
-import 'dart:convert';
+// FotgetPasswordModel fotgetPasswordModelfromJson(String str) => FotgetPasswordModel.fromJson(json.decode(str));
 
-FotgetPasswordModel fotgetPasswordModelfromJson(String str) => FotgetPasswordModel.fromJson(json.decode(str));
+// String fotgetPasswordModeltoJson(FotgetPasswordModel data) => json.encode(data.toJson());
 
-String fotgetPasswordModeltoJson(FotgetPasswordModel data) => json.encode(data.toJson());
+// class FotgetPasswordModel {
+//   String? message;
+//   bool? success;
+//   Account? account;
 
-class FotgetPasswordModel {
-  String? message;
-  bool? success;
-  List<Data>? data;
+//   FotgetPasswordModel({
+//     this.message,
+//     this.success,
+//     this.account,
+//   });
 
-  FotgetPasswordModel({
-    this.message,
-    this.success,
-    this.data,
-  });
+//   factory FotgetPasswordModel.fromJson(Map<String, dynamic> json) => FotgetPasswordModel(
+//         message: json["message"],
+//         success: json["success"],
+//         account: json["data"] == null ? [] : List<Account>.from(json["data"]!.map((x) => Account.fromJson(x))),
+//       );
 
-  factory FotgetPasswordModel.fromJson(Map<String, dynamic> json) => FotgetPasswordModel(
-        message: json["message"],
-        success: json["success"],
-        data: json["data"] == null ? [] : List<Data>.from(json["data"]!.map((x) => Data.fromJson(x))),
-      );
-
-  Map<String, dynamic> toJson() => {
-        "message": message,
-        "success": success,
-        "data": data == null ? [] : List<dynamic>.from(data!.map((x) => x.toJson())),
-      };
-}
-
-class Data {
-  String? id;
-  String? firstName;
-  String? lastName;
-  String? avatarFileId;
-
-  Data({
-    this.id,
-    this.firstName,
-    this.lastName,
-    this.avatarFileId,
-  });
-
-  factory Data.fromJson(Map<String, dynamic> json) => Data(
-        id: json["id"],
-        firstName: json["firstName"],
-        lastName: json["lastName"],
-        avatarFileId: json["avatarFileId"],
-      );
-
-  Map<String, dynamic> toJson() => {
-        "id": id,
-        "firstName": firstName,
-        "lastName": lastName,
-        "avatarFileId": avatarFileId,
-      };
-}
+//   Map<String, dynamic> toJson() => {
+//         "message": message,
+//         "success": success,
+//         "data": account == null ? [] : List<dynamic>.from(account!.map((x) => x.toJson())),
+//       };
+// }

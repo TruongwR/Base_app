@@ -180,10 +180,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         action: () {
                           _formKey.currentState?.validate() == true
                               ? signUpCubit.signup(
-                                  fistName: firstNameController.text,
+                                  firstName: firstNameController.text,
                                   lastName: lastNameController.text,
                                   email: emailController.text,
-                                  passWord: passWordController.text)
+                                  password: passWordController.text)
                               : null;
                         },
                       ),

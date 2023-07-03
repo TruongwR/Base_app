@@ -43,36 +43,48 @@ class ListChanelParrentModel {
 class Channel {
   String? id;
   String? name;
-  dynamic avatarFileId;
+  String? avatarFileId;
+  String? avatarUrl;
   String? type;
   String? status;
   LastMessage? lastMessage;
+  String? friendId;
+  String? friendStatus;
 
   Channel({
     this.id,
     this.name,
     this.avatarFileId,
+    this.avatarUrl,
     this.type,
     this.status,
     this.lastMessage,
+    this.friendId,
+    this.friendStatus,
   });
 
   factory Channel.fromJson(Map<String, dynamic> json) => Channel(
         id: json["id"],
         name: json["name"],
         avatarFileId: json["avatarFileId"],
+        avatarUrl: json["avatarUrl"],
         type: json["type"],
         status: json["status"],
         lastMessage: json["lastMessage"] == null ? null : LastMessage.fromJson(json["lastMessage"]),
+        friendId: json["friendId"],
+        friendStatus: json["friendStatus"],
       );
 
   Map<String, dynamic> toJson() => {
         "id": id,
         "name": name,
         "avatarFileId": avatarFileId,
+        "avatarUrl": avatarUrl,
         "type": type,
         "status": status,
         "lastMessage": lastMessage?.toJson(),
+        "friendId": friendId,
+        "friendStatus": friendStatus,
       };
 }
 
@@ -87,7 +99,16 @@ class LastMessage {
   String? isDeleted;
   String? isWatched;
 
-  LastMessage({this.id, this.createdTime, this.updatedTime, this.sender, this.type, this.content, this.files, this.isDeleted, this.isWatched});
+  LastMessage(
+      {this.id,
+      this.createdTime,
+      this.updatedTime,
+      this.sender,
+      this.type,
+      this.content,
+      this.files,
+      this.isDeleted,
+      this.isWatched});
 
   factory LastMessage.fromJson(Map<String, dynamic> json) => LastMessage(
       id: json["id"],

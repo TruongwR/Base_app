@@ -20,7 +20,7 @@ mixin _$FotgetPasswordState {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(FotgetPasswordModel? fotgetPass) succes,
+    required TResult Function(Account? account) succes,
     required TResult Function(String error) failure,
   }) =>
       throw _privateConstructorUsedError;
@@ -28,7 +28,7 @@ mixin _$FotgetPasswordState {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(FotgetPasswordModel? fotgetPass)? succes,
+    TResult? Function(Account? account)? succes,
     TResult? Function(String error)? failure,
   }) =>
       throw _privateConstructorUsedError;
@@ -36,7 +36,7 @@ mixin _$FotgetPasswordState {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(FotgetPasswordModel? fotgetPass)? succes,
+    TResult Function(Account? account)? succes,
     TResult Function(String error)? failure,
     required TResult orElse(),
   }) =>
@@ -125,7 +125,7 @@ class _$_Initial implements _Initial {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(FotgetPasswordModel? fotgetPass) succes,
+    required TResult Function(Account? account) succes,
     required TResult Function(String error) failure,
   }) {
     return initial();
@@ -136,7 +136,7 @@ class _$_Initial implements _Initial {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(FotgetPasswordModel? fotgetPass)? succes,
+    TResult? Function(Account? account)? succes,
     TResult? Function(String error)? failure,
   }) {
     return initial?.call();
@@ -147,7 +147,7 @@ class _$_Initial implements _Initial {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(FotgetPasswordModel? fotgetPass)? succes,
+    TResult Function(Account? account)? succes,
     TResult Function(String error)? failure,
     required TResult orElse(),
   }) {
@@ -238,7 +238,7 @@ class _$_Loading implements _Loading {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(FotgetPasswordModel? fotgetPass) succes,
+    required TResult Function(Account? account) succes,
     required TResult Function(String error) failure,
   }) {
     return loading();
@@ -249,7 +249,7 @@ class _$_Loading implements _Loading {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(FotgetPasswordModel? fotgetPass)? succes,
+    TResult? Function(Account? account)? succes,
     TResult? Function(String error)? failure,
   }) {
     return loading?.call();
@@ -260,7 +260,7 @@ class _$_Loading implements _Loading {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(FotgetPasswordModel? fotgetPass)? succes,
+    TResult Function(Account? account)? succes,
     TResult Function(String error)? failure,
     required TResult orElse(),
   }) {
@@ -317,7 +317,7 @@ abstract class _$$_SuccesCopyWith<$Res> {
   factory _$$_SuccesCopyWith(_$_Succes value, $Res Function(_$_Succes) then) =
       __$$_SuccesCopyWithImpl<$Res>;
   @useResult
-  $Res call({FotgetPasswordModel? fotgetPass});
+  $Res call({Account? account});
 }
 
 /// @nodoc
@@ -330,13 +330,13 @@ class __$$_SuccesCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? fotgetPass = freezed,
+    Object? account = freezed,
   }) {
     return _then(_$_Succes(
-      freezed == fotgetPass
-          ? _value.fotgetPass
-          : fotgetPass // ignore: cast_nullable_to_non_nullable
-              as FotgetPasswordModel?,
+      freezed == account
+          ? _value.account
+          : account // ignore: cast_nullable_to_non_nullable
+              as Account?,
     ));
   }
 }
@@ -344,14 +344,14 @@ class __$$_SuccesCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_Succes implements _Succes {
-  const _$_Succes(this.fotgetPass);
+  const _$_Succes(this.account);
 
   @override
-  final FotgetPasswordModel? fotgetPass;
+  final Account? account;
 
   @override
   String toString() {
-    return 'FotgetPasswordState.succes(fotgetPass: $fotgetPass)';
+    return 'FotgetPasswordState.succes(account: $account)';
   }
 
   @override
@@ -359,12 +359,11 @@ class _$_Succes implements _Succes {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_Succes &&
-            (identical(other.fotgetPass, fotgetPass) ||
-                other.fotgetPass == fotgetPass));
+            (identical(other.account, account) || other.account == account));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, fotgetPass);
+  int get hashCode => Object.hash(runtimeType, account);
 
   @JsonKey(ignore: true)
   @override
@@ -377,10 +376,10 @@ class _$_Succes implements _Succes {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(FotgetPasswordModel? fotgetPass) succes,
+    required TResult Function(Account? account) succes,
     required TResult Function(String error) failure,
   }) {
-    return succes(fotgetPass);
+    return succes(account);
   }
 
   @override
@@ -388,10 +387,10 @@ class _$_Succes implements _Succes {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(FotgetPasswordModel? fotgetPass)? succes,
+    TResult? Function(Account? account)? succes,
     TResult? Function(String error)? failure,
   }) {
-    return succes?.call(fotgetPass);
+    return succes?.call(account);
   }
 
   @override
@@ -399,12 +398,12 @@ class _$_Succes implements _Succes {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(FotgetPasswordModel? fotgetPass)? succes,
+    TResult Function(Account? account)? succes,
     TResult Function(String error)? failure,
     required TResult orElse(),
   }) {
     if (succes != null) {
-      return succes(fotgetPass);
+      return succes(account);
     }
     return orElse();
   }
@@ -448,9 +447,9 @@ class _$_Succes implements _Succes {
 }
 
 abstract class _Succes implements FotgetPasswordState {
-  const factory _Succes(final FotgetPasswordModel? fotgetPass) = _$_Succes;
+  const factory _Succes(final Account? account) = _$_Succes;
 
-  FotgetPasswordModel? get fotgetPass;
+  Account? get account;
   @JsonKey(ignore: true)
   _$$_SuccesCopyWith<_$_Succes> get copyWith =>
       throw _privateConstructorUsedError;
@@ -521,7 +520,7 @@ class _$_Failure implements _Failure {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(FotgetPasswordModel? fotgetPass) succes,
+    required TResult Function(Account? account) succes,
     required TResult Function(String error) failure,
   }) {
     return failure(error);
@@ -532,7 +531,7 @@ class _$_Failure implements _Failure {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(FotgetPasswordModel? fotgetPass)? succes,
+    TResult? Function(Account? account)? succes,
     TResult? Function(String error)? failure,
   }) {
     return failure?.call(error);
@@ -543,7 +542,7 @@ class _$_Failure implements _Failure {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(FotgetPasswordModel? fotgetPass)? succes,
+    TResult Function(Account? account)? succes,
     TResult Function(String error)? failure,
     required TResult orElse(),
   }) {

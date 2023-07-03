@@ -48,13 +48,13 @@ class _AuthenticationApi implements AuthenticationApi {
   }
 
   @override
-  Future<ApiResponse<FotgetPasswordModel>> fotgetPassword(String email) async {
+  Future<ApiResponse<Account>> fotgetPassword(String emails) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    final _data = {'email': email};
+    final _data = {'emails': emails};
     final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<ApiResponse<FotgetPasswordModel>>(Options(
+        _setStreamType<ApiResponse<Account>>(Options(
       method: 'POST',
       headers: _headers,
       extra: _extra,
@@ -66,9 +66,9 @@ class _AuthenticationApi implements AuthenticationApi {
               data: _data,
             )
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    final value = ApiResponse<FotgetPasswordModel>.fromJson(
+    final value = ApiResponse<Account>.fromJson(
       _result.data!,
-      (json) => FotgetPasswordModel.fromJson(json as Map<String, dynamic>),
+      (json) => Account.fromJson(json as Map<String, dynamic>),
     );
     return value;
   }
@@ -132,7 +132,7 @@ class _AuthenticationApi implements AuthenticationApi {
     String fistName,
     String lastName,
     String email,
-    String passWord,
+    String password,
   ) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
@@ -141,7 +141,7 @@ class _AuthenticationApi implements AuthenticationApi {
       'fistName': fistName,
       'lastName': lastName,
       'email': email,
-      'passWord': passWord,
+      'password': password,
     };
     final _result = await _dio
         .fetch<Map<String, dynamic>>(_setStreamType<ResponeSignupModel>(Options(

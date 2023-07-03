@@ -3,6 +3,7 @@ import 'package:Whispers/src/cubit/create_chanel_cubit.dart';
 import 'package:Whispers/src/cubit/create_chanel_state.dart';
 import 'package:Whispers/src/di/injection.dart/injection.dart';
 import 'package:Whispers/src/features/create_chanel/compontents/body_create_chanel.dart';
+import 'package:Whispers/src/utils/helpers/logger.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../configs/app_fonts.dart';
@@ -23,6 +24,7 @@ class _CreateChanelScreenState extends State<CreateChanelScreen> {
   int _page = 1;
   final int _size = 10;
   int _totalPage = 1;
+  final List<String> _listMemberChanel = [];
   late ScrollController _sc;
   final CreateChanelCubit _createChanelCubit = getIt<CreateChanelCubit>();
   final ChanelListAllCubit _chanelListAllCubit = getIt<ChanelListAllCubit>();
@@ -57,7 +59,9 @@ class _CreateChanelScreenState extends State<CreateChanelScreen> {
     return SafeArea(
       child: Scaffold(
         appBar: buildAppBar(),
-        body: const BodyCreateChanel(),
+        body: BodyCreateChanel(
+          listMember: _listMemberChanel,
+        ),
       ),
     );
   }
@@ -70,9 +74,19 @@ class _CreateChanelScreenState extends State<CreateChanelScreen> {
       actions: [
         BlocListener<CreateChanelCubit, CreateChanelState>(
           bloc: _createChanelCubit,
-          listener: (context, state) {},
+          listener: (context, state) {
+            Logger.d("createChannel", state.toString());
+            state.whenOrNull(
+              loading: () => const Empty(),
+              success: () {},
+              failure: (value) => showError(value),
+            );
+          },
           child: TextButton(
-            onPressed: () {},
+            onPressed: () {
+              _createChanelCubit.createChanel(
+                  name: nameChanelController.text, type: TypeChanel.sttPUBLIC.getString(), members: _listMemberChanel);
+            },
             child: Text(
               'Tạo',
               style: AppFont.t.hint.s(18),
