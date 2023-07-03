@@ -52,15 +52,23 @@ class _MessagesScreenState extends State<MessagesScreen> {
   late Timer timer;
   @override
   void initState() {
-    // timer = Timer.periodic(const Duration(seconds: 3), (timer) {
-    //   _initData();
-    // });
     _initData();
     _checkMess();
+    textInputMessageFouce.addListener(() {
+      if (textInputMessageFouce.hasFocus) {
+        // Đẩy màn hình lên
+        _sc.animateTo(
+          _sc.position.maxScrollExtent,
+          duration: const Duration(milliseconds: 300),
+          curve: Curves.easeOut,
+        );
+      }
+    });
 
     _sc = ScrollController()
       ..addListener(() {
         if (_sc.position.atEdge == true && _sc.position.pixels == 0 && _page < _totalPage) {
+          _page++;
           _loadMore();
         }
       });
@@ -89,145 +97,158 @@ class _MessagesScreenState extends State<MessagesScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<DetailChanelCubit, DetailChanelState>(
-      bloc: detailChanelCubit,
-      listener: (context, state) {
-        state.maybeMap(
-          orElse: () => const Empty(),
-          loading: (value) => const Loading(),
-          failure: (value) => const Empty(),
-          success: (value) {
-            _totalPage = value.data.message?.totalPages ?? 1;
-            _viewer.addAll(value.data.viewer as Iterable<Viewer>);
-            if (value.data.message?.content != null) {
-              _listMessageChanel.addAll(value.data.message?.content?.reversed.toList() as Iterable<ContentMessage>);
-            }
+    return Scaffold(
+      appBar: buildAppBar(),
+      body: Column(
+        children: [
+          BlocListener<DetailChanelCubit, DetailChanelState>(
+            bloc: detailChanelCubit,
+            listener: (context, state) {
+              state.maybeMap(
+                orElse: () => const Empty(),
+                loading: (value) => const Loading(),
+                failure: (value) => const Empty(),
+                success: (value) {
+                  _totalPage = value.data.message?.totalPages ?? 1;
+                  _viewer.addAll(value.data.viewer as Iterable<Viewer>);
+                  List<ContentMessage> listMessage = [];
+                  listMessage.addAll(value.data.message?.content?.reversed.toList() as Iterable<ContentMessage>);
+                  setState(() {});
+                  if (_page == 1) {
+                    _listMessageChanel.addAll(value.data.message?.content?.reversed.toList() as Iterable<ContentMessage>);
+                  } else {
+                    for (int i = 0; i < listMessage.length; i++) {
+                      _listMessageChanel.insert(0, listMessage[i]);
+                    }
+                  }
 
-            setState(() {});
-            Logger.d("lenght", _listMessageChanel.length);
-          },
-        );
-      },
-      child: Scaffold(
-          appBar: buildAppBar(),
-          body: Column(
-            children: [
-              Expanded(
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16),
-                  child: ListView.builder(
-                    controller: _sc,
-                    itemCount: _listMessageChanel.length,
-                    itemBuilder: (context, index) => Message(message: _listMessageChanel[index], listViewer: _viewer),
-                  ),
+                  setState(() {});
+                  Logger.d("lenght", _listMessageChanel.length);
+                },
+              );
+            },
+            child: Expanded(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                child: ListView.builder(
+                  controller: _sc,
+                  itemCount: _listMessageChanel.length,
+                  itemBuilder: (context, index) => Message(message: _listMessageChanel[index], listViewer: _viewer),
                 ),
               ),
-            ],
+            ),
           ),
-          bottomNavigationBar: Container(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 16,
-              vertical: 16 / 2,
+        ],
+      ),
+      bottomNavigationBar: Container(
+        padding: const EdgeInsets.symmetric(
+          horizontal: 16,
+          vertical: 16 / 2,
+        ),
+        decoration: BoxDecoration(
+          color: Theme.of(context).scaffoldBackgroundColor,
+          boxShadow: [
+            BoxShadow(
+              offset: const Offset(0, 4),
+              blurRadius: 32,
+              color: const Color(0xFF087949).withOpacity(0.08),
             ),
-            decoration: BoxDecoration(
-              color: Theme.of(context).scaffoldBackgroundColor,
-              boxShadow: [
-                BoxShadow(
-                  offset: const Offset(0, 4),
-                  blurRadius: 32,
-                  color: const Color(0xFF087949).withOpacity(0.08),
+          ],
+        ),
+        child: Row(
+          children: [
+            const Icon(Icons.mic, color: Palette.primary),
+            const SizedBox(width: 16),
+            Expanded(
+              child: Container(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 12,
                 ),
-              ],
-            ),
-            child: SafeArea(
-              child: Row(
-                children: [
-                  const Icon(Icons.mic, color: Palette.primary),
-                  const SizedBox(width: 16),
-                  Expanded(
-                    child: Container(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 12,
-                      ),
-                      decoration: BoxDecoration(
-                        color: Palette.primary.withOpacity(0.05),
-                        borderRadius: BorderRadius.circular(40),
-                      ),
-                      child: Row(
-                        children: [
-                          IconButton(
-                            onPressed: () async {
-                              MicrophoneRecorder recorder = MicrophoneRecorder();
-                              await recorder.start();
-                              await Future.delayed(const Duration(seconds: 5));
-                              await recorder.stop();
-                              Uint8List data = await recorder.toBytes();
-                              Logger.d("Data mic", utf8.decode(data));
-                            },
-                            icon: Icon(
-                              Icons.sentiment_satisfied_alt_outlined,
-                              color: Theme.of(context).textTheme.bodyLarge!.color!.withOpacity(0.64),
-                            ),
-                          ),
-                          BoxMain.w(4),
-                          Expanded(
-                            child: TextField(
-                              focusNode: textInputMessageFouce,
-                              controller: textInputMessage,
-                              decoration: const InputDecoration(
-                                hintText: "Type message",
-                                border: InputBorder.none,
-                              ),
-                            ),
-                          ),
-                          IconButton(
-                              onPressed: () async {
-                                FilePickerResult? result = await FilePicker.platform.pickFiles();
-                                if (result != null) {
-                                  String? filePath = result.files.single.path;
-                                  if (filePath != null) {
-                                    // Tải tệp lên API
-                                    Logger.d("Update file");
-                                  }
-                                }
-                              },
-                              icon: Icon(
-                                Icons.attach_file,
-                                color: Theme.of(context).textTheme.bodyLarge!.color!.withOpacity(0.64),
-                              )),
-                          IconButton(
-                            // onPressed: () => openImagePicker(context),
-                            onPressed: () {
-                              showBottomSheet(
-                                context: context,
-                                builder: (BuildContext context) {
-                                  return const Column(
-                                    mainAxisSize: MainAxisSize.min,
-                                    children: [
-                                      CupertinoAlertDialog(
-                                        title: Text('Tải ảnh lên'),
-                                        content: Text("Chọn một ảnh để tải ảnh lên"),
-                                        actions: [ImagePickerButton()],
-                                      ),
-                                    ],
-                                  );
-                                },
-                              );
-                              return;
-                            },
-                            icon: Icon(
-                              Icons.camera_alt_outlined,
-                              color: Theme.of(context).textTheme.bodyLarge!.color!.withOpacity(0.64),
-                            ),
-                          ),
-                        ],
+                decoration: BoxDecoration(
+                  color: Palette.primary.withOpacity(0.05),
+                  borderRadius: BorderRadius.circular(40),
+                ),
+                child: Row(
+                  children: [
+                    IconButton(
+                      onPressed: () async {
+                        MicrophoneRecorder recorder = MicrophoneRecorder();
+                        await recorder.start();
+                        await Future.delayed(const Duration(seconds: 5));
+                        await recorder.stop();
+                        Uint8List data = await recorder.toBytes();
+                        Logger.d("Data mic", utf8.decode(data));
+                      },
+                      icon: Icon(
+                        Icons.sentiment_satisfied_alt_outlined,
+                        color: Theme.of(context).textTheme.bodyLarge!.color!.withOpacity(0.64),
                       ),
                     ),
-                  ),
-                ],
+                    BoxMain.w(4),
+                    Expanded(
+                      child: TextField(
+                        onTap: () {
+                          _sc.animateTo(
+                            _sc.position.maxScrollExtent,
+                            duration: const Duration(milliseconds: 300),
+                            curve: Curves.easeOut,
+                          );
+                        },
+                        focusNode: textInputMessageFouce,
+                        controller: textInputMessage,
+                        decoration: const InputDecoration(
+                          hintText: "Type message",
+                          border: InputBorder.none,
+                        ),
+                      ),
+                    ),
+                    IconButton(
+                        onPressed: () async {
+                          FilePickerResult? result = await FilePicker.platform.pickFiles();
+                          if (result != null) {
+                            String? filePath = result.files.single.path;
+                            if (filePath != null) {
+                              // Tải tệp lên API
+                              Logger.d("Update file");
+                            }
+                          }
+                        },
+                        icon: Icon(
+                          Icons.attach_file,
+                          color: Theme.of(context).textTheme.bodyLarge!.color!.withOpacity(0.64),
+                        )),
+                    IconButton(
+                      // onPressed: () => openImagePicker(context),
+                      onPressed: () {
+                        showBottomSheet(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return  Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: const [
+                                CupertinoAlertDialog(
+                                  title: Text('Tải ảnh lên'),
+                                  content: Text("Chọn một ảnh để tải ảnh lên"),
+                                  actions: [ImagePickerButton()],
+                                ),
+                              ],
+                            );
+                          },
+                        );
+                        return;
+                      },
+                      icon: Icon(
+                        Icons.camera_alt_outlined,
+                        color: Theme.of(context).textTheme.bodyLarge!.color!.withOpacity(0.64),
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
-          )),
+          ],
+        ),
+      ),
     );
   }
 

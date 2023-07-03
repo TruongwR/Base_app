@@ -15,4 +15,5 @@ class Routes {
   static const String body = "body";
   static const String nicknameScreen = "NicknameScreeen";
   static const String listMemberChanelScreen = "ListMemberChanelScreen";
+  static const String addFrend = "AddFrend";
 }
