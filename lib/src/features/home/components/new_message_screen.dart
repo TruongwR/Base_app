@@ -52,7 +52,8 @@ class _NewMessageSceenState extends State<NewMessageSceen> {
   }
 
   void _loadMore() {
-    _chanelListAllCubit.getlistChanel(page: _page, size: _size, name: searchController.text, status: getTypeChanel(widget.type));
+    _chanelListAllCubit.getlistChanel(
+        page: _page, size: _size, name: searchController.text, status: getTypeChanel(widget.type));
     _page++;
   }
 
@@ -121,24 +122,27 @@ class _NewMessageSceenState extends State<NewMessageSceen> {
                 );
               },
               child: Expanded(
-                child: ListView.builder(
-                  controller: _sc,
-                  itemCount: _listChanel.length,
-                  itemBuilder: (context, index) => ChatCard(
-                    type: 1,
-                    isStatus: true,
-                    chanel: _listChanel[index],
-                    press: () => AppNavigator.push(Routes.messagesScreen, arguments: ParamMesage(chanel: _listChanel[index], chanelListAllCubit: _chanelListAllCubit)),
-                    longPress: () => buildButtomSheat(),
-                  ),
-                ),
-              ))
+                  child: ListView.builder(
+                      controller: _sc,
+                      itemCount: _listChanel.length,
+                      itemBuilder: (context, index) {
+                        final String id = _listChanel[index].id ?? '';
+                        return ChatCard(
+                          type: 1,
+                          isStatus: true,
+                          chanel: _listChanel[index],
+                          press: () => AppNavigator.push(Routes.messagesScreen,
+                              arguments:
+                                  ParamMesage(chanel: _listChanel[index], chanelListAllCubit: _chanelListAllCubit)),
+                          longPress: () => buildButtomSheat(id),
+                        );
+                      })))
         ],
       ),
     );
   }
 
-  buildButtomSheat() {
+  buildButtomSheat(String id) {
     return showBottomSheet(
       context: context,
       builder: (context) => Container(
@@ -285,7 +289,7 @@ class _NewMessageSceenState extends State<NewMessageSceen> {
     switch (type) {
       case 0:
         return DrawerWidget(
-          ontapDoanChat: () => AppNavigator.pushAndRemoveUntil(Routes.newMessageScreen, arguments: 0),
+          ontapDoanChat: () => AppNavigator.push(Routes.homeScreen),
           ontapTinNhanTro: () => AppNavigator.pushAndRemoveUntil(Routes.newMessageScreen, arguments: 2),
           ontapKenhDaThoat: () => AppNavigator.pushAndRemoveUntil(Routes.newMessageScreen, arguments: 4),
           ontapKenhTuChoiThamGia: () => AppNavigator.pushAndRemoveUntil(Routes.newMessageScreen, arguments: 3),
@@ -293,7 +297,7 @@ class _NewMessageSceenState extends State<NewMessageSceen> {
         );
       case 1:
         return DrawerWidget(
-          ontapDoanChat: () => AppNavigator.pushAndRemoveUntil(Routes.newMessageScreen, arguments: 0),
+          ontapDoanChat: () => AppNavigator.push(Routes.homeScreen),
           ontapTinNhanTro: () => AppNavigator.pushAndRemoveUntil(Routes.newMessageScreen, arguments: 0),
           ontapKenhDaThoat: () => AppNavigator.pushAndRemoveUntil(Routes.newMessageScreen, arguments: 4),
           ontapKenhTuChoiThamGia: () => AppNavigator.pushAndRemoveUntil(Routes.newMessageScreen, arguments: 3),
@@ -301,7 +305,7 @@ class _NewMessageSceenState extends State<NewMessageSceen> {
         );
       case 2:
         return DrawerWidget(
-          ontapDoanChat: () => AppNavigator.pushAndRemoveUntil(Routes.newMessageScreen, arguments: 0),
+          ontapDoanChat: () => AppNavigator.push(Routes.homeScreen),
           ontapTinNhanTro: () => AppNavigator.pop(),
           ontapKenhDaThoat: () => AppNavigator.pushAndRemoveUntil(Routes.newMessageScreen, arguments: 4),
           ontapKenhTuChoiThamGia: () => AppNavigator.pushAndRemoveUntil(Routes.newMessageScreen, arguments: 3),
@@ -309,7 +313,7 @@ class _NewMessageSceenState extends State<NewMessageSceen> {
         );
       case 3:
         return DrawerWidget(
-          ontapDoanChat: () => AppNavigator.pushAndRemoveUntil(Routes.newMessageScreen, arguments: 0),
+          ontapDoanChat: () => AppNavigator.push(Routes.homeScreen),
           ontapTinNhanTro: () => AppNavigator.pushAndRemoveUntil(Routes.newMessageScreen, arguments: 0),
           ontapKenhDaThoat: () => AppNavigator.pushAndRemoveUntil(Routes.newMessageScreen, arguments: 4),
           ontapKenhTuChoiThamGia: () => AppNavigator.pop(),
@@ -317,7 +321,7 @@ class _NewMessageSceenState extends State<NewMessageSceen> {
         );
       case 4:
         return DrawerWidget(
-          ontapDoanChat: () => AppNavigator.pushAndRemoveUntil(Routes.newMessageScreen, arguments: 0),
+          ontapDoanChat: () => AppNavigator.push(Routes.homeScreen),
           ontapTinNhanTro: () => AppNavigator.pushAndRemoveUntil(Routes.newMessageScreen, arguments: 0),
           ontapKenhDaThoat: () => AppNavigator.pushAndRemoveUntil(Routes.newMessageScreen, arguments: 4),
           ontapKenhTuChoiThamGia: () => AppNavigator.pushAndRemoveUntil(Routes.newMessageScreen, arguments: 3),

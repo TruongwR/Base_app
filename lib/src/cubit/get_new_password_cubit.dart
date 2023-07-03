@@ -12,7 +12,7 @@ class GetNewPasswordCubit extends Cubit<GetNewPasswordState> {
     if (respon.data != null) {
       var userInfor = await Hive.openBox('tbl_user');
 
-                  userInfor.put('passWord',respon.data);
+      userInfor.put('passWord', respon.data);
       emit(GetNewPasswordState.succes(respon.data));
     } else {
       emit(GetNewPasswordState.failure(respon.message ?? ''));

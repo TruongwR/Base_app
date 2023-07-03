@@ -1,5 +1,6 @@
 import 'package:Whispers/src/configs/app_fonts.dart';
 import 'package:Whispers/src/configs/box.dart';
+import 'package:Whispers/src/cubit/get_list_member_chanel_cubit.dart';
 
 import 'package:Whispers/src/cubit/update_chanel_cubit.dart';
 import 'package:Whispers/src/cubit/update_chanel_state.dart';
@@ -12,6 +13,7 @@ import 'package:Whispers/src/share_components/loading/loading.dart';
 import 'package:Whispers/src/share_components/share_componets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../../cubit/chanel_list_all_cubit.dart';
 import '../../../data/model/list_chanel_parrent_model.dart';
 import 'components/widget_avatar.dart';
 
@@ -68,13 +70,15 @@ class _ChannelDetailScreenState extends State<ChannelDetailScreen> {
                 style: AppFont.t.blue,
               ),
             ),
+            
             BlocListener<UpdateChanelCubit, UpdateChanelState>(
               bloc: _updateChanelCubit,
               listener: (context, state) {
                 state.whenOrNull(
                     loading: () => const Loading(),
                     succes: () {
-                      AppNavigator.popPush(Routes.channelDetailScreen);
+                      AppNavigator.pop();
+                      BlocProvider.of<ChanelListAllCubit>(context).getlistChanel(size: 1, page: 10);
                     },
                     failure: (value) => const Empty());
               },

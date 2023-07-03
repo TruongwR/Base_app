@@ -21,11 +21,6 @@ Widget _bodyPrivate(Channel chanel) {
         title: 'Cảm xúc nhanh',
         icon: Icons.mood,
       ),
-      columnLayout(
-        type: 2,
-        onTap: () => AppNavigator.push(Routes.nicknameScreen,arguments: chanel),
-        title: 'Biệt danh',
-      ),
       BoxMain.h(16),
       Text(
         'Thông tin đoạn chat',

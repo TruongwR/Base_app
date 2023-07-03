@@ -60,6 +60,33 @@ class _NicknameScreenState extends State<NicknameScreen> {
     getListMemberChanelCubit.listMemberChanel(page: _page, size: _size, chanelId: widget.chanel.id ?? '');
   }
 
+  void _showBottomBar() {
+    ScaffoldMessenger.of(AppNavigator.context!)
+        .showSnackBar(const SnackBar(content: Text('Bạn không có quyền chỉnh sửa biệt danh')));
+  }
+
+  void _checkSetNickname(String type, String accountId, TextEditingController textEditingController, String status) {
+    switch (type) {
+      case "PUBLIC":
+        (accountId == appData.userModel?.account?.id && status == "ACCEPTED")
+            ? _showdialog(textEditingController: textEditingController, accountId: accountId)
+            : _showBottomBar();
+        break;
+      case "PROTECTED":
+        (status == "ACCEPTED")
+            ? _showdialog(textEditingController: textEditingController, accountId: accountId)
+            : _showBottomBar();
+        break;
+      case "DEFAULT":
+        (status == "ACCEPTED")
+            ? _showdialog(textEditingController: textEditingController, accountId: accountId)
+            : _showBottomBar();
+        break;
+      default:
+        null;
+    }
+  }
+
   void _showdialog({required TextEditingController textEditingController, required String accountId}) {
     showCupertinoDialog(
       context: context,
@@ -126,6 +153,10 @@ class _NicknameScreenState extends State<NicknameScreen> {
       child: Scaffold(
         appBar: AppBar(
           leading: const BackButton(),
+          title: Text(
+            'Chỉnh sửa biệt danh',
+            style: AppFont.t.s(18).white.w500,
+          ),
         ),
         body: BlocListener<GetListMemberChanelCubit, GetListMemberChanelState>(
           bloc: getListMemberChanelCubit,
@@ -149,13 +180,14 @@ class _NicknameScreenState extends State<NicknameScreen> {
                 final TextEditingController textEditingController =
                     TextEditingController(text: _listMember[index].nickname);
                 final String accountId = _listMember[index].accountId ?? '';
+                final String status = _listMember[index].status ?? '';
                 return ChatCard(
                   type: 2,
                   subTitle: 'Đặt biệt danh',
                   isStatus: false,
                   member: _listMember[index],
                   press: () {
-                    _showdialog(textEditingController: textEditingController, accountId: accountId);
+                    _checkSetNickname(widget.chanel.type ?? '', accountId, textEditingController, status);
                   },
                 );
               }),

@@ -108,9 +108,9 @@ class _ChatInputFieldState extends State<ChatInputField> {
                         showBottomSheet(
                           context: context,
                           builder: (BuildContext context) {
-                            return const Column(
+                            return  Column(
                               mainAxisSize: MainAxisSize.min,
-                              children: [
+                              children: const [
                                 CupertinoAlertDialog(
                                   title: Text('Tải ảnh lên'),
                                   content: Text("Chọn một ảnh để tải ảnh lên"),

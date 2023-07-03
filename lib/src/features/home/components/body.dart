@@ -79,7 +79,7 @@ class _BodyState extends State<Body> {
     return Scaffold(
       appBar: buildAppBar(),
       drawer: DrawerWidget(
-        ontapDoanChat: () => AppNavigator.pushAndRemoveUntil(Routes.newMessageScreen, arguments: 0),
+        ontapDoanChat: () => AppNavigator.push(Routes.homeScreen),
         ontapTinNhanTro: () => AppNavigator.pushAndRemoveUntil(Routes.newMessageScreen, arguments: 2),
         ontapKenhDaThoat: () => AppNavigator.pushAndRemoveUntil(Routes.newMessageScreen, arguments: 4),
         ontapKenhTuChoiThamGia: () => () => AppNavigator.pushAndRemoveUntil(Routes.newMessageScreen, arguments: 3),
@@ -120,59 +120,56 @@ class _BodyState extends State<Body> {
               },
               child: Expanded(
                 child: ListView.builder(
-                  controller: _sc,
-                  itemCount: _listChanel.length,
-                  itemBuilder: (context, index) => ChatCard(
-                    type: 1,
-                    isStatus: true,
-                    chanel: _listChanel[index],
-                    press: () => AppNavigator.push(Routes.messagesScreen, arguments: ParamMesage(chanel: _listChanel[index], chanelListAllCubit: _chanelListAllCubit)),
-                    longPress: () => buildButtomSheat(),
-                  ),
-                ),
+                    controller: _sc,
+                    itemCount: _listChanel.length,
+                    itemBuilder: (context, index) {
+                      final String id = _listChanel[index].id ?? '';
+                      return ChatCard(
+                        type: 1,
+                        isStatus: true,
+                        chanel: _listChanel[index],
+                        press: () => AppNavigator.push(Routes.messagesScreen,
+                            arguments:
+                                ParamMesage(chanel: _listChanel[index], chanelListAllCubit: _chanelListAllCubit)),
+                        longPress: () => buildButtomSheat(id: id),
+                      );
+                    }),
               ))
         ],
       ),
     );
   }
 
-  buildButtomSheat() {
+  buildButtomSheat({required String id}) {
     return showBottomSheet(
       context: context,
-      builder: (context) => Container(
-        padding: const EdgeInsets.all(16),
-        decoration: const BoxDecoration(
-          color: Palette.primary,
-          borderRadius: BorderRadius.only(
-            topRight: Radius.circular(12),
-            topLeft: Radius.circular(12),
-          ),
-        ),
-        height: MediaQuery.of(context).size.height / 4,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            StreamBuilder(
-              stream: appData.channel?.stream,
-              builder: (context, snapshot) {
-                Logger.d("datatesst", snapshot);
-                return Text(snapshot.hasData ? '${snapshot.data}' : '');
-              },
+      builder: (context) => GestureDetector(
+        onTap: () => AppNavigator.pop(),
+        child: Container(
+          padding: const EdgeInsets.all(16),
+          decoration: const BoxDecoration(
+            color: Palette.gray68,
+            borderRadius: BorderRadius.only(
+              topRight: Radius.circular(12),
+              topLeft: Radius.circular(12),
             ),
-            // Center(
-            //   child: Container(
-            //     decoration: BoxDecoration(
-            //       borderRadius: BorderRadius.all(
-            //         Radius.circular(4),
-            //       ),
-            //     ),
-            //     color: Palette.white,
-            //   ),
-            // ),
-            _rowLayout(onTap: () {}, icon: Icons.inventory, title: 'Lưu trữ'),
-            _rowLayout(onTap: () {}, icon: Icons.delete, title: 'Xóa'),
-            _rowLayout(onTap: () {}, icon: Icons.notifications_off, title: 'Tắt'),
-          ],
+          ),
+          height: MediaQuery.of(context).size.height * 3 / 7,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              // StreamBuilder(
+              //   stream: appData.channel?.stream,
+              //   builder: (context, snapshot) {
+              //     Logger.d("datatesst", snapshot);
+              //     return Text(snapshot.hasData ? '${snapshot.data}' : '');
+              //   },
+              // ),
+              _rowLayout(onTap: () {}, icon: Icons.inventory, title: 'Lưu trữ'),
+              _rowLayout(onTap: () {}, icon: Icons.delete, title: 'Xóa'),
+              _rowLayout(onTap: () {}, icon: Icons.notifications_off, title: 'Tắt'),
+            ],
+          ),
         ),
       ),
     );
