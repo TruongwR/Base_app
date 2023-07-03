@@ -1,4 +1,4 @@
-import 'package:Whispers/src/configs/Palette.dart';
+import 'package:Whispers/src/configs/palette.dart';
 import 'package:Whispers/src/features/home/components/chat_card.dart';
 import 'package:Whispers/src/navigator/app_navigator.dart';
 import 'package:Whispers/src/navigator/routers.dart';

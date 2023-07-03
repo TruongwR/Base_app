@@ -1,7 +1,7 @@
 import 'package:Whispers/src/navigator/app_navigator.dart';
 import 'package:flutter/material.dart';
 
-import '../../configs/Palette.dart';
+import '../../configs/palette.dart';
 import '../../configs/app_fonts.dart';
 
 class MyAppBar extends StatefulWidget implements PreferredSizeWidget {

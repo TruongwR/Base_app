@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../../configs/Palette.dart';
+import '../../../../configs/palette.dart';
 import '../../../../configs/app_fonts.dart';
 
 class AvatarWidget extends StatelessWidget {

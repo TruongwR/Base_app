@@ -5,6 +5,8 @@ import 'dart:io';
 import 'package:Whispers/src/configs/app_fonts.dart';
 import 'package:Whispers/src/configs/palette.dart';
 import 'package:Whispers/src/cubit/detail_chanel_state.dart';
+import 'package:Whispers/src/data/remote/authentication_api.dart';
+import 'package:Whispers/src/data/remote/upload_file_api.dart';
 import 'package:Whispers/src/di/injection.dart/injection.dart';
 import 'package:Whispers/src/features/messages/components/image_picker_screen.dart';
 import 'package:Whispers/src/navigator/app_navigator.dart';
@@ -39,6 +41,7 @@ class MessagesScreen extends StatefulWidget {
 class _MessagesScreenState extends State<MessagesScreen> {
   final DetailChanelCubit detailChanelCubit = getIt<DetailChanelCubit>();
   final CheckMessagesCubit checkMessagesCubit = getIt<CheckMessagesCubit>();
+  final UploadFileApi uploadFileApi = getIt<UploadFileApi>();
 
   int _page = 1;
   final int _size = 20;
@@ -122,112 +125,112 @@ class _MessagesScreenState extends State<MessagesScreen> {
                   ),
                 ),
               ),
-            ],
-          ),
-          bottomNavigationBar: Container(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 16,
-              vertical: 16 / 2,
-            ),
-            decoration: BoxDecoration(
-              color: Theme.of(context).scaffoldBackgroundColor,
-              boxShadow: [
-                BoxShadow(
-                  offset: const Offset(0, 4),
-                  blurRadius: 32,
-                  color: const Color(0xFF087949).withOpacity(0.08),
+              Container(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 16,
+                  vertical: 16 / 2,
                 ),
-              ],
-            ),
-            child: SafeArea(
-              child: Row(
-                children: [
-                  const Icon(Icons.mic, color: Palette.primary),
-                  const SizedBox(width: 16),
-                  Expanded(
-                    child: Container(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 12,
-                      ),
-                      decoration: BoxDecoration(
-                        color: Palette.primary.withOpacity(0.05),
-                        borderRadius: BorderRadius.circular(40),
-                      ),
-                      child: Row(
-                        children: [
-                          IconButton(
-                            onPressed: () async {
-                              MicrophoneRecorder recorder = MicrophoneRecorder();
-                              await recorder.start();
-                              await Future.delayed(const Duration(seconds: 5));
-                              await recorder.stop();
-                              Uint8List data = await recorder.toBytes();
-                              Logger.d("Data mic", utf8.decode(data));
-                            },
-                            icon: Icon(
-                              Icons.sentiment_satisfied_alt_outlined,
-                              color: Theme.of(context).textTheme.bodyLarge!.color!.withOpacity(0.64),
-                            ),
-                          ),
-                          BoxMain.w(4),
-                          Expanded(
-                            child: TextField(
-                              focusNode: textInputMessageFouce,
-                              controller: textInputMessage,
-                              decoration: const InputDecoration(
-                                hintText: "Type message",
-                                border: InputBorder.none,
-                              ),
-                            ),
-                          ),
-                          IconButton(
-                              onPressed: () async {
-                                FilePickerResult? result = await FilePicker.platform.pickFiles();
-                                if (result != null) {
-                                  String? filePath = result.files.single.path;
-                                  if (filePath != null) {
-                                    // Tải tệp lên API
-                                    Logger.d("Update file");
-                                  }
-                                }
-                              },
-                              icon: Icon(
-                                Icons.attach_file,
-                                color: Theme.of(context).textTheme.bodyLarge!.color!.withOpacity(0.64),
-                              )),
-                          IconButton(
-                            // onPressed: () => openImagePicker(context),
-                            onPressed: () {
-                              showBottomSheet(
-                                context: context,
-                                builder: (BuildContext context) {
-                                  return const Column(
-                                    mainAxisSize: MainAxisSize.min,
-                                    children: [
-                                      CupertinoAlertDialog(
-                                        title: Text('Tải ảnh lên'),
-                                        content: Text("Chọn một ảnh để tải ảnh lên"),
-                                        actions: [ImagePickerButton()],
-                                      ),
-                                    ],
-                                  );
-                                },
-                              );
-                              return;
-                            },
-                            icon: Icon(
-                              Icons.camera_alt_outlined,
-                              color: Theme.of(context).textTheme.bodyLarge!.color!.withOpacity(0.64),
-                            ),
-                          ),
-                        ],
-                      ),
+                decoration: BoxDecoration(
+                  color: Theme.of(context).scaffoldBackgroundColor,
+                  boxShadow: [
+                    BoxShadow(
+                      offset: const Offset(0, 4),
+                      blurRadius: 32,
+                      color: const Color(0xFF087949).withOpacity(0.08),
                     ),
+                  ],
+                ),
+                child: SafeArea(
+                  child: Row(
+                    children: [
+                      const Icon(Icons.mic, color: Palette.primary),
+                      const SizedBox(width: 16),
+                      Expanded(
+                        child: Container(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 12,
+                          ),
+                          decoration: BoxDecoration(
+                            color: Palette.primary.withOpacity(0.05),
+                            borderRadius: BorderRadius.circular(40),
+                          ),
+                          child: Row(
+                            children: [
+                              IconButton(
+                                onPressed: () async {
+                                  MicrophoneRecorder recorder = MicrophoneRecorder();
+                                  await recorder.start();
+                                  await Future.delayed(const Duration(seconds: 5));
+                                  await recorder.stop();
+                                  Uint8List data = await recorder.toBytes();
+                                  Logger.d("Data mic", utf8.decode(data));
+                                },
+                                icon: Icon(
+                                  Icons.sentiment_satisfied_alt_outlined,
+                                  color: Theme.of(context).textTheme.bodyLarge!.color!.withOpacity(0.64),
+                                ),
+                              ),
+                              BoxMain.w(4),
+                              Expanded(
+                                child: TextField(
+                                  focusNode: textInputMessageFouce,
+                                  controller: textInputMessage,
+                                  decoration: const InputDecoration(
+                                    hintText: "Type message",
+                                    border: InputBorder.none,
+                                  ),
+                                ),
+                              ),
+                              IconButton(
+                                  onPressed: () async {
+                                    FilePickerResult? result = await FilePicker.platform.pickFiles();
+                                    if (result != null) {
+                                      String? filePath = result.files.single.path;
+                                      if (filePath != null) {
+                                        final data = await uploadFileApi.upload(filePath, result.files.single.name, 'PUBLIC');
+                                        print(data);
+                                      }
+                                    }
+                                  },
+                                  icon: Icon(
+                                    Icons.attach_file,
+                                    color: Theme.of(context).textTheme.bodyLarge!.color!.withOpacity(0.64),
+                                  )),
+                              IconButton(
+                                // onPressed: () => openImagePicker(context),
+                                onPressed: () {
+                                  showBottomSheet(
+                                    context: context,
+                                    builder: (BuildContext context) {
+                                      return Column(
+                                        mainAxisSize: MainAxisSize.min,
+                                        children: const [
+                                          CupertinoAlertDialog(
+                                            title: Text('Tải ảnh lên'),
+                                            content: Text("Chọn một ảnh để tải ảnh lên"),
+                                            actions: [ImagePickerButton()],
+                                          ),
+                                        ],
+                                      );
+                                    },
+                                  );
+                                  return;
+                                },
+                                icon: Icon(
+                                  Icons.camera_alt_outlined,
+                                  color: Theme.of(context).textTheme.bodyLarge!.color!.withOpacity(0.64),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
-                ],
-              ),
-            ),
-          )),
+                ),
+              )
+            ],
+          ),),
     );
   }
 

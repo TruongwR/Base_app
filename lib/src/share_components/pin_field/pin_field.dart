@@ -2,7 +2,7 @@ import 'package:Whispers/src/share_components/pin_field/obsscursing_widget.dart'
 import 'package:flutter/material.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
-import '../../configs/Palette.dart';
+import '../../configs/palette.dart';
 import '../../configs/app_fonts.dart';
 import '../../configs/theme.dart';
 

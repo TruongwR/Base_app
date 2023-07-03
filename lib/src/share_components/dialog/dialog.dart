@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import '../../configs/Palette.dart';
+import '../../configs/palette.dart';
 import '../../navigator/app_navigator.dart';
 import '../loading/loading.dart';
 import 'dialog_succes.dart';

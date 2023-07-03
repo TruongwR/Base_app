@@ -2,7 +2,7 @@ import 'package:Whispers/src/configs/box.dart';
 import 'package:Whispers/src/data/model/list_chanel_parrent_model.dart';
 import 'package:flutter/material.dart';
 
-import '../../../configs/Palette.dart';
+import '../../../configs/palette.dart';
 import '../../../configs/app_fonts.dart';
 import '../../../data/model/list_member_chanel_model.dart';
 import '../../../share_components/time/time_extension.dart';

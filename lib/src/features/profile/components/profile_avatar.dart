@@ -1,4 +1,4 @@
-import 'package:Whispers/src/configs/Palette.dart';
+import 'package:Whispers/src/configs/palette.dart';
 import 'package:Whispers/src/di/injection.dart/injection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';

@@ -5,7 +5,7 @@ import 'package:Whispers/src/cubit/get_new_password_state.dart';
 import 'package:Whispers/src/share_components/share_componets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../configs/Palette.dart';
+import '../../configs/palette.dart';
 import '../../di/injection.dart/injection.dart';
 import '../../navigator/app_navigator.dart';
 import '../../navigator/routers.dart';

@@ -37,7 +37,7 @@ abstract class AuthenticationApi {
     @Field() String fistName,
     @Field() String lastName,
     @Field() String email,
-    @Field() String passWord,
+    @Field() String password,
   );
   @PATCH(ApiPath.activeAcount)
   Future<ActiveAccountModel> activeAcount(

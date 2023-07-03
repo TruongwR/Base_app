@@ -108,7 +108,7 @@ class _ChatInputFieldState extends State<ChatInputField> {
                         showBottomSheet(
                           context: context,
                           builder: (BuildContext context) {
-                            return const Column(
+                            return Column(
                               mainAxisSize: MainAxisSize.min,
                               children: [
                                 CupertinoAlertDialog(

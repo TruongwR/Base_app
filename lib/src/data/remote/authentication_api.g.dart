@@ -132,7 +132,7 @@ class _AuthenticationApi implements AuthenticationApi {
     String fistName,
     String lastName,
     String email,
-    String passWord,
+    String password,
   ) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
@@ -141,7 +141,7 @@ class _AuthenticationApi implements AuthenticationApi {
       'fistName': fistName,
       'lastName': lastName,
       'email': email,
-      'passWord': passWord,
+      'password': password,
     };
     final _result = await _dio
         .fetch<Map<String, dynamic>>(_setStreamType<ResponeSignupModel>(Options(

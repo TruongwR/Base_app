@@ -13,7 +13,7 @@ import 'package:Whispers/src/utils/helpers/logger.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:skeletons/skeletons.dart';
 
-import '../../../configs/Palette.dart';
+import '../../../configs/palette.dart';
 import '../../../configs/app_fonts.dart';
 import '../../../configs/box.dart';
 import '../../../data/model/api_response/param_message_model.dart';
