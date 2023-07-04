@@ -43,12 +43,12 @@ class _BodyState extends State<Body> {
 
   @override
   void initState() {
-    // timer = Timer.periodic(const Duration(seconds: 3), (timer) {
-    //   _initData(searchController.text);
-    // });
-    Future.delayed(const Duration(seconds: 1), () {
+    timer = Timer.periodic(const Duration(seconds: 1), (timer) {
       _initData(searchController.text);
     });
+    // Future.delayed(const Duration(seconds: 1), () {
+    //   _initData(searchController.text);
+    // });
     _initData(searchController.text);
 
     _sc = ScrollController()
@@ -92,6 +92,7 @@ class _BodyState extends State<Body> {
                   orElse: () => _buildLoading(),
                   loading: (value) => _buildLoading(),
                   success: (value) {
+                    _listChanel = [];
                     _totalPage = value.listChanel?.totalPages ?? 1;
                     _listChanel.addAll(value.listChanel?.content as Iterable<Channel>);
                     setState(() {});
