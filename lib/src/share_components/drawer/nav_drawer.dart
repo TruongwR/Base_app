@@ -42,8 +42,8 @@ class DrawerWidget extends StatelessWidget {
 
 Widget _drawerHeader() {
   return UserAccountsDrawerHeader(
-    currentAccountPicture: const ClipOval(
-      child: Image(image: AssetImage('assets/images/user.png'), fit: BoxFit.cover),
+    currentAccountPicture: ClipOval(
+      child: Image(image: NetworkImage(appData.userModel?.account?.avatarUrl ?? ''), fit: BoxFit.cover),
     ),
     otherAccountsPictures: const [
       ClipOval(
