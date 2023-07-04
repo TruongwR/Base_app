@@ -46,7 +46,7 @@ class _BodyState extends State<Body> {
     // timer = Timer.periodic(const Duration(seconds: 3), (timer) {
     //   _initData(searchController.text);
     // });
-    Future.delayed(const Duration(seconds: 3), () {
+    Future.delayed(const Duration(seconds: 1), () {
       _initData(searchController.text);
     });
     _initData(searchController.text);

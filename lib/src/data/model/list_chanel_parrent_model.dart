@@ -44,6 +44,7 @@ class Channel {
   String? id;
   String? name;
   dynamic avatarFileId;
+  String? avatarUrl;
   String? type;
   String? status;
   LastMessage? lastMessage;
@@ -54,6 +55,7 @@ class Channel {
     this.avatarFileId,
     this.type,
     this.status,
+    this.avatarUrl,
     this.lastMessage,
   });
 
@@ -63,17 +65,12 @@ class Channel {
         avatarFileId: json["avatarFileId"],
         type: json["type"],
         status: json["status"],
+        avatarUrl: json["avatarUrl"],
         lastMessage: json["lastMessage"] == null ? null : LastMessage.fromJson(json["lastMessage"]),
       );
 
-  Map<String, dynamic> toJson() => {
-        "id": id,
-        "name": name,
-        "avatarFileId": avatarFileId,
-        "type": type,
-        "status": status,
-        "lastMessage": lastMessage?.toJson(),
-      };
+  Map<String, dynamic> toJson() =>
+      {"id": id, "name": name, "avatarFileId": avatarFileId, "type": type, "status": status, "lastMessage": lastMessage?.toJson(), "avatarUrl": avatarUrl};
 }
 
 class LastMessage {

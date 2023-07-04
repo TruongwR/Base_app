@@ -7,16 +7,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:Whispers/src/di/injection.dart/injection.dart';
 import 'package:Whispers/src/share_components/share_componets.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:skeletons/skeletons.dart';
 
 import '../../../configs/Palette.dart';
 import '../../../configs/app_fonts.dart';
-import '../../../configs/box.dart';
 import '../../../cubit/fotget_password_cubit.dart';
 import '../../../cubit/fotget_password_state.dart';
 
-import '../../../share_components/shimmer/my_container.dart';
 
 class AddFrend extends StatefulWidget {
   const AddFrend({Key? key}) : super(key: key);
@@ -29,7 +25,7 @@ class _AddFrendState extends State<AddFrend> {
   final FotgetPasswordCubit fotgetPasswordCubit = getIt<FotgetPasswordCubit>();
   final TextEditingController searchController = TextEditingController();
 
-  final List<Data> _listChanel = [];
+  final List<Person> _listChanel = [];
 
   late Timer timer;
 
@@ -55,7 +51,7 @@ class _AddFrendState extends State<AddFrend> {
                 orElse: () => const Loading(),
                 loading: (value) => const Loading(),
                 succes: (value) {
-                  _listChanel.addAll(value.fotgetPass?.data as Iterable<Data>);
+                  _listChanel.addAll(value.fotgetPass?.data as Iterable<Person>);
                   setState(() {});
                 },
               );
@@ -115,56 +111,5 @@ class _AddFrendState extends State<AddFrend> {
         ),
       ),
     );
-  }
-
-  Widget _rowLayout({required Function()? onTap, required IconData icon, required String title}) {
-    return InkWell(
-      onTap: onTap,
-      child: Row(
-        children: [
-          Icon(
-            icon,
-            color: Palette.white,
-          ),
-          BoxMain.w(8),
-          Text(
-            title,
-            style: AppFont.t.s(18).white,
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildLoading() {
-    return ListView.builder(
-        itemCount: 7,
-        itemBuilder: (context, index) => MyContainer(
-              leftWidget: SkeletonParagraph(
-                style: SkeletonParagraphStyle(
-                    lines: 2,
-                    spacing: 6,
-                    lineStyle: SkeletonLineStyle(
-                      randomLength: true,
-                      height: 14.h,
-                      borderRadius: BorderRadius.circular(8),
-                      minLength: 0.2.sw,
-                      maxLength: 0.5.sw,
-                    )),
-              ),
-              rightWidget: SkeletonParagraph(
-                style: SkeletonParagraphStyle(
-                    lines: 2,
-                    spacing: 6,
-                    lineStyle: SkeletonLineStyle(
-                      randomLength: true,
-                      height: 14.h,
-                      alignment: Alignment.bottomRight,
-                      borderRadius: BorderRadius.circular(8),
-                      minLength: 0.2.sw,
-                      maxLength: 0.3.sw,
-                    )),
-              ),
-            ));
   }
 }

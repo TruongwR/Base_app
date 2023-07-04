@@ -54,14 +54,19 @@ class _MessageState extends State<Message> {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8),
       child: Row(
-        mainAxisAlignment: widget.message.id == appData.userModel?.account?.id ? MainAxisAlignment.end : MainAxisAlignment.start,
+        mainAxisAlignment: widget.message.sender?.id == appData.userModel?.account?.id ? MainAxisAlignment.end : MainAxisAlignment.start,
         children: [
           if (!(widget.message.id == appData.userModel?.account?.id)) ...[
             widget.message.type != "SETTING"
-                ? const CircleAvatar(
-                    radius: 12,
-                    backgroundImage: AssetImage("assets/images/user_2.png"),
-                  )
+                ? (widget.message.sender?.avatarUrl != null
+                    ? CircleAvatar(
+                        radius: 24,
+                        backgroundImage: NetworkImage(widget.message.sender?.avatarUrl ?? ''),
+                      )
+                    : const CircleAvatar(
+                        radius: 24,
+                        backgroundImage: AssetImage("assets/images/user.png"),
+                      ))
                 : Container(),
             BoxMain.w(8)
           ],

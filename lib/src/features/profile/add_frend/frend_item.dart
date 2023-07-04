@@ -9,7 +9,7 @@ class ItemFrend extends StatelessWidget {
     this.chanel,
   }) : super(key: key);
 
-  final Data? chanel;
+  final Person? chanel;
 
   @override
   Widget build(BuildContext context) {

@@ -31,7 +31,10 @@ class GetNewPasswordScreen extends StatelessWidget {
     return SafeArea(
         child: Scaffold(
       appBar: AppBar(
-        leading: const BackButton(),
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () => AppNavigator.pop(),
+        ),
       ),
       body: SingleChildScrollView(
         child: Padding(

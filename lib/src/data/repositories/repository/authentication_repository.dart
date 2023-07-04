@@ -8,7 +8,7 @@ import '../../model/respone_signup_model.dart';
 
 abstract class AuthenticationRepository {
   Future<LoginModel> login(String phone, String password);
-  Future<ApiResponse<FotgetPasswordModel>> fotgetPassword(String email);
+  Future<FotgetPasswordModel> fotgetPassword(String email);
   Future<dynamic> confirmPass(String accountId);
   Future<ApiResponse<dynamic>> getNewPass(String id, String activationCode);
   Future<ResponeSignupModel> signUp(String fistName, String lastName, String email, String passWord);

@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:Whispers/src/data/model/api_response/api_response.dart';
 import 'package:Whispers/src/data/repositories/repository/device_verification_repository.dart';
 import 'package:Whispers/src/navigator/app_navigator.dart';

@@ -46,13 +46,13 @@ class _HomeScreenState extends State<HomeScreen> {
           _selectedIndex = value;
         });
       },
-      items: const [
-        BottomNavigationBarItem(icon: Icon(CupertinoIcons.chat_bubble_2), label: "Chats"),
-        BottomNavigationBarItem(icon: Icon(CupertinoIcons.person_2_fill), label: "People"),
+      items: [
+        const BottomNavigationBarItem(icon: Icon(CupertinoIcons.chat_bubble_2), label: "Chats"),
+        const BottomNavigationBarItem(icon: Icon(CupertinoIcons.person_2_fill), label: "People"),
         BottomNavigationBarItem(
           icon: CircleAvatar(
             radius: 14,
-            backgroundImage: AssetImage("assets/images/user_2.png"),
+            backgroundImage: NetworkImage(appData.userModel?.account?.avatarUrl ?? ""),
           ),
           label: "Profile",
         ),

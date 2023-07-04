@@ -21,7 +21,7 @@ abstract class AuthenticationApi {
     @Field() String password,
   );
   @POST(ApiPath.searchAcoutByEmail)
-  Future<ApiResponse<FotgetPasswordModel>> fotgetPassword(@Field() String email);
+  Future<FotgetPasswordModel> fotgetPassword(@Field("emails") List<String>? email ,@Field("ids") List<String>? ids );
   @POST(ApiPath.register)
   Future<dynamic> confrimPass(
     @Query('accountId') String accountId,
@@ -34,10 +34,10 @@ abstract class AuthenticationApi {
   );
   @POST(ApiPath.singUp)
   Future<ResponeSignupModel> singup(
-    @Field() String fistName,
+    @Field() String firstName,
     @Field() String lastName,
     @Field() String email,
-    @Field() String passWord,
+    @Field() String password,
   );
   @PATCH(ApiPath.activeAcount)
   Future<ActiveAccountModel> activeAcount(

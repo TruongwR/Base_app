@@ -1,4 +1,3 @@
-
 import 'package:Whispers/src/data/model/active_account_model.dart';
 import 'package:Whispers/src/data/model/api_response/api_response.dart';
 import 'package:Whispers/src/data/model/fotget_password_model.dart';
@@ -18,8 +17,8 @@ class AuthenRepoImpl implements AuthenticationRepository {
   }
 
   @override
-  Future<ApiResponse<FotgetPasswordModel>> fotgetPassword(String email) {
-    return authenticationApi.fotgetPassword(email);
+  Future<FotgetPasswordModel> fotgetPassword(String email) {
+    return authenticationApi.fotgetPassword([email], []);
   }
 
   @override
@@ -43,8 +42,7 @@ class AuthenRepoImpl implements AuthenticationRepository {
   }
 
   @override
-  Future<UpdateProfileModel> updateProfile(
-      {String? firstName, String? lastName, String? passwordOld, String? password, String? avatarFileId}) {
+  Future<UpdateProfileModel> updateProfile({String? firstName, String? lastName, String? passwordOld, String? password, String? avatarFileId}) {
     return authenticationApi.updateProfile(firstName, lastName, passwordOld, password, avatarFileId);
   }
 
