@@ -13,8 +13,8 @@ import '../../../utils/until.dart';
 import '../../home/components/chat_card.dart';
 
 class BodyCreateChanel extends StatefulWidget {
-  const BodyCreateChanel({super.key});
-
+  const BodyCreateChanel({super.key, required this.listMember});
+  final List<String> listMember;
   @override
   State<BodyCreateChanel> createState() => _BodyCreateChanelState();
 }
@@ -26,7 +26,7 @@ class _BodyCreateChanelState extends State<BodyCreateChanel> {
   int _totalPage = 1;
   List<Channel> _listChanel = [];
   late ScrollController _sc;
-
+  bool check = false;
   @override
   void initState() {
     _initData();
@@ -52,6 +52,14 @@ class _BodyCreateChanelState extends State<BodyCreateChanel> {
     _chanelListAllCubit.getlistChanel(page: _page, size: _size, type: TypeChanel.sttDEFAULT.getString());
   }
 
+  void _addListMember(String id) {
+    if (widget.listMember.contains(id)) {
+      widget.listMember.remove(id);
+    } else {
+      widget.listMember.add('"$id"');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocListener<ChanelListAllCubit, ChanelListAllState>(
@@ -75,7 +83,10 @@ class _BodyCreateChanelState extends State<BodyCreateChanel> {
                 type: 3,
                 isStatus: false,
                 chanel: _listChanel[index],
-                press: () {},
+                press: () {
+                  
+                  _addListMember(_listChanel[index].friendId ?? '');
+                },
               )),
     );
   }

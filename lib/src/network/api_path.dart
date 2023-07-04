@@ -18,7 +18,7 @@ class ApiPath {
   static const String deleteFile = "$port99/file/delete";
   static const String downLoad = "$port99/file/";
   static const String getListChanel = "$port98/channel";
-  static const String createChanel = "$port98/channel/";
+  static const String createChanel = "$port98/channel";
   static const String updateChanel = "$port98/channel";
   static const String deleteChanel = "$port98/channel/";
   static const String getListMesageChanel = "$port98/message";
@@ -26,7 +26,7 @@ class ApiPath {
   static const String getListmenberChanel = "$port98/channel/member";
   static const String addMemberChanel = "$port98/channel/member/";
   static const String updateNickNameMember = "$port98/channel/member";
-  static const String createMesage = "$port98/}/message";
+  static const String createMesage = "$port98/message";
   static const String updateMesage = "$port98/message";
   static const String deleteMesage = "$port98/message/";
   static const String connectSocker = '$baseUrl$port98/ws';

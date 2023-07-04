@@ -6,6 +6,7 @@ import '../model/api_response/api_response.dart';
 import '../model/list_chanel_parrent_model.dart';
 import '../model/list_member_chanel_model.dart';
 import '../model/message_model.dart';
+import '../model/param_seen_message_model.dart';
 
 part 'chanel_api.g.dart';
 
@@ -62,5 +63,9 @@ abstract class ChanelApi {
     @Field() String? nickname,
     @Field() String? avatarFileId,
     @Field() String? avatarUrl,
+  );
+    @POST(ApiPath.createMesage)
+  Future<ApiResponse<dynamic>> createMessage(
+   @Body() List<ParamMessageModel> paramMessageModel
   );
 }

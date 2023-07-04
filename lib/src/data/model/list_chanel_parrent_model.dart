@@ -48,6 +48,8 @@ class Channel {
   String? type;
   String? status;
   LastMessage? lastMessage;
+  String? friendId;
+  String? friendStatus;
 
   Channel({
     this.id,
@@ -57,6 +59,8 @@ class Channel {
     this.status,
     this.avatarUrl,
     this.lastMessage,
+    this.friendId,
+    this.friendStatus,
   });
 
   factory Channel.fromJson(Map<String, dynamic> json) => Channel(
@@ -66,11 +70,22 @@ class Channel {
         type: json["type"],
         status: json["status"],
         avatarUrl: json["avatarUrl"],
+        friendId: json["friendId"],
+        friendStatus: json["friendStatus"],
         lastMessage: json["lastMessage"] == null ? null : LastMessage.fromJson(json["lastMessage"]),
       );
 
-  Map<String, dynamic> toJson() =>
-      {"id": id, "name": name, "avatarFileId": avatarFileId, "type": type, "status": status, "lastMessage": lastMessage?.toJson(), "avatarUrl": avatarUrl};
+  Map<String, dynamic> toJson() => {
+        "id": id,
+        "name": name,
+        "avatarFileId": avatarFileId,
+        "type": type,
+        "status": status,
+        "lastMessage": lastMessage?.toJson(),
+        "avatarUrl": avatarUrl,
+        "friendId": friendId,
+        "friendStatus": friendStatus,
+      };
 }
 
 class LastMessage {

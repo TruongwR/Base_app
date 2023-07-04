@@ -7,6 +7,6 @@ part 'seen_message_state.freezed.dart';
 class SeenMessageState with _$SeenMessageState {
   const factory SeenMessageState.initial() = _Initial;
    const factory SeenMessageState.loading() = _Loading;
-    const factory SeenMessageState.success(ApiResponse apiResponse) = _Success;
+    const factory SeenMessageState.success(ApiResponse<dynamic> apiResponse) = _Success;
      const factory SeenMessageState.failure() = _Failure;
 }
