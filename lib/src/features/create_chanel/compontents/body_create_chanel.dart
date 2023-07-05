@@ -14,7 +14,7 @@ import '../../home/components/chat_card.dart';
 
 class BodyCreateChanel extends StatefulWidget {
   BodyCreateChanel({super.key, required this.listMember});
-  List<String> listMember = [];
+  List<String> listMember;
   @override
   State<BodyCreateChanel> createState() => _BodyCreateChanelState();
 }
@@ -57,6 +57,7 @@ class _BodyCreateChanelState extends State<BodyCreateChanel> {
       widget.listMember.remove(id);
     } else {
       widget.listMember.add('"$id"');
+      
     }
   }
 

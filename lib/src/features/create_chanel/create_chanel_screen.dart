@@ -85,7 +85,9 @@ class _CreateChanelScreenState extends State<CreateChanelScreen> {
           child: TextButton(
             onPressed: () {
               _createChanelCubit.createChanel(
-                  name: nameChanelController.text, type: TypeChanel.sttPUBLIC.getString(), members: _listMemberChanel);
+                  name: nameChanelController.text,
+                  type: TypeChanel.sttPROTECTED.getString(),
+                  members: _listMemberChanel);
             },
             child: Text(
               'Tạo',

@@ -62,7 +62,7 @@ class ChatCard extends StatelessWidget {
                   ),
                   Expanded(
                     child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 16),
+                      padding: const EdgeInsets.symmetric(horizontal: 16 ),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: type == 1
@@ -71,7 +71,7 @@ class ChatCard extends StatelessWidget {
                                   chanel?.name ?? '',
                                   style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
                                 ),
-                                const SizedBox(height: 8),
+                                const SizedBox(height: 8 ),
                                 Opacity(
                                   opacity: 0.64,
                                   child: Text(
@@ -88,7 +88,7 @@ class ChatCard extends StatelessWidget {
                                       chanel?.name ?? '',
                                       style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
                                     ),
-                                    const SizedBox(height: 8),
+                                    const SizedBox(height: 8 ),
                                     Opacity(
                                       opacity: 0.64,
                                       child: Text(
@@ -154,7 +154,7 @@ class ChatCard extends StatelessWidget {
                           member?.nickname ?? '',
                           style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
                         ),
-                        const SizedBox(height: 8),
+                        const SizedBox(height: 8 ),
                         Opacity(
                           opacity: 0.64,
                           child: Text(
