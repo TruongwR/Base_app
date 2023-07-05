@@ -14,6 +14,7 @@ import 'package:get_it/get_it.dart';
 import '../../cubit/chanel_list_all_cubit.dart';
 import '../../cubit/detail_chanel_cubit.dart';
 
+import '../../cubit/seen_message_cubit.dart';
 import '../../cubit/signup_cubit.dart';
 import '../../data/data_sources/local/app_data.dart';
 import '../../utils/helpers/socket_helper.dart';
@@ -49,6 +50,7 @@ class Injection {
     BlocProvider<UpdateChanelCubit>(create: (context) => getIt<UpdateChanelCubit>()),
     BlocProvider<UpdateMemberChannelCubit>(create: (context) => getIt<UpdateMemberChannelCubit>()),
     BlocProvider<GetListMemberChanelCubit>(create: (context) => getIt<GetListMemberChanelCubit>()),
+    BlocProvider<SeenMessageCubit>(create: (context) => getIt<SeenMessageCubit>()),
   ];
 }
 

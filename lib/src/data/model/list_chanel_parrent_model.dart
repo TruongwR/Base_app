@@ -45,6 +45,7 @@ class Channel {
   String? name;
   String? avatarFileId;
   String? avatarUrl;
+
   String? type;
   String? status;
   LastMessage? lastMessage;
@@ -70,9 +71,10 @@ class Channel {
         avatarUrl: json["avatarUrl"],
         type: json["type"],
         status: json["status"],
-        lastMessage: json["lastMessage"] == null ? null : LastMessage.fromJson(json["lastMessage"]),
         friendId: json["friendId"],
         friendStatus: json["friendStatus"],
+        lastMessage: json["lastMessage"] == null ? null : LastMessage.fromJson(json["lastMessage"]),
+      
       );
 
   Map<String, dynamic> toJson() => {

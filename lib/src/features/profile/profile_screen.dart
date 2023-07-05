@@ -76,9 +76,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   icon: LineAwesomeIcons.user_shield,
                   text: 'Privacy',
                 ),
-                const ProfileListItem(
-                  icon: LineAwesomeIcons.history,
-                  text: 'Purchase History',
+                InkWell(
+                  onTap: () {
+                    AppNavigator.push(Routes.addFrend);
+                  },
+                  child: const ProfileListItem(
+                    icon: LineAwesomeIcons.person_entering_booth,
+                    text: 'Add Friends',
+                  ),
                 ),
                 const ProfileListItem(
                   icon: LineAwesomeIcons.question_circle,
@@ -161,7 +166,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
       builder: (context) => Container(
         padding: const EdgeInsets.all(16),
         decoration: const BoxDecoration(
-          color: Palette.grayBE,
+          color: Palette.white,
           borderRadius: BorderRadius.only(
             topRight: Radius.circular(12),
             topLeft: Radius.circular(12),
@@ -173,9 +178,25 @@ class _ProfileScreenState extends State<ProfileScreen> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              Text(
-                'Cập nhật thông tin',
-                style: AppFont.t.s(16),
+              Row(
+                children: [
+                  BoxMain.w(8),
+                  Text(
+                    'Cập nhật thông tin',
+                    style: AppFont.t.s(16).w600,
+                  ),
+                  const Spacer(),
+                  InkWell(
+                    onTap: () => AppNavigator.pop(),
+                    child: SizedBox(
+                      width: 50,
+                      child: Text(
+                        'Hủy',
+                        style: AppFont.t.s(16).success.w600,
+                      ),
+                    ),
+                  ),
+                ],
               ),
               type == 1
                   ? MyTextField(
@@ -286,10 +307,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   textStyle: AppFont.t.s(24).w600.white,
                   action: () => _formKey.currentState!.validate() == true
                       ? (type == 1
-                          ? _editProfileCubit.updateProfile(
-                              firstName: firstNameController.text, lastName: lastNameController.text)
-                          : _editProfileCubit.updateProfile(
-                              passwordOld: passWordOldController.text, password: passWordController.text))
+                          ? _editProfileCubit.updateProfile(firstName: firstNameController.text, lastName: lastNameController.text)
+                          : _editProfileCubit.updateProfile(passwordOld: passWordOldController.text, password: passWordController.text))
                       : null,
                   //action: type ==1 ? _editProfileCubit.updateProfile(firstName: firstNameController.text, lastName: lastNameController.text) : _editProfileCubit.updateProfile(passwordOld: passWordOldController.text, password: passWordController.text),
                 ),

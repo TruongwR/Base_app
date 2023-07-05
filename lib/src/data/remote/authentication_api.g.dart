@@ -48,13 +48,21 @@ class _AuthenticationApi implements AuthenticationApi {
   }
 
   @override
-  Future<ApiResponse<Account>> fotgetPassword(String emails) async {
+  Future<FotgetPasswordModel> fotgetPassword(
+    List<String>? email,
+    List<String>? ids,
+  ) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
+    queryParameters.removeWhere((k, v) => v == null);
     final _headers = <String, dynamic>{};
-    final _data = {'emails': emails};
+    final _data = {
+      'emails': email,
+      'ids': ids,
+    };
+    _data.removeWhere((k, v) => v == null);
     final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<ApiResponse<Account>>(Options(
+        _setStreamType<FotgetPasswordModel>(Options(
       method: 'POST',
       headers: _headers,
       extra: _extra,
@@ -66,10 +74,7 @@ class _AuthenticationApi implements AuthenticationApi {
               data: _data,
             )
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    final value = ApiResponse<Account>.fromJson(
-      _result.data!,
-      (json) => Account.fromJson(json as Map<String, dynamic>),
-    );
+    final value = FotgetPasswordModel.fromJson(_result.data!);
     return value;
   }
 
@@ -86,7 +91,7 @@ class _AuthenticationApi implements AuthenticationApi {
     )
         .compose(
           _dio.options,
-          ':9999/account',
+          ':9999/account/confirm-reset-password?',
           queryParameters: queryParameters,
           data: _data,
         )
@@ -129,7 +134,7 @@ class _AuthenticationApi implements AuthenticationApi {
 
   @override
   Future<ResponeSignupModel> singup(
-    String fistName,
+    String firstName,
     String lastName,
     String email,
     String password,
@@ -138,7 +143,7 @@ class _AuthenticationApi implements AuthenticationApi {
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = {
-      'fistName': fistName,
+      'firstName': firstName,
       'lastName': lastName,
       'email': email,
       'password': password,

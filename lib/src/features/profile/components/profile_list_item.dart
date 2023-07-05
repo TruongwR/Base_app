@@ -46,15 +46,6 @@ class ProfileListItem extends StatelessWidget {
                 size: 25,
               ),
             ),
-          // CoreCrossFade(
-          //     child: Column(
-          //   children: [
-          //     Text(
-          //       'text',
-          //       style: AppFont.t.s(30),
-          //     )
-          //   ],
-          // ))
         ],
       ),
     );

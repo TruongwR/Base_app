@@ -146,9 +146,9 @@ class _NewMessageSceenState extends State<NewMessageSceen> {
     return showBottomSheet(
       context: context,
       builder: (context) => Container(
-        padding: const EdgeInsets.all(16),
+        padding: const EdgeInsets.only(left: 16, top: 16, right: 16, bottom: 50),
         decoration: const BoxDecoration(
-          color: Palette.primary,
+          color: Palette.gray97,
           borderRadius: BorderRadius.only(
             topRight: Radius.circular(12),
             topLeft: Radius.circular(12),
@@ -158,26 +158,30 @@ class _NewMessageSceenState extends State<NewMessageSceen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            StreamBuilder(
-              stream: appData.channel?.stream,
-              builder: (context, snapshot) {
-                Logger.d("datatesst", snapshot);
-                return Text(snapshot.hasData ? '${snapshot.data}' : '');
-              },
-            ),
-            // Center(
-            //   child: Container(
-            //     decoration: BoxDecoration(
-            //       borderRadius: BorderRadius.all(
-            //         Radius.circular(4),
-            //       ),
-            //     ),
-            //     color: Palette.white,
-            //   ),
-            // ),
-            _rowLayout(onTap: () {}, icon: Icons.inventory, title: 'Lưu trữ'),
-            _rowLayout(onTap: () {}, icon: Icons.delete, title: 'Xóa'),
-            _rowLayout(onTap: () {}, icon: Icons.notifications_off, title: 'Tắt'),
+            _rowLayout(
+                onTap: () {
+                  AppNavigator.pop();
+                },
+                icon: Icons.inventory,
+                title: 'Lưu trữ'),
+            _rowLayout(
+                onTap: () {
+                  AppNavigator.pop();
+                },
+                icon: Icons.delete,
+                title: 'Xóa'),
+            _rowLayout(
+                onTap: () {
+                  AppNavigator.pop();
+                },
+                icon: Icons.notifications_off,
+                title: 'Tắt'),
+            _rowLayout(
+                onTap: () {
+                  AppNavigator.pop();
+                },
+                icon: Icons.notifications_off,
+                title: 'hủy')
           ],
         ),
       ),

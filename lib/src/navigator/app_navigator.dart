@@ -6,6 +6,7 @@ import 'package:Whispers/src/features/getNewPassword/get_New_Password_screen.dar
 import 'package:Whispers/src/features/list_member_chanel/list_member_chanel_screen.dart';
 import 'package:Whispers/src/features/list_member_chanel/nickname/nickname_screen.dart';
 import 'package:Whispers/src/features/messages/channel_detail/channel_detail_screen.dart';
+import 'package:Whispers/src/features/profile/add_frend/add_frend.dart';
 import 'package:Whispers/src/features/sign_in/sign_in_screen.dart';
 import 'package:Whispers/src/navigator/routers.dart';
 import 'package:flutter/material.dart';
@@ -66,11 +67,11 @@ class AppNavigator {
           settings,
           const ProfileScreen(),
         );
-      // case Routes.editProfileScreen:
-      //   return _buildRoute(
-      //     settings,
-      //     const EditProfileScreen(),
-      //   );
+      case Routes.addFrend:
+        return _buildRoute(
+          settings,
+          const AddFrend(),
+        );
       case Routes.messagesScreen:
         final param = settings.arguments as ParamMesage;
         return _buildRoute(

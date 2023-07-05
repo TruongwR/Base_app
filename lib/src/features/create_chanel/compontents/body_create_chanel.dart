@@ -13,8 +13,8 @@ import '../../../utils/until.dart';
 import '../../home/components/chat_card.dart';
 
 class BodyCreateChanel extends StatefulWidget {
-  BodyCreateChanel({super.key, required this.listMember});
-  List<String> listMember;
+  const BodyCreateChanel({super.key, required this.listMember});
+  final List<String> listMember;
   @override
   State<BodyCreateChanel> createState() => _BodyCreateChanelState();
 }
@@ -57,9 +57,10 @@ class _BodyCreateChanelState extends State<BodyCreateChanel> {
       widget.listMember.remove(id);
     } else {
       widget.listMember.add('"$id"');
-      
     }
   }
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -85,7 +86,10 @@ class _BodyCreateChanelState extends State<BodyCreateChanel> {
                 type: 3,
                 isStatus: false,
                 chanel: _listChanel[index],
-                press: () => _addListMember(_listChanel[index].friendId ?? ''),
+                press: () {
+
+                  _addListMember(_listChanel[index].friendId ?? '');
+                },
               )),
     );
   }

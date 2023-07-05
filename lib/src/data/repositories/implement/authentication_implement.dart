@@ -18,8 +18,8 @@ class AuthenRepoImpl implements AuthenticationRepository {
   }
 
   @override
-  Future<ApiResponse<Account>> fotgetPassword(String emails) {
-    return authenticationApi.fotgetPassword(emails);
+  Future<FotgetPasswordModel> fotgetPassword(String email) {
+    return authenticationApi.fotgetPassword([email], []);
   }
 
   @override
@@ -43,8 +43,7 @@ class AuthenRepoImpl implements AuthenticationRepository {
   }
 
   @override
-  Future<UpdateProfileModel> updateProfile(
-      {String? firstName, String? lastName, String? passwordOld, String? password, String? avatarFileId}) {
+  Future<UpdateProfileModel> updateProfile({String? firstName, String? lastName, String? passwordOld, String? password, String? avatarFileId}) {
     return authenticationApi.updateProfile(firstName, lastName, passwordOld, password, avatarFileId);
   }
 

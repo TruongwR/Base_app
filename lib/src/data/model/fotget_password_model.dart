@@ -1,33 +1,63 @@
-// // To parse this JSON data, do
-// //
-// //     final fotgetPasswordModel = fotgetPasswordModelfromJson(jsonString);
-// import 'package:Whispers/src/data/model/use_model.dart';
-// import 'dart:convert';
+// To parse this JSON data, do
+//
+//     final fotgetPasswordModel = fotgetPasswordModelFromJson(jsonString);
 
 // FotgetPasswordModel fotgetPasswordModelfromJson(String str) => FotgetPasswordModel.fromJson(json.decode(str));
 
-// String fotgetPasswordModeltoJson(FotgetPasswordModel data) => json.encode(data.toJson());
+import 'dart:convert';
 
-// class FotgetPasswordModel {
-//   String? message;
-//   bool? success;
-//   Account? account;
+FotgetPasswordModel fotgetPasswordModelFromJson(String str) => FotgetPasswordModel.fromJson(json.decode(str));
 
-//   FotgetPasswordModel({
-//     this.message,
-//     this.success,
-//     this.account,
-//   });
+String fotgetPasswordModelToJson(FotgetPasswordModel data) => json.encode(data.toJson());
 
-//   factory FotgetPasswordModel.fromJson(Map<String, dynamic> json) => FotgetPasswordModel(
-//         message: json["message"],
-//         success: json["success"],
-//         account: json["data"] == null ? [] : List<Account>.from(json["data"]!.map((x) => Account.fromJson(x))),
-//       );
+class FotgetPasswordModel {
+    bool? success;
+    List<Person>? data;
 
-//   Map<String, dynamic> toJson() => {
-//         "message": message,
-//         "success": success,
-//         "data": account == null ? [] : List<dynamic>.from(account!.map((x) => x.toJson())),
-//       };
-// }
+    FotgetPasswordModel({
+        this.success,
+        this.data,
+    });
+
+    factory FotgetPasswordModel.fromJson(Map<String, dynamic> json) => FotgetPasswordModel(
+        success: json["success"],
+        data: json["data"] == null ? [] : List<Person>.from(json["data"]!.map((x) => Person.fromJson(x))),
+    );
+
+    Map<String, dynamic> toJson() => {
+        "success": success,
+        "data": data == null ? [] : List<dynamic>.from(data!.map((x) => x.toJson())),
+    };
+}
+
+class Person {
+    String? id;
+    String? firstName;
+    String? lastName;
+    String? avatarFileId;
+    String? avatarUrl;
+
+    Person({
+        this.id,
+        this.firstName,
+        this.lastName,
+        this.avatarFileId,
+        this.avatarUrl,
+    });
+
+    factory Person.fromJson(Map<String, dynamic> json) => Person(
+        id: json["id"],
+        firstName: json["firstName"],
+        lastName: json["lastName"],
+        avatarFileId: json["avatarFileId"],
+        avatarUrl: json["avatarUrl"],
+    );
+
+    Map<String, dynamic> toJson() => {
+        "id": id,
+        "firstName": firstName,
+        "lastName": lastName,
+        "avatarFileId": avatarFileId,
+        "avatarUrl": avatarUrl,
+    };
+}

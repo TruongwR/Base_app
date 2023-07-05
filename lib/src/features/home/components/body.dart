@@ -43,12 +43,12 @@ class _BodyState extends State<Body> {
 
   @override
   void initState() {
-    // timer = Timer.periodic(const Duration(seconds: 3), (timer) {
-    //   _initData(searchController.text);
-    // });
-    Future.delayed(const Duration(seconds: 3), () {
+    timer = Timer.periodic(const Duration(seconds: 1), (timer) {
       _initData(searchController.text);
     });
+    // Future.delayed(const Duration(seconds: 1), () {
+    //   _initData(searchController.text);
+    // });
     _initData(searchController.text);
 
     _sc = ScrollController()
@@ -61,8 +61,7 @@ class _BodyState extends State<Body> {
   }
 
   void _loadMore() {
-    _chanelListAllCubit.getlistChanel(
-        page: _page, size: _size, name: searchController.text, status: StatusChanel.sttaccepted.getString());
+    _chanelListAllCubit.getlistChanel(page: _page, size: _size, name: searchController.text, status: StatusChanel.sttaccepted.getString());
     _page++;
   }
 
@@ -70,8 +69,7 @@ class _BodyState extends State<Body> {
     _page = 1;
     _totalPage = 1;
     _listChanel = [];
-    _chanelListAllCubit.getlistChanel(
-        page: _page, size: _size, name: name, status: StatusChanel.sttaccepted.getString());
+    _chanelListAllCubit.getlistChanel(page: _page, size: _size, name: name, status: StatusChanel.sttaccepted.getString());
   }
 
   @override
@@ -87,22 +85,6 @@ class _BodyState extends State<Body> {
       ),
       body: Column(
         children: [
-          // StreamBuilder<SocketViewModel>(
-          //   stream: appData.streamController.socketDataStream,
-          //   builder: (context, snapshot) {
-          //     if (snapshot.hasData) {
-          //       return ChatCard(
-          //         type: 1,
-          //         isStatus: true,
-          //         chanel: snapshot.data!.channel!,
-          //         press: () => AppNavigator.push(Routes.messagesScreen, arguments: ParamMesage(chanel: snapshot.data!.channel!, chanelListAllCubit: _chanelListAllCubit)),
-          //         longPress: () => buildButtomSheat(),
-          //       );
-          //     } else {
-          //       return Container();
-          //     }
-          //   },
-          // ),
           BlocListener<ChanelListAllCubit, ChanelListAllState>(
               bloc: _chanelListAllCubit,
               listener: (context, state) {
@@ -110,6 +92,7 @@ class _BodyState extends State<Body> {
                   orElse: () => _buildLoading(),
                   loading: (value) => _buildLoading(),
                   success: (value) {
+                    _listChanel = [];
                     _totalPage = value.listChanel?.totalPages ?? 1;
                     _listChanel.addAll(value.listChanel?.content as Iterable<Channel>);
                     setState(() {});
@@ -143,33 +126,45 @@ class _BodyState extends State<Body> {
   buildButtomSheat({required String id}) {
     return showBottomSheet(
       context: context,
-      builder: (context) => GestureDetector(
-        onTap: () => AppNavigator.pop(),
-        child: Container(
-          padding: const EdgeInsets.all(16),
-          decoration: const BoxDecoration(
-            color: Palette.gray68,
-            borderRadius: BorderRadius.only(
-              topRight: Radius.circular(12),
-              topLeft: Radius.circular(12),
-            ),
+      builder: (context) => Container(
+        padding: const EdgeInsets.all(16),
+        decoration: const BoxDecoration(
+          color: Palette.primary,
+          borderRadius: BorderRadius.only(
+            topRight: Radius.circular(12),
+            topLeft: Radius.circular(12),
           ),
-          height: MediaQuery.of(context).size.height * 3 / 7,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              // StreamBuilder(
-              //   stream: appData.channel?.stream,
-              //   builder: (context, snapshot) {
-              //     Logger.d("datatesst", snapshot);
-              //     return Text(snapshot.hasData ? '${snapshot.data}' : '');
-              //   },
-              // ),
-              _rowLayout(onTap: () {}, icon: Icons.inventory, title: 'Lưu trữ'),
-              _rowLayout(onTap: () {}, icon: Icons.delete, title: 'Xóa'),
-              _rowLayout(onTap: () {}, icon: Icons.notifications_off, title: 'Tắt'),
-            ],
-          ),
+        ),
+        height: MediaQuery.of(context).size.height / 4,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            _rowLayout(
+                onTap: () {
+                  AppNavigator.pop();
+                },
+                icon: Icons.inventory,
+                title: 'Lưu trữ'),
+            _rowLayout(
+                onTap: () {
+                  AppNavigator.pop();
+                },
+                icon: Icons.delete,
+                title: 'Xóa'),
+            _rowLayout(
+                onTap: () {
+                  AppNavigator.pop();
+                },
+                icon: Icons.notifications_off,
+                title: 'Tắt'),
+            _rowLayout(
+              onTap: () {
+                AppNavigator.pop();
+              },
+              icon: Icons.close_rounded,
+              title: 'Hủy',
+            )
+          ],
         ),
       ),
     );

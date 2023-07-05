@@ -4,6 +4,7 @@ import 'package:Whispers/src/data/model/list_chanel_parrent_model.dart';
 import 'package:Whispers/src/data/model/list_member_chanel_model.dart';
 
 import 'package:Whispers/src/data/model/message_model.dart';
+import 'package:Whispers/src/data/model/param_seen_message_model.dart';
 import 'package:Whispers/src/data/remote/chanel_api.dart';
 import 'package:Whispers/src/data/repositories/repository/chanel_repository.dart';
 import '../../../network/base_dio.dart';
@@ -11,14 +12,12 @@ import '../../../network/base_dio.dart';
 class ChanelImplement implements ChanelRepository {
   final ChanelApi chanelApi = ChanelApi(BaseDio.instance.dio);
   @override
-  Future<ApiResponse<ListChanelParrentModel>> getListChanel(
-      {required int page, required int size, String? name, String? type, required String status}) {
+  Future<ApiResponse<ListChanelParrentModel>> getListChanel({required int page, required int size, String? name, String? type, required String status}) {
     return chanelApi.getListChanel(page, size, name, type, status);
   }
 
   @override
-  Future<ApiResponse<DataMessageModel>> getMessage(
-      {required int page, required int size, String? content, required String channelId}) {
+  Future<ApiResponse<DataMessageModel>> getMessage({required int page, required int size, String? content, required String channelId}) {
     return chanelApi.getListMessageChanel(page, size, content, channelId);
   }
 
@@ -28,8 +27,7 @@ class ChanelImplement implements ChanelRepository {
   }
 
   @override
-  Future<ApiResponse> createChanel(
-      {required String name, required String type, String? otherHalf, List<String>? members}) {
+  Future<ApiResponse> createChanel({required String name, required String type, String? otherHalf, List<String>? members}) {
     return chanelApi.createChanel(name, type, otherHalf, members);
   }
 
@@ -39,19 +37,17 @@ class ChanelImplement implements ChanelRepository {
   }
 
   @override
-  Future<ApiResponse<ListMemberChanelModel>> listMemberChanel(
-      {required int page, required int size, String? nickname, String? status, required String channelId}) {
+  Future<ApiResponse<ListMemberChanelModel>> listMemberChanel({required int page, required int size, String? nickname, String? status, required String channelId}) {
     return chanelApi.listMemberChanel(page, size, nickname, status, channelId);
   }
 
   @override
-  Future<ApiResponse> updateMemberChannel(
-      {required String accountId,
-      required String channelId,
-       String? status,
-      String? nickname,
-      String? avatarFileId,
-      String? avatarUrl}) {
+  Future<ApiResponse> updateMemberChannel({required String accountId, required String channelId, String? status, String? nickname, String? avatarFileId, String? avatarUrl}) {
     return chanelApi.updateMemberChannel(accountId, channelId, status, nickname, avatarFileId, avatarUrl);
+  }
+
+  @override
+  Future<ApiResponse> seenMessage({required ParamMessageModel paramMessageModel}) {
+    return chanelApi.createMessage([paramMessageModel]);
   }
 }

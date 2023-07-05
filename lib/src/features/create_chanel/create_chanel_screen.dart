@@ -42,16 +42,14 @@ class _CreateChanelScreenState extends State<CreateChanelScreen> {
   }
 
   void _loadMore() {
-    _chanelListAllCubit.getlistChanel(
-        page: _page, size: _size, name: searchController.text, status: StatusChanel.sttaccepted.getString());
+    _chanelListAllCubit.getlistChanel(page: _page, size: _size, name: searchController.text, status: StatusChanel.sttaccepted.getString());
     _page++;
   }
 
   void _initData(String name) async {
     _page = 1;
     _totalPage = 10;
-    _chanelListAllCubit.getlistChanel(
-        page: _page, size: _size, name: name, status: StatusChanel.sttaccepted.getString());
+    _chanelListAllCubit.getlistChanel(page: _page, size: _size, name: name, status: StatusChanel.sttaccepted.getString());
   }
 
   @override
@@ -84,10 +82,7 @@ class _CreateChanelScreenState extends State<CreateChanelScreen> {
           },
           child: TextButton(
             onPressed: () {
-              _createChanelCubit.createChanel(
-                  name: nameChanelController.text,
-                  type: TypeChanel.sttPROTECTED.getString(),
-                  members: _listMemberChanel);
+              _createChanelCubit.createChanel(name: nameChanelController.text, type: TypeChanel.sttPUBLIC.getString(), members: _listMemberChanel);
             },
             child: Text(
               'Tạo',

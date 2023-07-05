@@ -5,6 +5,8 @@ import 'dart:io';
 import 'package:Whispers/src/configs/app_fonts.dart';
 import 'package:Whispers/src/configs/palette.dart';
 import 'package:Whispers/src/cubit/detail_chanel_state.dart';
+import 'package:Whispers/src/cubit/seen_message_cubit.dart';
+import 'package:Whispers/src/data/remote/upload_file_api.dart';
 import 'package:Whispers/src/di/injection.dart/injection.dart';
 import 'package:Whispers/src/features/messages/components/image_picker_screen.dart';
 import 'package:Whispers/src/navigator/app_navigator.dart';
@@ -23,8 +25,10 @@ import 'package:permission_handler/permission_handler.dart';
 import '../../cubit/check_messages_cubit.dart';
 import '../../configs/box.dart';
 import '../../cubit/detail_chanel_cubit.dart';
+import '../../cubit/seen_message_state.dart';
 import '../../data/model/api_response/param_message_model.dart';
 import '../../data/model/message_model.dart';
+import '../../data/model/param_seen_message_model.dart';
 import '../../share_components/time/time_extension.dart';
 
 import 'components/message.dart';
@@ -39,6 +43,8 @@ class MessagesScreen extends StatefulWidget {
 class _MessagesScreenState extends State<MessagesScreen> {
   final DetailChanelCubit detailChanelCubit = getIt<DetailChanelCubit>();
   final CheckMessagesCubit checkMessagesCubit = getIt<CheckMessagesCubit>();
+  final UploadFileApi uploadFileApi = getIt<UploadFileApi>();
+  final SeenMessageCubit seenMessageCubit = getIt<SeenMessageCubit>();
 
   int _page = 1;
   final int _size = 20;
@@ -50,11 +56,12 @@ class _MessagesScreenState extends State<MessagesScreen> {
   late ScrollController _sc;
   List<Viewer> _viewer = [];
   late Timer timer;
+  bool isValidate = false;
   @override
   void initState() {
-    // timer = Timer.periodic(const Duration(seconds: 3), (timer) {
-    //   _initData();
-    // });
+    timer = Timer.periodic(const Duration(seconds: 1), (timer) {
+      _initData();
+    });
     _initData();
     _checkMess();
 
@@ -97,6 +104,7 @@ class _MessagesScreenState extends State<MessagesScreen> {
           loading: (value) => const Loading(),
           failure: (value) => const Empty(),
           success: (value) {
+            _listMessageChanel = [];
             _totalPage = value.data.message?.totalPages ?? 1;
             _viewer.addAll(value.data.viewer as Iterable<Viewer>);
             if (value.data.message?.content != null) {
@@ -109,125 +117,160 @@ class _MessagesScreenState extends State<MessagesScreen> {
         );
       },
       child: Scaffold(
-          appBar: buildAppBar(),
-          body: Column(
-            children: [
-              Expanded(
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16),
-                  child: ListView.builder(
-                    controller: _sc,
-                    itemCount: _listMessageChanel.length,
-                    itemBuilder: (context, index) => Message(message: _listMessageChanel[index], listViewer: _viewer),
-                  ),
+        appBar: buildAppBar(),
+        body: Column(
+          children: [
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                child: ListView.builder(
+                  controller: _sc,
+                  itemCount: _listMessageChanel.length,
+                  itemBuilder: (context, index) => Message(message: _listMessageChanel[index], listViewer: _viewer),
                 ),
               ),
-            ],
-          ),
-          bottomNavigationBar: Container(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 16,
-              vertical: 16 / 2,
             ),
-            decoration: BoxDecoration(
-              color: Theme.of(context).scaffoldBackgroundColor,
-              boxShadow: [
-                BoxShadow(
-                  offset: const Offset(0, 4),
-                  blurRadius: 32,
-                  color: const Color(0xFF087949).withOpacity(0.08),
+            BlocListener<SeenMessageCubit, SeenMessageState>(
+              bloc: seenMessageCubit,
+              listener: (context, state) {
+                state.maybeMap(
+                    orElse: () => const Loading(),
+                    loading: (value) => const Loading(),
+                    success: (value) {
+                      textInputMessage.text = '';
+                    },
+                    failure: (value) => dismissLoadingShowError);
+              },
+              child: Container(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 16,
+                  vertical: 16 / 2,
                 ),
-              ],
-            ),
-            child: SafeArea(
-              child: Row(
-                children: [
-                  const Icon(Icons.mic, color: Palette.primary),
-                  const SizedBox(width: 16),
-                  Expanded(
-                    child: Container(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 12,
-                      ),
-                      decoration: BoxDecoration(
-                        color: Palette.primary.withOpacity(0.05),
-                        borderRadius: BorderRadius.circular(40),
-                      ),
-                      child: Row(
-                        children: [
-                          IconButton(
-                            onPressed: () async {
-                              MicrophoneRecorder recorder = MicrophoneRecorder();
-                              await recorder.start();
-                              await Future.delayed(const Duration(seconds: 5));
-                              await recorder.stop();
-                              Uint8List data = await recorder.toBytes();
-                              Logger.d("Data mic", utf8.decode(data));
-                            },
-                            icon: Icon(
-                              Icons.sentiment_satisfied_alt_outlined,
-                              color: Theme.of(context).textTheme.bodyLarge!.color!.withOpacity(0.64),
-                            ),
-                          ),
-                          BoxMain.w(4),
-                          Expanded(
-                            child: TextField(
-                              focusNode: textInputMessageFouce,
-                              controller: textInputMessage,
-                              decoration: const InputDecoration(
-                                hintText: "Type message",
-                                border: InputBorder.none,
-                              ),
-                            ),
-                          ),
-                          IconButton(
-                              onPressed: () async {
-                                FilePickerResult? result = await FilePicker.platform.pickFiles();
-                                if (result != null) {
-                                  String? filePath = result.files.single.path;
-                                  if (filePath != null) {
-                                    // Tải tệp lên API
-                                    Logger.d("Update file");
-                                  }
-                                }
-                              },
-                              icon: Icon(
-                                Icons.attach_file,
-                                color: Theme.of(context).textTheme.bodyLarge!.color!.withOpacity(0.64),
-                              )),
-                          IconButton(
-                            // onPressed: () => openImagePicker(context),
-                            onPressed: () {
-                              showBottomSheet(
-                                context: context,
-                                builder: (BuildContext context) {
-                                  return  Column(
-                                    mainAxisSize: MainAxisSize.min,
-                                    children: const [
-                                      CupertinoAlertDialog(
-                                        title: Text('Tải ảnh lên'),
-                                        content: Text("Chọn một ảnh để tải ảnh lên"),
-                                        actions: [ImagePickerButton()],
-                                      ),
-                                    ],
-                                  );
-                                },
-                              );
-                              return;
-                            },
-                            icon: Icon(
-                              Icons.camera_alt_outlined,
-                              color: Theme.of(context).textTheme.bodyLarge!.color!.withOpacity(0.64),
-                            ),
-                          ),
-                        ],
-                      ),
+                decoration: BoxDecoration(
+                  color: Theme.of(context).scaffoldBackgroundColor,
+                  boxShadow: [
+                    BoxShadow(
+                      offset: const Offset(0, 4),
+                      blurRadius: 32,
+                      color: const Color(0xFF087949).withOpacity(0.08),
                     ),
+                  ],
+                ),
+                child: SafeArea(
+                  child: Row(
+                    children: [
+                      const Icon(Icons.mic, color: Palette.primary),
+                      const SizedBox(width: 16),
+                      Expanded(
+                        child: Container(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 12,
+                          ),
+                          decoration: BoxDecoration(
+                            color: Palette.primary.withOpacity(0.05),
+                            borderRadius: BorderRadius.circular(40),
+                          ),
+                          child: Row(
+                            children: [
+                              IconButton(
+                                onPressed: () async {
+                                  MicrophoneRecorder recorder = MicrophoneRecorder();
+                                  await recorder.start();
+                                  await Future.delayed(const Duration(seconds: 5));
+                                  await recorder.stop();
+                                  Uint8List data = await recorder.toBytes();
+                                  Logger.d("Data mic", utf8.decode(data));
+                                },
+                                icon: Icon(
+                                  Icons.sentiment_satisfied_alt_outlined,
+                                  color: Theme.of(context).textTheme.bodyLarge!.color!.withOpacity(0.64),
+                                ),
+                              ),
+                              BoxMain.w(4),
+                              Expanded(
+                                child: TextField(
+                                  focusNode: textInputMessageFouce,
+                                  controller: textInputMessage,
+                                  decoration: const InputDecoration(
+                                    hintText: "Type message",
+                                    border: InputBorder.none,
+                                  ),
+                                  onChanged: (value) {
+                                    if (value.isNotEmpty) {
+                                      setState(() {
+                                        isValidate = true;
+                                      });
+                                    } else {
+                                      setState(() {
+                                        isValidate = false;
+                                      });
+                                    }
+                                  },
+                                ),
+                              ),
+                              if (isValidate != true)
+                                IconButton(
+                                    onPressed: () async {
+                                      FilePickerResult? result = await FilePicker.platform.pickFiles();
+                                      if (result != null) {
+                                        String? filePath = result.files.single.path;
+                                        if (filePath != null) {
+                                          final data = await uploadFileApi.upload(filePath, result.files.single.name, 'PUBLIC');
+                                          Logger.d("data", data.toString());
+                                        }
+                                      }
+                                    },
+                                    icon: Icon(
+                                      Icons.attach_file,
+                                      color: Theme.of(context).textTheme.bodyLarge!.color!.withOpacity(0.64),
+                                    )),
+                              if (isValidate != true)
+                                IconButton(
+                                  // onPressed: () => openImagePicker(context),
+                                  onPressed: () {
+                                    showDialog(
+                                        context: context,
+                                        builder: (context) {
+                                          return const CupertinoAlertDialog(
+                                            title: Text('Tải ảnh lên'),
+                                            content: Text("Chọn một ảnh để tải ảnh lên"),
+                                            actions: [ImagePickerButton()],
+                                          );
+                                        });
+                                  },
+                                  icon: Icon(
+                                    Icons.camera_alt_outlined,
+                                    color: Theme.of(context).textTheme.bodyLarge!.color!.withOpacity(0.64),
+                                  ),
+                                ),
+                              if (isValidate == true)
+                                IconButton(
+                                  // onPressed: () => openImagePicker(context),
+                                  onPressed: () {
+                                    seenMessageCubit.seenMessage(ParamMessageModel(
+                                      channelId: widget.param.chanel.id,
+                                      content: textInputMessage.text,
+                                    ));
+                                    textInputMessage.text = '';
+                                    setState(() {});
+                                  },
+                                  icon: Icon(
+                                    Icons.arrow_circle_right_outlined,
+                                    color: Theme.of(context).textTheme.bodyLarge!.color!.withOpacity(0.64),
+                                  ),
+                                ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
-                ],
+                ),
               ),
-            ),
-          )),
+            )
+          ],
+        ),
+      ),
     );
   }
 
@@ -242,9 +285,15 @@ class _MessagesScreenState extends State<MessagesScreen> {
               Routes.channelDetailScreen,
               arguments: widget.param.chanel,
             ),
-            child: const CircleAvatar(
-              backgroundImage: AssetImage("assets/images/user_2.png"),
-            ),
+            child: widget.param.chanel.avatarUrl != null
+                ? CircleAvatar(
+                    radius: 24,
+                    backgroundImage: NetworkImage(widget.param.chanel.avatarUrl ?? ''),
+                  )
+                : const CircleAvatar(
+                    radius: 24,
+                    backgroundImage: AssetImage("assets/images/user.png"),
+                  ),
           ),
           BoxMain.w(6 * 0.75),
           Column(

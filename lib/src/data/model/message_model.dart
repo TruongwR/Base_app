@@ -109,20 +109,18 @@ class ContentMessage {
       this.messageType});
 
   factory ContentMessage.fromJson(Map<String, dynamic> json) => ContentMessage(
-        id: json["id"],
-        createdTime: json["createdTime"],
-        updatedTime: json["updatedTime"],
-        sender: json["sender"] == null ? null : Sender.fromJson(json["sender"]),
-        type: json["type"],
-        content: json["content"],
-        files: json["files"] == null ? [] : List<FileElement>.from(json["files"]!.map((x) => FileElement.fromJson(x))),
-        isDeleted: json["isDeleted"],
-        parentMessage: json["parentMessage"],
-        isSender: json['isSender'],
-        messageStatus: json['messageStatus'],
-        messageType:json['messageType']
-
-      );
+      id: json["id"],
+      createdTime: json["createdTime"],
+      updatedTime: json["updatedTime"],
+      sender: json["sender"] == null ? null : Sender.fromJson(json["sender"]),
+      type: json["type"],
+      content: json["content"],
+      files: json["files"] == null ? [] : List<FileElement>.from(json["files"]!.map((x) => FileElement.fromJson(x))),
+      isDeleted: json["isDeleted"],
+      parentMessage: json["parentMessage"],
+      isSender: json['isSender'],
+      messageStatus: json['messageStatus'],
+      messageType: json['messageType']);
 
   Map<String, dynamic> toJson() => {
         "id": id,
@@ -134,9 +132,9 @@ class ContentMessage {
         "files": files == null ? [] : List<dynamic>.from(files!.map((x) => x.toJson())),
         "isDeleted": isDeleted,
         "parentMessage": parentMessage,
-        "isSender":isSender,
-        "messageStatus":messageStatus,
-        "messageType":messageType
+        "isSender": isSender,
+        "messageStatus": messageStatus,
+        "messageType": messageType
       };
 }
 
@@ -176,24 +174,13 @@ class Sender {
   String? id;
   String? avatarFileId;
   String? name;
+  String? avatarUrl;
 
-  Sender({
-    this.id,
-    this.avatarFileId,
-    this.name,
-  });
+  Sender({this.id, this.avatarFileId, this.name, this.avatarUrl});
 
-  factory Sender.fromJson(Map<String, dynamic> json) => Sender(
-        id: json["id"],
-        avatarFileId: json["avatarFileId"],
-        name: json["name"],
-      );
+  factory Sender.fromJson(Map<String, dynamic> json) => Sender(id: json["id"], avatarFileId: json["avatarFileId"], name: json["name"], avatarUrl: json['avatarUrl']);
 
-  Map<String, dynamic> toJson() => {
-        "id": id,
-        "avatarFileId": avatarFileId,
-        "name": name,
-      };
+  Map<String, dynamic> toJson() => {"id": id, "avatarFileId": avatarFileId, "name": name, "avatarUrl": avatarUrl};
 }
 
 class Viewer {
@@ -201,25 +188,12 @@ class Viewer {
   String? avatarFileId;
   String? name;
   int? updatedTime;
+  String? avatarUrl;
 
-  Viewer({
-    this.viewerId,
-    this.avatarFileId,
-    this.name,
-    this.updatedTime,
-  });
+  Viewer({this.viewerId, this.avatarFileId, this.name, this.updatedTime, this.avatarUrl});
 
-  factory Viewer.fromJson(Map<String, dynamic> json) => Viewer(
-        viewerId: json["viewerId"],
-        avatarFileId: json["avatarFileId"],
-        name: json["name"],
-        updatedTime: json["updatedTime"],
-      );
+  factory Viewer.fromJson(Map<String, dynamic> json) =>
+      Viewer(viewerId: json["viewerId"], avatarFileId: json["avatarFileId"], name: json["name"], updatedTime: json["updatedTime"], avatarUrl: json['avatarUrl']);
 
-  Map<String, dynamic> toJson() => {
-        "viewerId": viewerId,
-        "avatarFileId": avatarFileId,
-        "name": name,
-        "updatedTime": updatedTime,
-      };
+  Map<String, dynamic> toJson() => {"viewerId": viewerId, "avatarFileId": avatarFileId, "name": name, "updatedTime": updatedTime, "avatarUrl": avatarUrl};
 }

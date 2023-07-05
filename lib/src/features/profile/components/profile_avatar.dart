@@ -19,7 +19,7 @@ class ProfileAvatar extends StatelessWidget {
         children: <Widget>[
           CircleAvatar(
             radius: 50,
-            backgroundImage: AssetImage('${appData.avatar}'),
+            backgroundImage: NetworkImage(appData.userModel?.account?.avatarUrl ?? ''),
           ),
           Align(
             alignment: Alignment.bottomRight,

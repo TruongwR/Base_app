@@ -7,7 +7,7 @@ class ApiPath {
   static const String activeAcount = "$port99/account/active";
   static const String updateAcount = "$port99/account";
   static const String searchAcoutByEmail = "$port99/account/extract";
-  static const String register = "$port99/account";
+  static const String register = "$port99/account/confirm-reset-password?";
   static const String getNewPass = "$port99/account/get-new-password";
   static const String refestToken = "$port99/auth/refresh-token";
   static const String checkToken = "$port99/auth/check";
@@ -26,7 +26,7 @@ class ApiPath {
   static const String getListmenberChanel = "$port98/channel/member";
   static const String addMemberChanel = "$port98/channel/member/";
   static const String updateNickNameMember = "$port98/channel/member";
-  static const String createMesage = "$port98/}/message";
+  static const String createMesage = "$port98/message";
   static const String updateMesage = "$port98/message";
   static const String deleteMesage = "$port98/message/";
   static const String connectSocker = '$baseUrl$port98/ws';

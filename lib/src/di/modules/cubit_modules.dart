@@ -16,6 +16,7 @@ import 'package:Whispers/src/data/repositories/repository/authentication_reposit
 import 'package:Whispers/src/data/repositories/repository/chanel_repository.dart';
 import 'package:Whispers/src/di/injection.dart/injection.dart';
 import '../../cubit/detail_chanel_cubit.dart';
+import '../../cubit/seen_message_cubit.dart';
 import '../../cubit/signup_cubit.dart';
 
 class CubitModule extends DIModule {
@@ -31,9 +32,9 @@ class CubitModule extends DIModule {
     getIt.registerFactory(() => DetailChanelCubit(chanelRepository: getIt<ChanelRepository>()));
     getIt.registerFactory(() => CheckMessagesCubit(chanelRepository: getIt<ChanelRepository>()));
     getIt.registerFactory(() => CreateChanelCubit(chanelRepository: getIt<ChanelRepository>()));
-    getIt.registerFactory(() => UpdateChanelCubit(
-        chanelRepository: getIt<ChanelRepository>(), chanelListAllCubit: getIt<ChanelListAllCubit>()));
+    getIt.registerFactory(() => UpdateChanelCubit(chanelRepository: getIt<ChanelRepository>(), chanelListAllCubit: getIt<ChanelListAllCubit>()));
     getIt.registerFactory(() => UpdateMemberChannelCubit(chanelRepository: getIt<ChanelRepository>()));
     getIt.registerFactory(() => GetListMemberChanelCubit(chanelRepository: getIt<ChanelRepository>()));
+    getIt.registerFactory(() => SeenMessageCubit(chanelRepository: getIt<ChanelRepository>()));
   }
 }

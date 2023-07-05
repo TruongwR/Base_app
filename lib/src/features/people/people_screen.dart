@@ -1,4 +1,5 @@
 import 'package:Whispers/src/configs/Palette.dart';
+import 'package:Whispers/src/data/model/api_response/param_message_model.dart';
 import 'package:Whispers/src/features/home/components/chat_card.dart';
 import 'package:Whispers/src/navigator/app_navigator.dart';
 import 'package:Whispers/src/navigator/routers.dart';
@@ -99,7 +100,7 @@ class _PeopleScreenState extends State<PeopleScreen> {
                   type: 2,
                   isStatus: false,
                   chanel: _listChanel[index],
-                  press: () => AppNavigator.push(Routes.messagesScreen, arguments: _listChanel[index]),
+                  press: () => AppNavigator.push(Routes.messagesScreen, arguments: ParamMesage(chanel: _listChanel[index], chanelListAllCubit: _chanelListAllCubit)),
                 )),
       ),
     ));

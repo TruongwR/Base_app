@@ -40,10 +40,15 @@ class ChatCard extends StatelessWidget {
               ? <Widget>[
                   Stack(
                     children: [
-                      CircleAvatar(
-                        radius: 24,
-                        backgroundImage: AssetImage(chanel?.avatarFileId ?? "assets/images/user.png"),
-                      ),
+                      chanel?.avatarUrl != null
+                          ? CircleAvatar(
+                              radius: 24,
+                              backgroundImage: NetworkImage(chanel?.avatarUrl ?? ''),
+                            )
+                          : const CircleAvatar(
+                              radius: 24,
+                              backgroundImage: AssetImage("assets/images/user.png"),
+                            ),
                       // if (chat.isActive)
                       Positioned(
                         right: 0,
@@ -111,9 +116,7 @@ class ChatCard extends StatelessWidget {
                   type == 1
                       ? Opacity(
                           opacity: 0.64,
-                          child: Text(calculateTimeDifference(
-                              DateTime.fromMillisecondsSinceEpoch(chanel?.lastMessage?.updatedTime ?? 0).toLocal(),
-                              DateTime.now().toLocal())),
+                          child: Text(calculateTimeDifference(DateTime.fromMillisecondsSinceEpoch(chanel?.lastMessage?.updatedTime ?? 0).toLocal(), DateTime.now().toLocal())),
                         )
                       : (type == 2
                           ? const SizedBox()

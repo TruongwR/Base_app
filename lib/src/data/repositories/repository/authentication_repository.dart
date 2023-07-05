@@ -2,14 +2,13 @@
 import 'package:Whispers/src/data/model/active_account_model.dart';
 import 'package:Whispers/src/data/model/api_response/api_response.dart';
 import 'package:Whispers/src/data/model/respone_update_profile_model.dart';
-import 'package:Whispers/src/data/model/use_model.dart';
-
+import '../../model/fotget_password_model.dart';
 import '../../model/login_model.dart';
 import '../../model/respone_signup_model.dart';
 
 abstract class AuthenticationRepository {
   Future<LoginModel> login(String phone, String password);
-  Future<ApiResponse<Account>> fotgetPassword(String emails);
+  Future<FotgetPasswordModel> fotgetPassword(String email);
   Future<dynamic> confirmPass(String accountId);
   Future<ApiResponse<dynamic>> getNewPass(String id, String activationCode);
   Future<ResponeSignupModel> signUp(String fistName, String lastName, String email, String password);
